@@ -37,20 +37,7 @@ public class ProyectoIntegrador_Tomas_Jeremias {
     public static void main(String[] args) {
         //Experimento_Biologico Planta = new Experimento_Biologico ("Planta","Plantas verdes","Las plantas verdes son re piolas amigo",a,1/2/2003,1/3/2003));
 
-        ArrayList<Experimento> listaExperimentoBiolYFis = new ArrayList<>();
-        System.out.println("Ingrese una cantidad de experimento para cargar de tipo biologico");
-        int i;
-        Scanner teclado = new Scanner(System.in);
-        int cantidad = teclado.nextInt();
-
-        for (i = 0; i < cantidad; i++) {
-            
-        }
-
-        System.out.println("Ingrese una cantidad de experimento para cargar de tipo fisico");
-
-        System.out.println("Ingrese una cantidad de cientficos para cargar");
-        System.out.println("Ingrese un cantidadad de equipos para cargar");
+      
 
     }
 
