@@ -7,6 +7,7 @@ package ventanas;
 import com.mycompany.proyectointegrador_tomas_jeremias.Experimento;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,13 +18,15 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    ArrayList<Experimento> listaExperimentosBioFis;
+    ArrayList<Experimento> listaExperimentosBioFis = new ArrayList<Experimento>();
+    //Objeto auxiliar para cargar la lista
+    Experimento exp1 = new Experimento() {
+    };
 
     //Data cargada
     public Principal() {
         initComponents();
-        listaExperimentosBioFis = new ArrayList<>();
-        
+
     }
 
     /**
@@ -35,11 +38,11 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Cargar = new javax.swing.JButton();
         frenteAzul = new javax.swing.JPanel();
         btnInicio = new javax.swing.JButton();
         btnCargar = new javax.swing.JButton();
         btnInformacion = new javax.swing.JButton();
+        JbtnModificar = new javax.swing.JButton();
         contenedor = new javax.swing.JPanel();
         inicio = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -57,7 +60,12 @@ public class Principal extends javax.swing.JFrame {
         btnEnviar = new javax.swing.JButton();
         fechaInicio = new com.toedter.calendar.JDateChooser();
         fechaFin = new com.toedter.calendar.JDateChooser();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxTipos = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        lOrganismo = new javax.swing.JLabel();
+        lFenomeno = new javax.swing.JLabel();
+        txtFenomeno = new javax.swing.JTextField();
+        txtOrganismo = new javax.swing.JTextField();
         cargarEquipo = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -85,13 +93,6 @@ public class Principal extends javax.swing.JFrame {
         jButtonmodifica = new javax.swing.JButton();
         consultar = new javax.swing.JPanel();
 
-        Cargar.setText("Siguiente");
-        Cargar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CargarActionPerformed(evt);
-            }
-        });
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         frenteAzul.setBackground(new java.awt.Color(0, 51, 204));
@@ -111,6 +112,18 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnInformacion.setText("Informacion");
+        btnInformacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInformacionActionPerformed(evt);
+            }
+        });
+
+        JbtnModificar.setText("Modificar");
+        JbtnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JbtnModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout frenteAzulLayout = new javax.swing.GroupLayout(frenteAzul);
         frenteAzul.setLayout(frenteAzulLayout);
@@ -123,6 +136,8 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnCargar)
                 .addGap(68, 68, 68)
                 .addComponent(btnInformacion)
+                .addGap(58, 58, 58)
+                .addComponent(JbtnModificar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         frenteAzulLayout.setVerticalGroup(
@@ -132,7 +147,8 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(frenteAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCargar)
                     .addComponent(btnInicio)
-                    .addComponent(btnInformacion))
+                    .addComponent(btnInformacion)
+                    .addComponent(JbtnModificar))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -188,10 +204,23 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxTipos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Fisico", "Biologico" }));
+        jComboBoxTipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBoxTiposActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel13.setText("Cargar Experimento");
+
+        lOrganismo.setText("Organismo");
+
+        lFenomeno.setText("Fenomeno");
+
+        txtOrganismo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtOrganismoActionPerformed(evt);
             }
         });
 
@@ -200,63 +229,87 @@ public class Principal extends javax.swing.JFrame {
         cargarExperimentoLayout.setHorizontalGroup(
             cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cargarExperimentoLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnEnviar)
-                    .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3)
-                        .addGroup(cargarExperimentoLayout.createSequentialGroup()
-                            .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2)
-                                .addGroup(cargarExperimentoLayout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtTitulo))
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel8)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cargarExperimentoLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnEnviar)
                             .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(cargarExperimentoLayout.createSequentialGroup()
                                     .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel6))
-                                    .addGap(60, 60, 60)
+                                        .addGroup(cargarExperimentoLayout.createSequentialGroup()
+                                            .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jLabel2)
+                                                .addGroup(cargarExperimentoLayout.createSequentialGroup()
+                                                    .addComponent(jLabel4)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(txtTitulo))
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel8))
+                                        .addComponent(jLabel3))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel7)
-                                        .addComponent(fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                                        .addComponent(lOrganismo)
+                                        .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel6)
+                                        .addGroup(cargarExperimentoLayout.createSequentialGroup()
+                                            .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jComboBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(lFenomeno))
+                                            .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(cargarExperimentoLayout.createSequentialGroup()
+                                                    .addGap(67, 67, 67)
+                                                    .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel7)
+                                                        .addComponent(fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(cargarExperimentoLayout.createSequentialGroup()
+                                                    .addGap(12, 12, 12)
+                                                    .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(txtOrganismo)
+                                                        .addComponent(txtFenomeno))
+                                                    .addGap(19, 19, 19)))))
+                                    .addGap(47, 47, 47)))))
+                    .addGroup(cargarExperimentoLayout.createSequentialGroup()
+                        .addGap(196, 196, 196)
+                        .addComponent(jLabel13)))
+                .addGap(64, 64, 64))
         );
         cargarExperimentoLayout.setVerticalGroup(
             cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cargarExperimentoLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(cargarExperimentoLayout.createSequentialGroup()
                         .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel7)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(cargarExperimentoLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jComboBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lFenomeno)
+                            .addComponent(txtFenomeno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel8)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addComponent(jLabel3)
+                    .addComponent(jLabel3)
+                    .addComponent(lOrganismo)
+                    .addComponent(txtOrganismo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnEnviar)
                 .addGap(11, 11, 11))
@@ -379,6 +432,11 @@ public class Principal extends javax.swing.JFrame {
         jButtoneliminar.setText("Eliminar");
 
         jButtonmodifica.setText("Modificar");
+        jButtonmodifica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonmodificaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout modificaLayout = new javax.swing.GroupLayout(modifica);
         modifica.setLayout(modificaLayout);
@@ -502,13 +560,15 @@ public class Principal extends javax.swing.JFrame {
         contenedor.add(cargarExperimento);
         contenedor.repaint();
         contenedor.revalidate();
+        lFenomeno.setVisible(false);
+        lOrganismo.setVisible(false);
+        txtFenomeno.setVisible(false);
+        txtOrganismo.setVisible(false);
     }//GEN-LAST:event_btnCargarActionPerformed1
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        int c = 1;
 
-        Experimento exp1 = new Experimento() {
-
-        };
         exp1.setTitulo(txtTitulo.getText());
         exp1.setDescripcion(descripcion.getText());
 
@@ -518,33 +578,40 @@ public class Principal extends javax.swing.JFrame {
             // Ahora tienes el valor en formato float
             exp1.setPresupuesto(presupuestoFloat);
         } catch (NumberFormatException e) {
-            // Maneja aquí la excepción si la entrada no es un float válido
-            System.err.println("Error: Ingresa un valor float válido.");
+            // Maneja aquí la excepción si la entrada no es un float válido    
+            c = 0;
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor float válido.");
         }
+        if (c != 0) {
+            Date fechaInicioValue = fechaInicio.getDate();
 
-        Date fechaInicioValue = fechaInicio.getDate();
+            // Obtén la fecha de fin del JDateChooserFin
+            Date fechaFinValue = fechaFin.getDate();
 
-        // Obtén la fecha de fin del JDateChooserFin
-        Date fechaFinValue = fechaFin.getDate();
+            // Verifica que ambas fechas no sean nulas antes de asignarlas al objeto Experimento
+            if (fechaInicioValue != null && fechaFinValue != null) {
+                exp1.setInicio(fechaInicioValue);
+                exp1.setFin(fechaFinValue);
+            } else {
+                // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+            }            
+            exp1.setTipo((String)jComboBoxTipos.getSelectedItem());            
+            contenedor.removeAll();
+            contenedor.add(cargarEquipo);
+            contenedor.repaint();
+            contenedor.revalidate();
+            listaExperimentosBioFis.add(exp1);
+            System.out.println(exp1.getTitulo());
+            for (Experimento exp : listaExperimentosBioFis) {
+                System.out.println(exp.getTitulo());
+            }
 
-        // Verifica que ambas fechas no sean nulas antes de asignarlas al objeto Experimento
-        if (fechaInicioValue != null && fechaFinValue != null) {
-            exp1.setInicio(fechaInicioValue);
-            exp1.setFin(fechaFinValue);
         } else {
-            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+            contenedor.removeAll();
+            contenedor.add(cargarExperimento);
+            contenedor.repaint();
+            contenedor.revalidate();
         }
-
-        System.out.println(exp1.getDescripcion());
-        System.out.println(exp1.getFin());
-        System.out.println(exp1.getPresupuesto());
-        System.out.println(exp1.getInicio());
-        System.out.println(exp1.getTitulo());
-
-        contenedor.removeAll();
-        contenedor.add(cargarEquipo);
-        contenedor.repaint();
-        contenedor.revalidate();
 
 
     }//GEN-LAST:event_btnEnviarActionPerformed
@@ -569,13 +636,47 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_titulo1ActionPerformed
 
-    private void CargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarActionPerformed
+    private void jComboBoxTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTiposActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CargarActionPerformed
+        System.out.println(jComboBoxTipos.getSelectedItem());
+        if ("Biologico".equals(jComboBoxTipos.getSelectedItem())) {
+            lOrganismo.setVisible(true);
+            txtOrganismo.setVisible(true);
+            lFenomeno.setVisible(false);
+            txtFenomeno.setVisible(false);
+        } else  if("Fisico".equals(jComboBoxTipos.getSelectedItem())){
+            lFenomeno.setVisible(true);
+            txtFenomeno.setVisible(true);
+            lOrganismo.setVisible(false);
+            txtOrganismo.setVisible(false);
+        }else 
+        {lOrganismo.setVisible(false);
+            txtOrganismo.setVisible(false);
+                        lFenomeno.setVisible(false);
+            txtFenomeno.setVisible(false);}
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+
+    }//GEN-LAST:event_jComboBoxTiposActionPerformed
+
+    private void jButtonmodificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonmodificaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jButtonmodificaActionPerformed
+
+    private void txtOrganismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrganismoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtOrganismoActionPerformed
+
+    private void btnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformacionActionPerformed
+              // TODO add your handling code here:
+    }//GEN-LAST:event_btnInformacionActionPerformed
+
+    private void JbtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnModificarActionPerformed
+        // TODO add your handling code here:
+        contenedor.removeAll();
+            contenedor.add(modifica);
+            contenedor.repaint();
+            contenedor.revalidate();
+    }//GEN-LAST:event_JbtnModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -614,7 +715,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Cargar;
+    private javax.swing.JButton JbtnModificar;
     private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnCargar2;
     private javax.swing.JButton btnEnviar;
@@ -635,11 +736,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtoneliminar;
     private javax.swing.JButton jButtonmodifica;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxTipos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -654,13 +756,17 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JList<String> jListModifica;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lFenomeno;
+    private javax.swing.JLabel lOrganismo;
     private javax.swing.JPanel modifica;
     private javax.swing.JTextField presupuesto1;
     private javax.swing.JTextField tipo1;
     private javax.swing.JTextField titulo1;
     private javax.swing.JTextField txtAreaesp2;
     private javax.swing.JTextField txtDescripcion2;
+    private javax.swing.JTextField txtFenomeno;
     private javax.swing.JTextField txtNombre2;
+    private javax.swing.JTextField txtOrganismo;
     private javax.swing.JTextField txtPresupuesto;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
