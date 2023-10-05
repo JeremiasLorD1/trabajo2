@@ -6,7 +6,6 @@ package ventanas;
 
 import com.mycompany.proyectointegrador_tomas_jeremias.Experimento;
 import java.util.ArrayList;
-
 import java.util.Date;
 
 /**
@@ -38,9 +37,9 @@ public class Principal extends javax.swing.JFrame {
 
         Cargar = new javax.swing.JButton();
         frenteAzul = new javax.swing.JPanel();
-        jButtonInicio = new javax.swing.JButton();
-        jButtoncargar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
+        btnCargar = new javax.swing.JButton();
+        btnInformacion = new javax.swing.JButton();
         contenedor = new javax.swing.JPanel();
         inicio = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -51,11 +50,11 @@ public class Principal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        titulo = new javax.swing.JTextField();
-        presupuesto = new javax.swing.JTextField();
+        txtTitulo = new javax.swing.JTextField();
+        txtPresupuesto = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         descripcion = new javax.swing.JTextArea();
-        enviar = new javax.swing.JButton();
+        btnEnviar = new javax.swing.JButton();
         fechaInicio = new com.toedter.calendar.JDateChooser();
         fechaFin = new com.toedter.calendar.JDateChooser();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -84,7 +83,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jButtoneliminar = new javax.swing.JButton();
         jButtonmodifica = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        consultar = new javax.swing.JPanel();
 
         Cargar.setText("Siguiente");
         Cargar.addActionListener(new java.awt.event.ActionListener() {
@@ -97,21 +96,21 @@ public class Principal extends javax.swing.JFrame {
 
         frenteAzul.setBackground(new java.awt.Color(0, 51, 204));
 
-        jButtonInicio.setText("Inicio");
-        jButtonInicio.addActionListener(new java.awt.event.ActionListener() {
+        btnInicio.setText("Inicio");
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonInicioActionPerformed(evt);
+                btnInicioActionPerformed(evt);
             }
         });
 
-        jButtoncargar.setText("Guardar");
-        jButtoncargar.addActionListener(new java.awt.event.ActionListener() {
+        btnCargar.setText("Guardar");
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtoncargarActionPerformed(evt);
+                btnCargarActionPerformed1(evt);
             }
         });
 
-        jButton2.setText("Informacion");
+        btnInformacion.setText("Informacion");
 
         javax.swing.GroupLayout frenteAzulLayout = new javax.swing.GroupLayout(frenteAzul);
         frenteAzul.setLayout(frenteAzulLayout);
@@ -119,11 +118,11 @@ public class Principal extends javax.swing.JFrame {
             frenteAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(frenteAzulLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonInicio)
+                .addComponent(btnInicio)
                 .addGap(67, 67, 67)
-                .addComponent(jButtoncargar)
+                .addComponent(btnCargar)
                 .addGap(68, 68, 68)
-                .addComponent(jButton2)
+                .addComponent(btnInformacion)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         frenteAzulLayout.setVerticalGroup(
@@ -131,9 +130,9 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(frenteAzulLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(frenteAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtoncargar)
-                    .addComponent(jButtonInicio)
-                    .addComponent(jButton2))
+                    .addComponent(btnCargar)
+                    .addComponent(btnInicio)
+                    .addComponent(btnInformacion))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -172,9 +171,9 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel8.setText("Tipo");
 
-        titulo.addActionListener(new java.awt.event.ActionListener() {
+        txtTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tituloActionPerformed(evt);
+                txtTituloActionPerformed(evt);
             }
         });
 
@@ -182,10 +181,10 @@ public class Principal extends javax.swing.JFrame {
         descripcion.setRows(5);
         jScrollPane2.setViewportView(descripcion);
 
-        enviar.setText("Enviar");
-        enviar.addActionListener(new java.awt.event.ActionListener() {
+        btnEnviar.setText("Enviar");
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enviarActionPerformed(evt);
+                btnEnviarActionPerformed(evt);
             }
         });
 
@@ -203,7 +202,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(cargarExperimentoLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(enviar)
+                    .addComponent(btnEnviar)
                     .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel3)
                         .addGroup(cargarExperimentoLayout.createSequentialGroup()
@@ -212,8 +211,8 @@ public class Principal extends javax.swing.JFrame {
                                 .addGroup(cargarExperimentoLayout.createSequentialGroup()
                                     .addComponent(jLabel4)
                                     .addGap(18, 18, 18)
-                                    .addComponent(presupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(titulo))
+                                    .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtTitulo))
                             .addGap(18, 18, 18)
                             .addComponent(jLabel8)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -243,14 +242,14 @@ public class Principal extends javax.swing.JFrame {
                                 .addComponent(jLabel7)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(cargarExperimentoLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(presupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel8)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -259,7 +258,7 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(enviar)
+                .addComponent(btnEnviar)
                 .addGap(11, 11, 11))
         );
 
@@ -453,18 +452,18 @@ public class Principal extends javax.swing.JFrame {
 
         contenedor.add(modifica, "card5");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 594, Short.MAX_VALUE)
+        javax.swing.GroupLayout consultarLayout = new javax.swing.GroupLayout(consultar);
+        consultar.setLayout(consultarLayout);
+        consultarLayout.setHorizontalGroup(
+            consultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 613, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 528, Short.MAX_VALUE)
+        consultarLayout.setVerticalGroup(
+            consultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 537, Short.MAX_VALUE)
         );
 
-        contenedor.add(jPanel1, "card6");
+        contenedor.add(consultar, "card6");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -484,36 +483,36 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tituloActionPerformed
+    private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tituloActionPerformed
+    }//GEN-LAST:event_txtTituloActionPerformed
 
-    private void jButtonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInicioActionPerformed
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         // TODO add your handling code here:
         contenedor.removeAll();
         contenedor.add(inicio);
         contenedor.repaint();
         contenedor.revalidate();
 
-    }//GEN-LAST:event_jButtonInicioActionPerformed
+    }//GEN-LAST:event_btnInicioActionPerformed
 
-    private void jButtoncargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtoncargarActionPerformed
+    private void btnCargarActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed1
         // TODO add your handling code here:
         contenedor.removeAll();
         contenedor.add(cargarExperimento);
         contenedor.repaint();
         contenedor.revalidate();
-    }//GEN-LAST:event_jButtoncargarActionPerformed
+    }//GEN-LAST:event_btnCargarActionPerformed1
 
-    private void enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarActionPerformed
+    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
 
         Experimento exp1 = new Experimento() {
 
         };
-        exp1.setTitulo(titulo.getText());
+        exp1.setTitulo(txtTitulo.getText());
         exp1.setDescripcion(descripcion.getText());
 
-        String presupuestoStr = (presupuesto.getText());
+        String presupuestoStr = (txtPresupuesto.getText());
         try {
             float presupuestoFloat = Float.parseFloat(presupuestoStr);
             // Ahora tienes el valor en formato float
@@ -548,7 +547,7 @@ public class Principal extends javax.swing.JFrame {
         contenedor.revalidate();
 
 
-    }//GEN-LAST:event_enviarActionPerformed
+    }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
 
@@ -616,13 +615,17 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cargar;
+    private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnCargar2;
+    private javax.swing.JButton btnEnviar;
+    private javax.swing.JButton btnInformacion;
+    private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnVolver2;
     private javax.swing.JPanel cargarEquipo;
     private javax.swing.JPanel cargarExperimento;
+    private javax.swing.JPanel consultar;
     private javax.swing.JPanel contenedor;
     private javax.swing.JTextArea descripcion;
-    private javax.swing.JButton enviar;
     private com.toedter.calendar.JDateChooser fechaFin;
     private com.toedter.calendar.JDateChooser fechaFin1;
     private com.toedter.calendar.JDateChooser fechaInicio;
@@ -630,9 +633,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel frenteAzul;
     private javax.swing.JPanel inicio;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButtonInicio;
-    private javax.swing.JButton jButtoncargar;
     private javax.swing.JButton jButtoneliminar;
     private javax.swing.JButton jButtonmodifica;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -652,17 +652,16 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jListModifica;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel modifica;
-    private javax.swing.JTextField presupuesto;
     private javax.swing.JTextField presupuesto1;
     private javax.swing.JTextField tipo1;
-    private javax.swing.JTextField titulo;
     private javax.swing.JTextField titulo1;
     private javax.swing.JTextField txtAreaesp2;
     private javax.swing.JTextField txtDescripcion2;
     private javax.swing.JTextField txtNombre2;
+    private javax.swing.JTextField txtPresupuesto;
+    private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }
