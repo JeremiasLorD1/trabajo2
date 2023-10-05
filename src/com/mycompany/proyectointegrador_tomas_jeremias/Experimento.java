@@ -4,6 +4,7 @@
  */
 package com.mycompany.proyectointegrador_tomas_jeremias;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -18,6 +19,8 @@ public abstract class Experimento {
     private float presupuesto;
     private Date inicio;
     private Date fin;
+    private ArrayList<Cientifico> listaCientifico;
+    private ArrayList<Equipo> listaEquipo;
 
     public Experimento() {
         
@@ -29,6 +32,22 @@ public abstract class Experimento {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    public ArrayList<Cientifico> getListaCientifico() {
+        return listaCientifico;
+    }
+
+    public void setListaCientifico(ArrayList<Cientifico> listaCientifico) {
+        this.listaCientifico = listaCientifico;
+    }
+
+    public ArrayList<Equipo> getListaEquipo() {
+        return listaEquipo;
+    }
+
+    public void setListaEquipo(ArrayList<Equipo> listaEquipo) {
+        this.listaEquipo = listaEquipo;
     }
 
     public String getDescripcion() {
