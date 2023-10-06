@@ -19,6 +19,7 @@ public abstract class Experimento {
     private float presupuesto;
     private Date inicio;
     private Date fin;
+    private String tipo;
     private ArrayList<Cientifico> listaCientifico;
     private ArrayList<Equipo> listaEquipo;
 
@@ -80,7 +81,17 @@ public abstract class Experimento {
 
     public void setFin(Date fin) {
         this.fin = fin;
-    }}
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+}
 
    /* public abstract void carga(Experimento e);
 
