@@ -18,6 +18,10 @@ public class Experimento_Fisico extends Experimento {
         this.fenomeno = fenomeno;
     }
 
+    public Experimento_Fisico() {
+        
+    }
+
     public String getFenomeno() {
         return fenomeno;
     }

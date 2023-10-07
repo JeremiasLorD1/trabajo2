@@ -17,6 +17,9 @@ public class Equipo {
         this.descripcion = descripcion;
         this.areaEspecialidad = areaEspecialidad;
     }
+    public Equipo() {
+        
+    }
 
     public String getNombre() {
         return nombre;

@@ -19,6 +19,10 @@ public class Experimento_Biologico extends Experimento {
         this.organismo = organismo;
     }
 
+    public Experimento_Biologico() {
+       
+    }
+
      
 
     public String getOrganismo() {
