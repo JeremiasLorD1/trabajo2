@@ -611,8 +611,6 @@ public class Principal extends javax.swing.JFrame {
             //hay que poner que va a dar un error
             //cada vez que hay un campo vacio colocar un return
         }
-       
-        
 
         if (exp1 instanceof Experimento_Biologico experimento_Biologico) {
             experimento_Biologico.setOrganismo(txtOrganismo.getText());
@@ -631,19 +629,20 @@ public class Principal extends javax.swing.JFrame {
                 return;
             }
         }
-        
-        
-         if (!"".equals(txtTitulo.getText())) {
-                exp1.setTitulo(txtTitulo.getText());
-            } else {
-                JOptionPane.showMessageDialog(null, "Error: El campo de titulo esta vacio.");
-                return;}
-         
-         if (!"".equals(txtADescripcion.getText())) {
-                exp1.setDescripcion(txtADescripcion.getText());
-            } else {
-                JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
-                return;}
+
+        if (!"".equals(txtTitulo.getText())) {
+            exp1.setTitulo(txtTitulo.getText());
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: El campo de titulo esta vacio.");
+            return;
+        }
+
+        if (!"".equals(txtADescripcion.getText())) {
+            exp1.setDescripcion(txtADescripcion.getText());
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
+            return;
+        }
 
         String presupuestoStr = (txtPresupuesto.getText());
         try {
@@ -655,8 +654,7 @@ public class Principal extends javax.swing.JFrame {
             c = 0;
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor float válido.");
         }
-        
-        
+
         if (c != 0) {
             Date fechaInicioValue = fechaInicio.getDate();
 
@@ -681,8 +679,7 @@ public class Principal extends javax.swing.JFrame {
             contenedor.revalidate();
 
             listaExperimentosBioFis.add(exp1);
-                             
-            
+
             DefaultListModel model = new DefaultListModel();
             for (Experimento exp : listaExperimentosBioFis) {
                 model.addElement(exp.getTitulo());
@@ -700,6 +697,20 @@ public class Principal extends javax.swing.JFrame {
             contenedor.add(cargarExperimento);
             contenedor.repaint();
             contenedor.revalidate();
+        }
+
+        for (Experimento e : listaExperimentosBioFis) {
+            System.out.println(e.getTitulo());
+            System.out.println(e.getDescripcion());
+            System.out.println(e.getFin());
+            System.out.println(e.getInicio());
+            System.out.println(e.getPresupuesto());
+            if (e instanceof Experimento_Biologico) {
+                System.out.println(((Experimento_Biologico) e).getOrganismo());
+            } else if (e instanceof Experimento_Fisico) {
+                System.out.println(((Experimento_Fisico) e).getFenomeno());
+            }
+
         }
 
 
