@@ -24,7 +24,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="frenteAzul" max="32767" attributes="0"/>
-          <Component id="contenedor" alignment="0" max="32767" attributes="0"/>
+          <Component id="contenedor" alignment="0" pref="903" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -128,7 +128,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="349" max="32767" attributes="0"/>
+                      <EmptySpace pref="446" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -166,7 +166,7 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="btnEnviar" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
@@ -204,10 +204,12 @@
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                                                       <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="txtOrganismo" min="-2" pref="156" max="-2" attributes="0"/>
                                                           <Component id="fechaFin" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="txtFenomeno" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
+                                                          <Component id="txtOrganismo" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
+                                                          <Component id="txtFenomeno" min="-2" pref="159" max="-2" attributes="0"/>
                                                       </Group>
+                                                      <EmptySpace pref="69" max="32767" attributes="0"/>
+                                                      <Component id="jScrollPane4" min="-2" pref="171" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -219,8 +221,7 @@
                                       <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="50" max="32767" attributes="0"/>
-                              <Component id="jScrollPane4" min="-2" pref="171" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
@@ -254,26 +255,19 @@
                                           <Component id="jComboBoxTipos" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="lOrganismo" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="txtFenomeno" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="lOrganismo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtOrganismo" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="fechaInicio" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lFenomeno" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="txtOrganismo" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lFenomeno" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtFenomeno" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jScrollPane2" min="-2" pref="285" max="-2" attributes="0"/>
@@ -335,7 +329,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="descripcion">
+                <Component class="javax.swing.JTextArea" name="txtADescripcion">
                   <Properties>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
@@ -461,7 +455,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="261" max="-2" attributes="0"/>
                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="395" max="32767" attributes="0"/>
+                      <EmptySpace pref="492" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -591,7 +585,7 @@
                                   <Component id="tipo1" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="fechaInicio1" min="-2" pref="130" max="-2" attributes="0"/>
-                                      <EmptySpace pref="251" max="32767" attributes="0"/>
+                                      <EmptySpace pref="348" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                           <Component id="fechaFin1" min="-2" pref="123" max="-2" attributes="0"/>
@@ -750,7 +744,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="806" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="903" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">

@@ -91,6 +91,14 @@ public abstract class Experimento {
         this.tipo = tipo;
     }
 
+    public void setFenomeno(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void setOrganismo(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }
 
    /* public abstract void carga(Experimento e);

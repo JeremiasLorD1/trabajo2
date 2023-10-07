@@ -4,8 +4,6 @@
  */
 package com.mycompany.proyectointegrador_tomas_jeremias;
 
-import java.util.Date;
-
 /**
  * Experimento_Biologico: (tipo de organismo)
  *
@@ -22,16 +20,17 @@ public class Experimento_Biologico extends Experimento {
     public Experimento_Biologico() {
        
     }
-
-     
-
     public String getOrganismo() {
         return organismo;
     }
 
+    @Override
     public void setOrganismo(String organismo) {
         this.organismo = organismo;
     }
+
+   
+   
 
     public void CargaExperimento() {
 

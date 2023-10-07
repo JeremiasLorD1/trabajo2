@@ -26,8 +26,6 @@ public class Principal extends javax.swing.JFrame {
 
     //Objeto auxiliar para cargar la lista
     //Data cargada
-
-
     public Principal() {
         initComponents();
         listaExperimentosBioFis = new ArrayList<Experimento>();
@@ -60,7 +58,7 @@ public class Principal extends javax.swing.JFrame {
         txtTitulo = new javax.swing.JTextField();
         txtPresupuesto = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        descripcion = new javax.swing.JTextArea();
+        txtADescripcion = new javax.swing.JTextArea();
         btnEnviar = new javax.swing.JButton();
         fechaInicio = new com.toedter.calendar.JDateChooser();
         fechaFin = new com.toedter.calendar.JDateChooser();
@@ -171,7 +169,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(inicioLayout.createSequentialGroup()
                 .addGap(99, 99, 99)
                 .addComponent(jLabel1)
-                .addContainerGap(349, Short.MAX_VALUE))
+                .addContainerGap(446, Short.MAX_VALUE))
         );
         inicioLayout.setVerticalGroup(
             inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,9 +205,9 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        descripcion.setColumns(20);
-        descripcion.setRows(5);
-        jScrollPane2.setViewportView(descripcion);
+        txtADescripcion.setColumns(20);
+        txtADescripcion.setRows(5);
+        jScrollPane2.setViewportView(txtADescripcion);
 
         btnEnviar.setText("Enviar");
         btnEnviar.addActionListener(new java.awt.event.ActionListener() {
@@ -281,15 +279,16 @@ public class Principal extends javax.swing.JFrame {
                                             .addGroup(cargarExperimentoLayout.createSequentialGroup()
                                                 .addGap(50, 50, 50)
                                                 .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(txtOrganismo, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addComponent(fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(txtFenomeno, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                                    .addComponent(txtOrganismo, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtFenomeno, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(cargarExperimentoLayout.createSequentialGroup()
                                 .addGap(157, 157, 157)
                                 .addComponent(jLabel13)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(78, 78, 78)))
                 .addGap(33, 33, 33))
         );
         cargarExperimentoLayout.setVerticalGroup(
@@ -316,20 +315,16 @@ public class Principal extends javax.swing.JFrame {
                                     .addComponent(jLabel4)
                                     .addComponent(jComboBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8))
-                                .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(cargarExperimentoLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lOrganismo))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cargarExperimentoLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtFenomeno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lOrganismo)
+                                    .addComponent(txtOrganismo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(lFenomeno))
-                            .addComponent(txtOrganismo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(cargarExperimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(lFenomeno)
+                            .addComponent(txtFenomeno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane4))
@@ -409,7 +404,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(cargarEquipoLayout.createSequentialGroup()
                 .addGap(261, 261, 261)
                 .addComponent(jLabel14)
-                .addContainerGap(395, Short.MAX_VALUE))
+                .addContainerGap(492, Short.MAX_VALUE))
         );
         cargarEquipoLayout.setVerticalGroup(
             cargarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,7 +484,7 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(tipo1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(modificaLayout.createSequentialGroup()
                                 .addComponent(fechaInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 251, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 348, Short.MAX_VALUE)
                                 .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel12)
                                     .addComponent(fechaFin1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -547,7 +542,7 @@ public class Principal extends javax.swing.JFrame {
         consultar.setLayout(consultarLayout);
         consultarLayout.setHorizontalGroup(
             consultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 806, Short.MAX_VALUE)
+            .addGap(0, 903, Short.MAX_VALUE)
         );
         consultarLayout.setVerticalGroup(
             consultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -561,7 +556,7 @@ public class Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(frenteAzul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 903, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -605,20 +600,50 @@ public class Principal extends javax.swing.JFrame {
 
         if ("Biologico".equals(jComboBoxTipos.getSelectedItem())) {
             exp1 = new Experimento_Biologico();
+
         } else if ("Fisico".equals(jComboBoxTipos.getSelectedItem())) {
             exp1 = new Experimento_Fisico();
+
         } else {
+            JOptionPane.showMessageDialog(null, "Error: elige un tipo de experimento.");
             return;
-            
+
             //hay que poner que va a dar un error
             //cada vez que hay un campo vacio colocar un return
         }
+       
+        
+
+        if (exp1 instanceof Experimento_Biologico experimento_Biologico) {
+            experimento_Biologico.setOrganismo(txtOrganismo.getText());
+            if (!"".equals(txtOrganismo.getText())) {
+                exp1.setOrganismo(txtOrganismo.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "Error: El campo de Organismo esta vacio.");
+                return;
+            }
+        } else {
+            exp1.setFenomeno(txtFenomeno.getText());
+            if (!"".equals(txtFenomeno.getText())) {
+                exp1.setFenomeno(txtFenomeno.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "Error: El campo de fenomeno esta vacio.");
+                return;
+            }
+        }
         
         
-        
-        
-        exp1.setTitulo(txtTitulo.getText());
-        exp1.setDescripcion(descripcion.getText());
+         if (!"".equals(txtTitulo.getText())) {
+                exp1.setTitulo(txtTitulo.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "Error: El campo de titulo esta vacio.");
+                return;}
+         
+         if (!"".equals(txtADescripcion.getText())) {
+                exp1.setDescripcion(txtADescripcion.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
+                return;}
 
         String presupuestoStr = (txtPresupuesto.getText());
         try {
@@ -630,6 +655,8 @@ public class Principal extends javax.swing.JFrame {
             c = 0;
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor float válido.");
         }
+        
+        
         if (c != 0) {
             Date fechaInicioValue = fechaInicio.getDate();
 
@@ -641,15 +668,21 @@ public class Principal extends javax.swing.JFrame {
                 exp1.setInicio(fechaInicioValue);
                 exp1.setFin(fechaFinValue);
             } else {
+
+                JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
+                return;
                 // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
             }
+
             exp1.setTipo((String) jComboBoxTipos.getSelectedItem());
             contenedor.removeAll();
             contenedor.add(cargarEquipo);
             contenedor.repaint();
             contenedor.revalidate();
-            listaExperimentosBioFis.add(exp1);
 
+            listaExperimentosBioFis.add(exp1);
+                             
+            
             DefaultListModel model = new DefaultListModel();
             for (Experimento exp : listaExperimentosBioFis) {
                 model.addElement(exp.getTitulo());
@@ -788,7 +821,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel cargarExperimento;
     private javax.swing.JPanel consultar;
     private javax.swing.JPanel contenedor;
-    private javax.swing.JTextArea descripcion;
     private com.toedter.calendar.JDateChooser fechaFin;
     private com.toedter.calendar.JDateChooser fechaFin1;
     private com.toedter.calendar.JDateChooser fechaInicio;
@@ -829,6 +861,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField presupuesto1;
     private javax.swing.JTextField tipo1;
     private javax.swing.JTextField titulo1;
+    private javax.swing.JTextArea txtADescripcion;
     private javax.swing.JTextField txtAreaEspecialidad;
     private javax.swing.JTextField txtFenomeno;
     private javax.swing.JTextField txtNombreEquipo;
