@@ -12,6 +12,8 @@ import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import com.mycompany.proyectointegrador_tomas_jeremias.Cientifico;
+import com.mycompany.proyectointegrador_tomas_jeremias.Equipo;
 
 /**
  *
@@ -82,6 +84,10 @@ public class Principal extends javax.swing.JFrame {
         jTxtDescripcionEquipo = new javax.swing.JTextArea();
         txtNombreEquipo = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        btnCargar3 = new javax.swing.JButton();
         modifica = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListModifica = new javax.swing.JList<>();
@@ -176,7 +182,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(inicioLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(460, Short.MAX_VALUE))
+                .addContainerGap(498, Short.MAX_VALUE))
         );
 
         contenedor.add(inicio, "card2");
@@ -375,56 +381,90 @@ public class Principal extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel14.setText("Cargar Equipo");
 
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane5.setViewportView(jList1);
+
+        jRadioButton1.setText("Mi objeto no se encuentra en la lista");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        btnCargar3.setText("Cargar");
+        btnCargar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargar3btnCargarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout cargarEquipoLayout = new javax.swing.GroupLayout(cargarEquipo);
         cargarEquipo.setLayout(cargarEquipoLayout);
         cargarEquipoLayout.setHorizontalGroup(
             cargarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cargarEquipoLayout.createSequentialGroup()
-                .addGroup(cargarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(cargarEquipoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCargar2))
-                    .addGroup(cargarEquipoLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(cargarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(cargarEquipoLayout.createSequentialGroup()
-                                .addGroup(cargarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17)
-                                    .addComponent(jLabel16)
-                                    .addComponent(txtNombreEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel18)
-                                    .addComponent(txtAreaEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(cargarEquipoLayout.createSequentialGroup()
-                                .addComponent(btnVolver2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1)))))
-                .addGap(18, 18, 18))
             .addGroup(cargarEquipoLayout.createSequentialGroup()
-                .addGap(261, 261, 261)
-                .addComponent(jLabel14)
-                .addContainerGap(492, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(cargarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cargarEquipoLayout.createSequentialGroup()
+                        .addComponent(btnVolver2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 712, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18))
+                    .addGroup(cargarEquipoLayout.createSequentialGroup()
+                        .addGroup(cargarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel14)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cargarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(cargarEquipoLayout.createSequentialGroup()
+                                    .addGap(0, 231, Short.MAX_VALUE)
+                                    .addComponent(btnCargar2))
+                                .addComponent(jScrollPane5)))
+                        .addGap(89, 89, 89)
+                        .addGroup(cargarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(cargarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnCargar3)
+                                .addGroup(cargarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtAreaEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNombreEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel18)
+                                    .addComponent(jLabel17)))
+                            .addComponent(jRadioButton1))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         cargarEquipoLayout.setVerticalGroup(
             cargarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cargarEquipoLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(jLabel14)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel16)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombreEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAreaEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnCargar2)
+                .addGroup(cargarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cargarEquipoLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCargar2))
+                    .addGroup(cargarEquipoLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNombreEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtAreaEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCargar3)
+                        .addGap(0, 39, Short.MAX_VALUE)))
                 .addGap(55, 55, 55)
                 .addGroup(cargarEquipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVolver2)
@@ -528,7 +568,7 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tipo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 315, Short.MAX_VALUE)
                         .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtoneliminar)
                             .addComponent(jButtonmodifica)))
@@ -546,7 +586,7 @@ public class Principal extends javax.swing.JFrame {
         );
         consultarLayout.setVerticalGroup(
             consultarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 551, Short.MAX_VALUE)
+            .addGap(0, 589, Short.MAX_VALUE)
         );
 
         contenedor.add(consultar, "card6");
@@ -556,7 +596,7 @@ public class Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(frenteAzul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 903, Short.MAX_VALUE)
+            .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -595,14 +635,93 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCargarActionPerformed1
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        int c = 1;
-        Experimento exp1;
 
+        // Titulo
+        String expTitulo = txtTitulo.getText().trim();
+        //Trim borra los espacios iniciales y si tiene un titulo de solo espacios lo toma como si fuera ""
+        if ("".equals(expTitulo)) {
+            JOptionPane.showMessageDialog(null, "Error: El campo de titulo esta vacio.");
+            return;
+        } else {
+            for (Experimento exp : listaExperimentosBioFis) {
+                if (exp.getTitulo().equals(txtTitulo.getText())) {
+                    JOptionPane.showMessageDialog(null, "Error: El titulo ya existe en la lista");
+                    return;
+                }
+            }
+        }
+        // Descripcion
+        String expDescripcion = txtADescripcion.getText().trim();
+        if ("".equals(expDescripcion)) {
+            JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
+            return;
+        }
+
+        // Fecha inicio
+        Date expFechaInicioValue = fechaInicio.getDate();
+        if (fechaInicio.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
+            return;
+            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+        }
+
+        // Fecha fin
+        Date expFechaFinValue = fechaFin.getDate();
+        if (fechaFin.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
+            return;
+            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+        }
+
+        // Presupuesto
+        float expPresupuestoFloat;
+        try {
+            expPresupuestoFloat = Float.parseFloat(txtPresupuesto.getText().trim());
+            // Ahora tienes el valor en formato float
+            // Lo que hacemos con el try es ver que sea un numero si no lansa la exepcion. Para que no se rompa el programa y lo atrapamos con 
+            //el catch.
+        } catch (NumberFormatException e) {
+            // Maneja aquí la excepción si la entrada no es un float válido    
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor float válido.");
+            return;
+        }
+
+        // Biologico
         if ("Biologico".equals(jComboBoxTipos.getSelectedItem())) {
-            exp1 = new Experimento_Biologico();
-
+            // Organismo
+            String expOrganismo = txtOrganismo.getText().trim();
+            if ("".equals(expOrganismo)) {
+                JOptionPane.showMessageDialog(null, "Error: El campo de organismo esta vacio.");
+                return;
+            }
+            listaExperimentosBioFis.add(
+                    new Experimento_Biologico(
+                            expTitulo,
+                            expDescripcion,
+                            expPresupuestoFloat,
+                            expFechaInicioValue,
+                            expFechaFinValue,
+                            new ArrayList<>(),
+                            new ArrayList<>(),
+                            expOrganismo));
+            // Fisico
         } else if ("Fisico".equals(jComboBoxTipos.getSelectedItem())) {
-            exp1 = new Experimento_Fisico();
+            // Fenomeno
+            String expFenomeno = txtFenomeno.getText().trim();
+            if ("".equals(expFenomeno)) {
+                JOptionPane.showMessageDialog(null, "Error: El campo de fenomeno esta vacio.");
+                return;
+            }
+            listaExperimentosBioFis.add(
+                    new Experimento_Fisico(
+                            expTitulo,
+                            expDescripcion,
+                            expPresupuestoFloat,
+                            expFechaInicioValue,
+                            expFechaFinValue,
+                            new ArrayList<>(),
+                            new ArrayList<>(),
+                            expFenomeno));
 
         } else {
             JOptionPane.showMessageDialog(null, "Error: elige un tipo de experimento.");
@@ -611,93 +730,17 @@ public class Principal extends javax.swing.JFrame {
             //hay que poner que va a dar un error
             //cada vez que hay un campo vacio colocar un return
         }
-
-        if (exp1 instanceof Experimento_Biologico experimento_Biologico) {
-            experimento_Biologico.setOrganismo(txtOrganismo.getText());
-            if (!"".equals(txtOrganismo.getText())) {
-                exp1.setOrganismo(txtOrganismo.getText());
-            } else {
-                JOptionPane.showMessageDialog(null, "Error: El campo de Organismo esta vacio.");
-                return;
-            }
-        } else {
-            exp1.setFenomeno(txtFenomeno.getText());
-            if (!"".equals(txtFenomeno.getText())) {
-                exp1.setFenomeno(txtFenomeno.getText());
-            } else {
-                JOptionPane.showMessageDialog(null, "Error: El campo de fenomeno esta vacio.");
-                return;
-            }
+        
+        DefaultListModel model = new DefaultListModel();
+        for (Experimento e : listaExperimentosBioFis){
+            model.addElement( e.getTitulo());
         }
-
-        if (!"".equals(txtTitulo.getText())) {
-            exp1.setTitulo(txtTitulo.getText());
-        } else {
-            JOptionPane.showMessageDialog(null, "Error: El campo de titulo esta vacio.");
-            return;
-        }
-
-        if (!"".equals(txtADescripcion.getText())) {
-            exp1.setDescripcion(txtADescripcion.getText());
-        } else {
-            JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
-            return;
-        }
-
-        String presupuestoStr = (txtPresupuesto.getText());
-        try {
-            float presupuestoFloat = Float.parseFloat(presupuestoStr);
-            // Ahora tienes el valor en formato float
-            exp1.setPresupuesto(presupuestoFloat);
-        } catch (NumberFormatException e) {
-            // Maneja aquí la excepción si la entrada no es un float válido    
-            c = 0;
-            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor float válido.");
-        }
-
-        if (c != 0) {
-            Date fechaInicioValue = fechaInicio.getDate();
-
-            // Obtén la fecha de fin del JDateChooserFin
-            Date fechaFinValue = fechaFin.getDate();
-
-            // Verifica que ambas fechas no sean nulas antes de asignarlas al objeto Experimento
-            if (fechaInicioValue != null && fechaFinValue != null) {
-                exp1.setInicio(fechaInicioValue);
-                exp1.setFin(fechaFinValue);
-            } else {
-
-                JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
-                return;
-                // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
-            }
-
-            exp1.setTipo((String) jComboBoxTipos.getSelectedItem());
-            contenedor.removeAll();
-            contenedor.add(cargarEquipo);
-            contenedor.repaint();
-            contenedor.revalidate();
-
-            listaExperimentosBioFis.add(exp1);
-
-            DefaultListModel model = new DefaultListModel();
-            for (Experimento exp : listaExperimentosBioFis) {
-                model.addElement(exp.getTitulo());
-            }
-
-            jListModifica1.setModel(model);
-
-            System.out.println(exp1.getTitulo());
-            for (Experimento exp : listaExperimentosBioFis) {
-                System.out.println(exp.getTitulo());
-            }
-
-        } else {
-            contenedor.removeAll();
-            contenedor.add(cargarExperimento);
-            contenedor.repaint();
-            contenedor.revalidate();
-        }
+        jListModifica1.setModel((model ));
+        
+        contenedor.removeAll();
+        contenedor.add(cargarEquipo);
+        contenedor.repaint();
+        contenedor.revalidate();
 
         for (Experimento e : listaExperimentosBioFis) {
             System.out.println(e.getTitulo());
@@ -735,7 +778,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jComboBoxTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTiposActionPerformed
         // TODO add your handling code here:
-        System.out.println(jComboBoxTipos.getSelectedItem());
+
         if ("Biologico".equals(jComboBoxTipos.getSelectedItem())) {
             lOrganismo.setVisible(true);
             txtOrganismo.setVisible(true);
@@ -784,6 +827,14 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPresupuestoActionPerformed
 
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void btnCargar3btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargar3btnCargarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCargar3btnCargarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -798,16 +849,24 @@ public class Principal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Principal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Principal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Principal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Principal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -824,6 +883,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton JbtnModificar;
     private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnCargar2;
+    private javax.swing.JButton btnCargar3;
     private javax.swing.JButton btnEnviar;
     private javax.swing.JButton btnInformacion;
     private javax.swing.JButton btnInicio;
@@ -859,12 +919,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JList<String> jListModifica;
     private javax.swing.JList<String> jListModifica1;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextArea jTxtDescripcionEquipo;
     private javax.swing.JLabel lFenomeno;
     private javax.swing.JLabel lOrganismo;
