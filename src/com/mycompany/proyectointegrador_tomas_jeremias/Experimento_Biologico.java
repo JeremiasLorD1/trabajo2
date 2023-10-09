@@ -4,6 +4,9 @@
  */
 package com.mycompany.proyectointegrador_tomas_jeremias;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * Experimento_Biologico: (tipo de organismo)
  *
@@ -13,7 +16,9 @@ public class Experimento_Biologico extends Experimento {
 
     private String organismo;
 
-    public Experimento_Biologico(String organismo) {
+    public Experimento_Biologico(String titulo, String descripcion, float presupuesto, Date inicio, Date fin, ArrayList<Cientifico> listaCientifico, ArrayList<Equipo> listaEquipo,String organismo) {
+        super(titulo, descripcion, presupuesto,  inicio,  fin, listaCientifico,listaEquipo);
+
         this.organismo = organismo;
     }
 

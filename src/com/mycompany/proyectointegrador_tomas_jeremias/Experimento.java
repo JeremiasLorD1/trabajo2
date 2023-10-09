@@ -19,12 +19,22 @@ public abstract class Experimento {
     private float presupuesto;
     private Date inicio;
     private Date fin;
-    private String tipo;
+    
     private ArrayList<Cientifico> listaCientifico;
     private ArrayList<Equipo> listaEquipo;
 
     public Experimento() {
         
+    }
+
+    public Experimento(String titulo, String descripcion, float presupuesto, Date inicio, Date fin, ArrayList<Cientifico> listaCientifico, ArrayList<Equipo> listaEquipo) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.presupuesto = presupuesto;
+        this.inicio = inicio;
+        this.fin = fin;
+        this.listaCientifico = listaCientifico;
+        this.listaEquipo = listaEquipo;
     }
 
     public String getTitulo() {
@@ -83,13 +93,7 @@ public abstract class Experimento {
         this.fin = fin;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+    
 
     public void setFenomeno(String text) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

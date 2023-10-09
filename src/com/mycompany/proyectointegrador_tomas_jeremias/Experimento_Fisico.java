@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.proyectointegrador_tomas_jeremias;
+
+import java.util.ArrayList;
 import java.util.Date;
+
 /**
  *
  * @author jeremias
@@ -12,14 +15,17 @@ public class Experimento_Fisico extends Experimento {
 
     private String fenomeno;
 
-  
-
     public Experimento_Fisico(String fenomeno) {
         this.fenomeno = fenomeno;
     }
 
     public Experimento_Fisico() {
-        
+
+    }
+
+    public Experimento_Fisico(String titulo, String descripcion, float presupuesto, Date inicio, Date fin, ArrayList<Cientifico> listaCientifico, ArrayList<Equipo> listaEquipo, String fenomeno) {
+        super(titulo, descripcion, presupuesto, inicio, fin, listaCientifico, listaEquipo);
+        this.fenomeno = fenomeno;
     }
 
     public String getFenomeno() {
@@ -31,7 +37,7 @@ public class Experimento_Fisico extends Experimento {
     }
 
 
-  /*  @Override
+    /*  @Override
     public void carga(Experimento e) {
         
     }
@@ -45,5 +51,5 @@ public class Experimento_Fisico extends Experimento {
     public void eliminar(Experimento e) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-*/
+     */
 }
