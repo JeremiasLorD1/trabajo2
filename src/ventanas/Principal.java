@@ -95,9 +95,6 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jCalendar1 = new com.toedter.calendar.JCalendar();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
         frenteAzul = new javax.swing.JPanel();
         jBtnCargarExperimento = new javax.swing.JButton();
         jBtnInformacion = new javax.swing.JButton();
@@ -137,6 +134,7 @@ public class Principal extends javax.swing.JFrame {
         jDaChFechaFin = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         lFenomeno = new javax.swing.JLabel();
+        jBtnEnviar2 = new javax.swing.JButton();
         modifica = new javax.swing.JPanel();
         jComboBoxTiposModifica = new javax.swing.JComboBox<>();
         txtFenomenoModifica = new javax.swing.JTextField();
@@ -167,10 +165,9 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane9 = new javax.swing.JScrollPane();
         jListEquipoModifica = new javax.swing.JList<>();
         jLabel33 = new javax.swing.JLabel();
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jTextField1.setText("jTextField1");
+        jPanelInformacion = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jTxtPresupuestoTotal = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -358,6 +355,14 @@ public class Principal extends javax.swing.JFrame {
 
         lFenomeno.setText("Fecha Contratacion");
         cargarExperimento.add(lFenomeno, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, -1, -1));
+
+        jBtnEnviar2.setText("Enviar");
+        jBtnEnviar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEnviar2ActionPerformed(evt);
+            }
+        });
+        cargarExperimento.add(jBtnEnviar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 260, 210, 60));
 
         contenedor.add(cargarExperimento, "card4");
 
@@ -574,6 +579,38 @@ public class Principal extends javax.swing.JFrame {
 
         contenedor.add(modifica, "card5");
 
+        jLabel1.setText("Suma de presupuesto de todos los experimentos");
+
+        jTxtPresupuestoTotal.setText("jTextField1");
+        jTxtPresupuestoTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtPresupuestoTotalActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelInformacionLayout = new javax.swing.GroupLayout(jPanelInformacion);
+        jPanelInformacion.setLayout(jPanelInformacionLayout);
+        jPanelInformacionLayout.setHorizontalGroup(
+            jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInformacionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jTxtPresupuestoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(611, Short.MAX_VALUE))
+        );
+        jPanelInformacionLayout.setVerticalGroup(
+            jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInformacionLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTxtPresupuestoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(405, Short.MAX_VALUE))
+        );
+
+        contenedor.add(jPanelInformacion, "card4");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -636,7 +673,7 @@ public class Principal extends javax.swing.JFrame {
         // Seteo model de cientifico de 0
         DefaultListModel modelCientifico = new DefaultListModel();
         for (Cientifico e : listaCientifico) {
-            modelCientifico.addElement(e.getNombre() + " " + e.getApellido());
+            modelCientifico.addElement(e.getNombre() + " " + e.getApellido()+ " " + e.getContratacion());
         }
         jListCientificos.setModel(modelCientifico);
 
@@ -665,11 +702,11 @@ public class Principal extends javax.swing.JFrame {
             System.out.println(e.getPresupuesto());
             int j = 0;
             for (Equipo i : e.getListaEquipo()) {
-                System.out.println(i.getNombre() + " EQUIPO"+ j++);//"""" IMPRRIME EL NOMBRE Y TAMBIEN IMPRIME EL SET MODEL ????""""
+                System.out.println(i.getNombre() + " EQUIPO" + j++);//"""" IMPRRIME EL NOMBRE Y TAMBIEN IMPRIME EL SET MODEL ????""""
             }
             j = 0;
             for (Cientifico i : e.getListaCientifico()) {
-                System.out.println(i.getNombre() + " CIENTIFICO"+ j++);//"""" IMPRRIME EL NOMBRE Y TAMBIEN IMPRIME EL SET MODEL ????""""
+                System.out.println(i.getNombre() + " CIENTIFICO" + j++);//"""" IMPRRIME EL NOMBRE Y TAMBIEN IMPRIME EL SET MODEL ????""""
             }
             if (e instanceof Experimento_Biologico) {
                 System.out.println(((Experimento_Biologico) e).getOrganismo());
@@ -678,152 +715,6 @@ public class Principal extends javax.swing.JFrame {
             }
         }
     }
-
-    private void jBtnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEnviarActionPerformed
-
-        // Titulo
-        String expTitulo = txtTitulo.getText().trim();
-        //Trim borra los espacios iniciales y si tiene un titulo de solo espacios lo toma como si fuera ""
-        if ("".equals(expTitulo)) {
-            JOptionPane.showMessageDialog(null, "Error: El campo de titulo esta vacio.");
-            return;
-        } else {
-            for (Experimento exp : listaExperimentosBioFis) {
-                if (exp.getTitulo().equals(txtTitulo.getText())) {
-                    JOptionPane.showMessageDialog(null, "Error: El titulo ya existe en la lista");
-                    return;
-                }
-            }
-        }
-        // Descripcion
-        String expDescripcion = txtADescripcion.getText().trim();
-        if ("".equals(expDescripcion)) {
-            JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
-
-            return;
-        }
-
-        // Fecha inicio
-        Date expFechaInicioValue = jDaChFechaInicio.getDate();
-        if (jDaChFechaInicio.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
-            return;
-            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
-        }
-
-        // Fecha fin
-        Date expFechaFinValue = jDaChFechaFin.getDate();
-        if (jDaChFechaFin.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
-            return;
-            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
-        }
-
-        // Presupuesto
-        float expPresupuestoFloat;
-        try {
-            expPresupuestoFloat = Float.parseFloat(txtPresupuesto.getText().trim());
-            // Ahora tienes el valor en formato float
-            // Lo que hacemos con el try es ver que sea un numero si no lansa la exepcion. Para que no se rompa el programa y lo atrapamos con 
-            //el catch.
-        } catch (NumberFormatException e) {
-            // Maneja aquí la excepción si la entrada no es un float válido    
-            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor float válido.");
-            return;
-        }
-
-        // Cientifico
-        ArrayList<Cientifico> expCientifico = auxListaCientifico;
-        if (auxListaCientifico.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun cientifico.");
-            return;
-        }
-
-        // Equipos
-        ArrayList<Equipo> expEquipo = auxListaEquipos;
-        if (auxListaEquipos.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun equipo.");
-            return;
-        }
-
-        //Tipo
-        //(String) castea lo seleccionado del combo box a tipo String.
-        String expTipo = (String) jComboBoxTipos.getSelectedItem();
-        System.out.println(expTipo);
-        if (jComboBoxTipos.getSelectedItem().equals("-")) {
-            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun tipo.");
-            return;
-        }
-
-        // Biologico
-        if ("Biologico".equals(jComboBoxTipos.getSelectedItem())) {
-            // Organismo
-            String expOrganismo = txtOrganismo.getText().trim();
-            if ("".equals(expOrganismo)) {
-                JOptionPane.showMessageDialog(null, "Error: El campo de organismo esta vacio.");
-                return;
-            }
-            listaExperimentosBioFis.add(
-                    new Experimento_Biologico(
-                            expTitulo,
-                            expDescripcion,
-                            expPresupuestoFloat,
-                            expTipo,
-                            expFechaInicioValue,
-                            expFechaFinValue,
-                            expCientifico,
-                            expEquipo,
-                            expOrganismo));
-            // Fisico
-        } else if ("Fisico".equals(jComboBoxTipos.getSelectedItem())) {
-            // Fenomeno
-            String expFenomeno = txtFenomeno.getText().trim();
-            if ("".equals(expFenomeno)) {
-                JOptionPane.showMessageDialog(null, "Error: El campo de fenomeno esta vacio.");
-                return;
-            }
-            listaExperimentosBioFis.add(
-                    new Experimento_Fisico(
-                            expTitulo,
-                            expDescripcion,
-                            expPresupuestoFloat,
-                            expTipo,
-                            expFechaInicioValue,
-                            expFechaFinValue,
-                            expCientifico,
-                            expEquipo,
-                            expFenomeno));
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Error: elige un tipo de experimento.");
-            return;
-
-            //hay que poner que va a dar un error
-            //cada vez que hay un campo vacio colocar un return
-        }
-
-        // Seteo el model del jlist experimentos. " HACER FUNCION " 
-        DefaultListModel model = new DefaultListModel();
-        for (Experimento e : listaExperimentosBioFis) {
-            model.addElement(e.getTitulo());
-        }
-        jListMuestraExperimentos.setModel(model);
-
-        // Funcion para limpiar todo " Hacer todo"
-        limpiarCampos();
-
-        contenedor.repaint();
-        contenedor.revalidate();
-
-        // Para ver si se cargan dentro de lista principal
-//        
-//
-//        }
-        imprimirPorPantallaListaPrincipal();
-
-        auxListaEquipos.clear();
-        auxListaCientifico.clear();
-    }//GEN-LAST:event_jBtnEnviarActionPerformed
 
     private void jComboBoxTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTiposActionPerformed
         // TODO add your handling code here:
@@ -881,28 +772,27 @@ public class Principal extends javax.swing.JFrame {
 
 // LLeno la lista auxiliar para luego pasarla al experimento.
         for (Cientifico e : listaCientifico) {
-            if (auxCientifico.contains("-")) {
+            if (auxCientifico.contains(e.getDni()) && auxCientifico.contains("-")) {
+                System.out.println("ENTRA 1");
                 auxListaCientifico.remove(e);
             }
-            if (auxCientifico.contains(e.getDni())) {
+            if ((e.getNombre() + " " + e.getApellido() + " " + e.getDni()).equals(auxCientifico)) {
+                e.setContratacion(auxFecha);
                 auxListaCientifico.add(e);
-            }
         }
-
+        }
         // Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
 //        DefaultListModel modelEquipo = new DefaultListModel();
         DefaultListModel modelCientifico = new DefaultListModel();
         for (Cientifico e : listaCientifico) {
             if (auxListaCientifico.contains(e)) {
-                modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni() + " - " + auxFecha);
+                modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni() + " - " + e.getContratacion());
             } else {
                 modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
             }
         }
 
         jListCientificos.setModel(modelCientifico);
-        Cientifico cientifico = new Cientifico(auxCientifico, auxFecha);
-        auxListaCientifico.add(cientifico);
 
         // Repintar contenedor
         contenedor.repaint();
@@ -993,6 +883,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void JbtnModificarExperimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnModificarExperimentoActionPerformed
         // TODO add your handling code here:
+
+        imprimirPorPantallaListaPrincipal();
         int auxIndex = 0;
 
         for (Experimento e : listaExperimentosBioFis) {
@@ -1143,6 +1035,171 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFenomenoActionPerformed
 
+    private void jBtnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEnviarActionPerformed
+
+        // Titulo
+        String expTitulo = txtTitulo.getText().trim();
+        //Trim borra los espacios iniciales y si tiene un titulo de solo espacios lo toma como si fuera ""
+        if ("".equals(expTitulo)) {
+            JOptionPane.showMessageDialog(null, "Error: El campo de titulo esta vacio.");
+            return;
+        } else {
+            for (Experimento exp : listaExperimentosBioFis) {
+                if (exp.getTitulo().equals(txtTitulo.getText())) {
+                    JOptionPane.showMessageDialog(null, "Error: El titulo ya existe en la lista");
+                    return;
+                }
+            }
+        }
+        // Descripcion
+        String expDescripcion = txtADescripcion.getText().trim();
+        if ("".equals(expDescripcion)) {
+            JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
+
+            return;
+        }
+
+        // Fecha inicio
+        Date expFechaInicioValue = jDaChFechaInicio.getDate();
+        if (jDaChFechaInicio.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
+            return;
+            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+        }
+
+        // Fecha fin
+        Date expFechaFinValue = jDaChFechaFin.getDate();
+        if (jDaChFechaFin.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
+            return;
+            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+        }
+
+        // Presupuesto
+        float expPresupuestoFloat;
+        try {
+            expPresupuestoFloat = Float.parseFloat(txtPresupuesto.getText().trim());
+            // Ahora tienes el valor en formato float
+            // Lo que hacemos con el try es ver que sea un numero si no lansa la exepcion. Para que no se rompa el programa y lo atrapamos con
+            //el catch.
+        } catch (NumberFormatException e) {
+            // Maneja aquí la excepción si la entrada no es un float válido
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor float válido.");
+            return;
+        }
+
+        // Cientifico
+        ArrayList<Cientifico> expCientifico = auxListaCientifico;
+        if (auxListaCientifico.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun cientifico.");
+            return;
+        }
+
+        // Equipos
+        ArrayList<Equipo> expEquipo = auxListaEquipos;
+        if (auxListaEquipos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun equipo.");
+            return;
+        }
+
+        //Tipo
+        //(String) castea lo seleccionado del combo box a tipo String.
+        String expTipo = (String) jComboBoxTipos.getSelectedItem();
+        System.out.println(expTipo);
+        if (jComboBoxTipos.getSelectedItem().equals("-")) {
+            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun tipo.");
+            return;
+        }
+
+        // Biologico
+        if ("Biologico".equals(jComboBoxTipos.getSelectedItem())) {
+            // Organismo
+            String expOrganismo = txtOrganismo.getText().trim();
+            if ("".equals(expOrganismo)) {
+                JOptionPane.showMessageDialog(null, "Error: El campo de organismo esta vacio.");
+                return;
+            }
+            listaExperimentosBioFis.add(
+                    new Experimento_Biologico(
+                            expTitulo,
+                            expDescripcion,
+                            expPresupuestoFloat,
+                            expTipo,
+                            expFechaInicioValue,
+                            expFechaFinValue,
+                            expCientifico,
+                            expEquipo,
+                            expOrganismo));
+            // Fisico
+        } else if ("Fisico".equals(jComboBoxTipos.getSelectedItem())) {
+            // Fenomeno
+            String expFenomeno = txtFenomeno.getText().trim();
+            if ("".equals(expFenomeno)) {
+                JOptionPane.showMessageDialog(null, "Error: El campo de fenomeno esta vacio.");
+                return;
+            }
+            listaExperimentosBioFis.add(
+                    new Experimento_Fisico(
+                            expTitulo,
+                            expDescripcion,
+                            expPresupuestoFloat,
+                            expTipo,
+                            expFechaInicioValue,
+                            expFechaFinValue,
+                            expCientifico,
+                            expEquipo,
+                            expFenomeno));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: elige un tipo de experimento.");
+            return;
+
+            //hay que poner que va a dar un error
+            //cada vez que hay un campo vacio colocar un return
+        }
+
+        // Seteo el model del jlist experimentos. " HACER FUNCION "
+        DefaultListModel model = new DefaultListModel();
+        for (Experimento e : listaExperimentosBioFis) {
+            model.addElement(e.getTitulo());
+        }
+        jListMuestraExperimentos.setModel(model);
+
+        // Funcion para limpiar todo " Hacer todo"
+        limpiarCampos();
+
+        contenedor.repaint();
+        contenedor.revalidate();
+
+        // Para ver si se cargan dentro de lista principal
+        //
+        //
+        //        }
+        imprimirPorPantallaListaPrincipal();
+
+        auxListaEquipos.clear();
+        auxListaCientifico.clear();
+    }//GEN-LAST:event_jBtnEnviarActionPerformed
+
+    private void jBtnEnviar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEnviar2ActionPerformed
+        imprimirPorPantallaListaPrincipal();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnEnviar2ActionPerformed
+
+    private void jTxtPresupuestoTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtPresupuestoTotalActionPerformed
+        // TODO add your handling code here:
+        if (listaExperimentosBioFis.isEmpty()) {
+            jTxtPresupuestoTotal.setText("");
+        } else {
+            float presupuesto = 0;
+            for (Experimento e : listaExperimentosBioFis) {
+                presupuesto = e.getPresupuesto() + presupuesto;
+            }
+            jTxtPresupuestoTotal.setText(String.valueOf(presupuesto));
+
+        }
+    }//GEN-LAST:event_jTxtPresupuestoTotalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1200,18 +1257,18 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jBtnCargarExperimento;
     private javax.swing.JButton jBtnEliminarExperimento;
     private javax.swing.JButton jBtnEnviar;
+    private javax.swing.JButton jBtnEnviar2;
     private javax.swing.JButton jBtnInformacion;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtoneliminar;
     private javax.swing.JButton jButtoneliminar1;
-    private com.toedter.calendar.JCalendar jCalendar1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBoxTipos;
     private javax.swing.JComboBox<String> jComboBoxTiposModifica;
     private com.toedter.calendar.JDateChooser jDaChFechaFin;
     private com.toedter.calendar.JDateChooser jDaChFechaInicio;
     private com.toedter.calendar.JDateChooser jDaChInicioCientificos;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1236,6 +1293,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JList<String> jListEquipoModifica;
     private javax.swing.JList<String> jListEquipos;
     private javax.swing.JList<String> jListMuestraExperimentos;
+    private javax.swing.JPanel jPanelInformacion;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1243,7 +1301,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTxtPresupuestoTotal;
     private javax.swing.JLabel lFecha;
     private javax.swing.JLabel lFenomeno;
     private javax.swing.JLabel lFenomenoModifica;
