@@ -15,6 +15,10 @@ import javax.swing.JOptionPane;
 import com.mycompany.proyectointegrador_tomas_jeremias.Cientifico;
 import com.mycompany.proyectointegrador_tomas_jeremias.Equipo;
 import javax.swing.ListSelectionModel;
+import javax.swing.*;
+import java.awt.*;
+import java.util.Iterator;
+import java.util.Vector;
 
 /**
  *
@@ -26,12 +30,60 @@ public class Principal extends javax.swing.JFrame {
      * Creates new form Principal
      */
     ArrayList<Experimento> listaExperimentosBioFis;
+    ArrayList<Equipo> auxListaEquipos;
+    ArrayList<Cientifico> auxListaCientifico;
+    // Esta es la informacion inicial de mi programa, ya que no se usar archivos. jijiji.
+    ArrayList<Cientifico> listaCientifico;
+    ArrayList<Equipo> listaEquipo;
 
     //Objeto auxiliar para cargar la lista
     //Data cargada
     public Principal() {
         initComponents();
         listaExperimentosBioFis = new ArrayList<Experimento>();
+        auxListaCientifico = new ArrayList<Cientifico>();
+        auxListaEquipos = new ArrayList<Equipo>();
+
+        jListEquipos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Carga de Equipo.//hacer la lectura de archivo de los equipos
+        listaEquipo = new ArrayList<>();//esta lista es para llenar la lista de la interfaz
+
+        Equipo a = new Equipo("Martillo", "Martilla", "Todas");
+        Equipo b = new Equipo("Tornillo", "Martisdadsalla", "Todasffsafdsa");
+        Equipo c = new Equipo("Rosca", "de tu ", "");
+
+        listaEquipo.add(a);
+        listaEquipo.add(b);
+        listaEquipo.add(c);
+
+        // Seteo model Equipo
+        DefaultListModel modelEquipo = new DefaultListModel();
+
+        for (Equipo e : listaEquipo) {
+            modelEquipo.addElement(e.getNombre());
+        }
+        jListEquipos.setModel(modelEquipo);
+
+        // Carga de Cientifico 
+        jListCientificos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        listaCientifico = new ArrayList<>();//esta lista es para llenar la lista de la interfaz
+
+        //no usar variables si no las uso
+        listaCientifico.add(new Cientifico("Jeremias", "Martinez", "Doctor", "111"));
+        listaCientifico.add(new Cientifico("Facu", "Joaquin", "inge", "222"));
+        listaCientifico.add(new Cientifico("Capo", "Matias", "ijisdajidjsa", "333"));
+
+        // Seteo model Cientifico
+        DefaultListModel modelCientifico = new DefaultListModel();
+        for (Cientifico e : listaCientifico) {
+            modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
+        }
+        jListCientificos.setModel(modelCientifico);
+
+//       jListCientificos.setCellRenderer(new NombreRenderer());
+//       jListEquipos.setCellRenderer(new NombreRenderer());
     }
 
     /**
@@ -47,77 +99,74 @@ public class Principal extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         frenteAzul = new javax.swing.JPanel();
-        btnCargar = new javax.swing.JButton();
-        btnInformacion = new javax.swing.JButton();
+        jBtnCargarExperimento = new javax.swing.JButton();
+        jBtnInformacion = new javax.swing.JButton();
         contenedor = new javax.swing.JPanel();
         cargarExperimento = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
         jComboBoxTipos = new javax.swing.JComboBox<>();
         txtFenomeno = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        fechaFin = new com.toedter.calendar.JDateChooser();
-        fechaInicio = new com.toedter.calendar.JDateChooser();
+        jDaChInicioCientificos = new com.toedter.calendar.JDateChooser();
+        jDaChFechaInicio = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         lOrganismo = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         txtPresupuesto = new javax.swing.JTextField();
         txtOrganismo = new javax.swing.JTextField();
-        lFenomeno = new javax.swing.JLabel();
+        lFecha = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtADescripcion = new javax.swing.JTextArea();
-        jPanel4 = new javax.swing.JPanel();
+        jBtnCargarCientifico = new javax.swing.JButton();
+        jBtnEnviar = new javax.swing.JButton();
+        JbtnModificarExperimento = new javax.swing.JButton();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jListMuestraExperimentos = new javax.swing.JList<>();
+        jBtnEliminarExperimento = new javax.swing.JButton();
+        jLabel31 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        jListEquipos = new javax.swing.JList<>();
+        jBtnCargarEquipo = new javax.swing.JButton();
         jLabel29 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jListCientificos = new javax.swing.JList<>();
         jLabel30 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        btnEnviar = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList<>();
-        JbtnModificar = new javax.swing.JButton();
-        JbtnModificar1 = new javax.swing.JButton();
+        jDaChFechaFin = new com.toedter.calendar.JDateChooser();
+        jLabel5 = new javax.swing.JLabel();
+        lFenomeno = new javax.swing.JLabel();
         modifica = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jComboBoxTipos1 = new javax.swing.JComboBox<>();
-        txtFenomeno1 = new javax.swing.JTextField();
+        jComboBoxTiposModifica = new javax.swing.JComboBox<>();
+        txtFenomenoModifica = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        fechaFin2 = new com.toedter.calendar.JDateChooser();
-        fechaInicio2 = new com.toedter.calendar.JDateChooser();
+        fechaFinModifica = new com.toedter.calendar.JDateChooser();
+        fechaInicioModifica = new com.toedter.calendar.JDateChooser();
         jLabel16 = new javax.swing.JLabel();
-        lOrganismo1 = new javax.swing.JLabel();
+        lOrganismoModifica = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        txtTitulo1 = new javax.swing.JTextField();
+        txtTituloModifica = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
-        txtPresupuesto1 = new javax.swing.JTextField();
-        txtOrganismo1 = new javax.swing.JTextField();
-        lFenomeno1 = new javax.swing.JLabel();
+        txtPresupuestoModifica = new javax.swing.JTextField();
+        txtOrganismoModifica = new javax.swing.JTextField();
+        lFenomenoModifica = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        txtADescripcion1 = new javax.swing.JTextArea();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        jList4 = new javax.swing.JList<>();
-        jButton3 = new javax.swing.JButton();
-        jLabel33 = new javax.swing.JLabel();
+        txtADescripcionModifica = new javax.swing.JTextArea();
+        btnEnviar1 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButtoneliminar1 = new javax.swing.JButton();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jList5 = new javax.swing.JList<>();
+        jListCientificoModifica = new javax.swing.JList<>();
         jLabel34 = new javax.swing.JLabel();
         jButtoneliminar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        btnEnviar1 = new javax.swing.JButton();
-        jButtoneliminar1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jListEquipoModifica = new javax.swing.JList<>();
+        jLabel33 = new javax.swing.JLabel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -127,17 +176,17 @@ public class Principal extends javax.swing.JFrame {
 
         frenteAzul.setBackground(new java.awt.Color(0, 51, 204));
 
-        btnCargar.setText("Carga");
-        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+        jBtnCargarExperimento.setText("Carga");
+        jBtnCargarExperimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCargarActionPerformed1(evt);
+                jBtnCargarExperimentoActionPerformed1(evt);
             }
         });
 
-        btnInformacion.setText("Informacion");
-        btnInformacion.addActionListener(new java.awt.event.ActionListener() {
+        jBtnInformacion.setText("Informacion");
+        jBtnInformacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInformacionActionPerformed(evt);
+                jBtnInformacionActionPerformed(evt);
             }
         });
 
@@ -147,9 +196,9 @@ public class Principal extends javax.swing.JFrame {
             frenteAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(frenteAzulLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(btnCargar)
+                .addComponent(jBtnCargarExperimento)
                 .addGap(43, 43, 43)
-                .addComponent(btnInformacion)
+                .addComponent(jBtnInformacion)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         frenteAzulLayout.setVerticalGroup(
@@ -157,8 +206,8 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(frenteAzulLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(frenteAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCargar)
-                    .addComponent(btnInformacion))
+                    .addComponent(jBtnCargarExperimento)
+                    .addComponent(jBtnInformacion))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -166,295 +215,156 @@ public class Principal extends javax.swing.JFrame {
 
         cargarExperimento.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jComboBoxTipos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Fisico", "Biologico" }));
+        jComboBoxTipos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Fisico", "Biologico" }));
         jComboBoxTipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxTiposActionPerformed(evt);
             }
         });
+        cargarExperimento.add(jComboBoxTipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+
+        txtFenomeno.setText("3");
+        txtFenomeno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFenomenoActionPerformed(evt);
+            }
+        });
+        cargarExperimento.add(txtFenomeno, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 85, -1));
 
         jLabel7.setText("Fecha Fin");
+        cargarExperimento.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, -1, -1));
 
         jLabel3.setText("Descripcion");
+        cargarExperimento.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
 
         jLabel6.setText("Fecha Inicio");
+        cargarExperimento.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
+        cargarExperimento.add(jDaChInicioCientificos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, 90, -1));
+        cargarExperimento.add(jDaChFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 110, -1));
 
         jLabel8.setText("Tipo");
+        cargarExperimento.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
         lOrganismo.setText("Organismo");
+        cargarExperimento.add(lOrganismo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 13));
 
         jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel28.setText("Carga Experimento");
+        cargarExperimento.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 34));
 
         jLabel4.setText("Presupuesto");
+        cargarExperimento.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
 
+        txtTitulo.setText("1");
         txtTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTituloActionPerformed(evt);
             }
         });
+        cargarExperimento.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 220, -1));
 
-        jLabel2.setText("Titulo");
-
+        txtPresupuesto.setText("2");
         txtPresupuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPresupuestoActionPerformed(evt);
             }
         });
+        cargarExperimento.add(txtPresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 120, -1));
 
         txtOrganismo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtOrganismoActionPerformed(evt);
             }
         });
+        cargarExperimento.add(txtOrganismo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 85, -1));
 
-        lFenomeno.setText("Fenomeno");
+        lFecha.setText("Fenomeno");
+        cargarExperimento.add(lFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
         txtADescripcion.setColumns(20);
         txtADescripcion.setRows(5);
+        txtADescripcion.setText("412");
         jScrollPane2.setViewportView(txtADescripcion);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane6.setViewportView(jList1);
+        cargarExperimento.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 220, 110));
 
-        jButton1.setText("Cargar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBtnCargarCientifico.setText("Seleccion");
+        jBtnCargarCientifico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBtnCargarCientificoActionPerformed(evt);
             }
         });
+        cargarExperimento.add(jBtnCargarCientifico, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 350, -1, -1));
 
-        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel29.setText("Cargar Equipo");
-
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane7.setViewportView(jList2);
-
-        jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel30.setText("Cargar Cientifico");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel30)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel29)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(90, 90, 90)
-                                .addComponent(jButton1)))))
-                .addContainerGap(34, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jButton2.setText("Cargar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBtnEnviar.setText("Enviar");
+        jBtnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBtnEnviarActionPerformed(evt);
             }
         });
+        cargarExperimento.add(jBtnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 400, -1, -1));
 
-        btnEnviar.setText("Enviar");
-        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+        JbtnModificarExperimento.setText("Modificar");
+        JbtnModificarExperimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnviarActionPerformed(evt);
+                JbtnModificarExperimentoActionPerformed(evt);
             }
         });
+        cargarExperimento.add(JbtnModificarExperimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 400, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lOrganismo)
-                                        .addComponent(lFenomeno)
-                                        .addComponent(txtFenomeno, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtOrganismo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel6)
-                                        .addComponent(fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel7))))
-                            .addComponent(jLabel28)
-                            .addComponent(txtTitulo))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnEnviar)
-                                    .addComponent(jButton2))
-                                .addGap(34, 34, 34)))))
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEnviar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lOrganismo, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addComponent(txtOrganismo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lFenomeno)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFenomeno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jScrollPane8.setViewportView(jListMuestraExperimentos);
 
-        cargarExperimento.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 22, -1, -1));
+        cargarExperimento.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 200, 330));
+
+        jBtnEliminarExperimento.setText("Eliminar");
+        jBtnEliminarExperimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEliminarExperimentoActionPerformed(evt);
+            }
+        });
+        cargarExperimento.add(jBtnEliminarExperimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 400, -1, -1));
 
         jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel31.setText("Experimentos Cargados");
+        cargarExperimento.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, -1, -1));
 
-        jList3.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane8.setViewportView(jList3);
+        jScrollPane6.setViewportView(jListEquipos);
 
-        JbtnModificar.setText("Modificar");
-        JbtnModificar.addActionListener(new java.awt.event.ActionListener() {
+        cargarExperimento.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 170, 100));
+
+        jBtnCargarEquipo.setText("Seleccion");
+        jBtnCargarEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JbtnModificarActionPerformed(evt);
+                jBtnCargarEquipoActionPerformed(evt);
             }
         });
+        cargarExperimento.add(jBtnCargarEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, -1, -1));
 
-        JbtnModificar1.setText("Eliminar");
-        JbtnModificar1.addActionListener(new java.awt.event.ActionListener() {
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel29.setText("Cargar Equipo");
+        cargarExperimento.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, -1, -1));
+
+        jScrollPane7.setViewportView(jListCientificos);
+
+        cargarExperimento.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 170, 100));
+
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel30.setText("Cargar Cientifico");
+        cargarExperimento.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, -1, -1));
+        cargarExperimento.add(jDaChFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 110, -1));
+
+        jLabel5.setText("Titulo");
+        cargarExperimento.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+
+        lFenomeno.setText("Fecha Contratacion");
+        cargarExperimento.add(lFenomeno, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, -1, -1));
+
+        contenedor.add(cargarExperimento, "card4");
+
+        jComboBoxTiposModifica.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Fisico", "Biologico" }));
+        jComboBoxTiposModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JbtnModificar1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(JbtnModificar1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JbtnModificar))
-                    .addComponent(jLabel31, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(22, 22, 22))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JbtnModificar1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JbtnModificar, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-        );
-
-        cargarExperimento.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 240, 400));
-
-        contenedor.add(cargarExperimento, "card3");
-
-        jComboBoxTipos1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Fisico", "Biologico" }));
-        jComboBoxTipos1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxTipos1ActionPerformed(evt);
+                jComboBoxTiposModificaActionPerformed(evt);
             }
         });
 
@@ -466,62 +376,61 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel16.setText("Tipo");
 
-        lOrganismo1.setText("Organismo");
+        lOrganismoModifica.setText("Organismo");
 
         jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel32.setText("Carga Experimento");
 
         jLabel17.setText("Presupuesto");
 
-        txtTitulo1.addActionListener(new java.awt.event.ActionListener() {
+        txtTituloModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTitulo1ActionPerformed(evt);
+                txtTituloModificaActionPerformed(evt);
             }
         });
 
         jLabel18.setText("Titulo");
 
-        txtPresupuesto1.addActionListener(new java.awt.event.ActionListener() {
+        txtPresupuestoModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPresupuesto1ActionPerformed(evt);
+                txtPresupuestoModificaActionPerformed(evt);
             }
         });
 
-        txtOrganismo1.addActionListener(new java.awt.event.ActionListener() {
+        txtOrganismoModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOrganismo1ActionPerformed(evt);
+                txtOrganismoModificaActionPerformed(evt);
             }
         });
 
-        lFenomeno1.setText("Fenomeno");
+        lFenomenoModifica.setText("Fenomeno");
 
-        txtADescripcion1.setColumns(20);
-        txtADescripcion1.setRows(5);
-        jScrollPane3.setViewportView(txtADescripcion1);
+        txtADescripcionModifica.setColumns(20);
+        txtADescripcionModifica.setRows(5);
+        jScrollPane3.setViewportView(txtADescripcionModifica);
 
-        jList4.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane9.setViewportView(jList4);
-
-        jButton3.setText("Cargar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnEnviar1.setText("Enviar");
+        btnEnviar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnEnviar1ActionPerformed(evt);
             }
         });
 
-        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel33.setText("Cargar Equipo");
-
-        jList5.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jButton4.setText("Cargar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
         });
-        jScrollPane10.setViewportView(jList5);
+
+        jButtoneliminar1.setText("Eliminar");
+        jButtoneliminar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtoneliminar1ActionPerformed(evt);
+            }
+        });
+
+        jScrollPane10.setViewportView(jListCientificoModifica);
 
         jLabel34.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel34.setText("Cargar Cientifico");
@@ -533,186 +442,134 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel34)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel33)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jButtoneliminar)
+        jButton3.setText("Cargar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jScrollPane9.setViewportView(jListEquipoModifica);
+
+        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel33.setText("Cargar Equipo");
+
+        javax.swing.GroupLayout modificaLayout = new javax.swing.GroupLayout(modifica);
+        modifica.setLayout(modificaLayout);
+        modificaLayout.setHorizontalGroup(
+            modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel18)
+                        .addGroup(modificaLayout.createSequentialGroup()
+                            .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jComboBoxTiposModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel16))
+                            .addGap(18, 18, 18)
+                            .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtPresupuestoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel17)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGroup(modificaLayout.createSequentialGroup()
+                            .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lOrganismoModifica)
+                                .addComponent(lFenomenoModifica)
+                                .addComponent(txtFenomenoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtOrganismoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel15)
+                                .addComponent(fechaFinModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fechaInicioModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel13)))
+                        .addComponent(jLabel32)
+                        .addComponent(txtTituloModifica, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(54, 54, 54)
+                .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnEnviar1)
+                    .addGroup(modificaLayout.createSequentialGroup()
+                        .addComponent(jButtoneliminar1)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addComponent(jButton4))
+                    .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, modificaLayout.createSequentialGroup()
+                            .addComponent(jButtoneliminar)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton3))
+                        .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.LEADING))))
+                .addGap(547, 547, 547))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
+        modificaLayout.setVerticalGroup(
+            modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modificaLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTituloModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(modificaLayout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxTiposModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(modificaLayout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPresupuestoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12)
+                .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(modificaLayout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fechaFinModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(modificaLayout.createSequentialGroup()
+                        .addComponent(lOrganismoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)
+                        .addComponent(txtOrganismoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(modificaLayout.createSequentialGroup()
+                        .addComponent(lFenomenoModifica)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFenomenoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(modificaLayout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fechaInicioModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificaLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jButtoneliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jButton4.setText("Cargar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        btnEnviar1.setText("Enviar");
-        btnEnviar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnviar1ActionPerformed(evt);
-            }
-        });
-
-        jButtoneliminar1.setText("Eliminar");
-        jButtoneliminar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtoneliminar1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel18)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxTipos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel16))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtPresupuesto1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel17)))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lOrganismo1)
-                                    .addComponent(lFenomeno1)
-                                    .addComponent(txtFenomeno1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtOrganismo1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel15)
-                                    .addComponent(fechaFin2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fechaInicio2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel13)))
-                            .addComponent(jLabel32)
-                            .addComponent(txtTitulo1))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnEnviar1)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jButtoneliminar1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton4)))
-                                .addGap(34, 34, 34)))))
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4)
-                            .addComponent(jButtoneliminar1))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEnviar1))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBoxTipos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPresupuesto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fechaFin2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lOrganismo1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addComponent(txtOrganismo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lFenomeno1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFenomeno1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fechaInicio2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout modificaLayout = new javax.swing.GroupLayout(modifica);
-        modifica.setLayout(modificaLayout);
-        modificaLayout.setHorizontalGroup(
-            modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(modificaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(248, Short.MAX_VALUE))
-        );
-        modificaLayout.setVerticalGroup(
-            modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(modificaLayout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jButtoneliminar1))
+                .addGap(18, 18, 18)
+                .addComponent(btnEnviar1)
+                .addGap(34, 34, 34))
         );
 
         contenedor.add(modifica, "card5");
@@ -721,8 +578,8 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(frenteAzul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(frenteAzul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -739,19 +596,90 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTituloActionPerformed
 
-    private void btnCargarActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed1
+    private void jBtnCargarExperimentoActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarExperimentoActionPerformed1
         // TODO add your handling code here:
+        lFecha.setVisible(false);
+        lOrganismo.setVisible(false);
+        txtFenomeno.setVisible(false);
+        txtOrganismo.setVisible(false);
+        auxListaEquipos.clear();
+        auxListaCientifico.clear();
         contenedor.removeAll();
         contenedor.add(cargarExperimento);
         contenedor.repaint();
         contenedor.revalidate();
-        lFenomeno.setVisible(false);
-        lOrganismo.setVisible(false);
-        txtFenomeno.setVisible(false);
-        txtOrganismo.setVisible(false);
-    }//GEN-LAST:event_btnCargarActionPerformed1
 
-    private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
+        limpiarCampos();
+
+    }//GEN-LAST:event_jBtnCargarExperimentoActionPerformed1
+
+    // Funcion para limpiar campos
+    private void limpiarCampos() {
+        // Limpiar Titulo
+        txtTitulo.setText("");
+
+        // Limpiar Combo box
+        jComboBoxTipos.setSelectedItem("-");
+
+        // Limpiar Presupuesto
+        txtPresupuesto.setText("");
+
+        // Limpiar Descripcion
+        txtADescripcion.setText("");
+
+        // Limpiar Fecha inicio
+        jDaChFechaInicio.setDate(null);
+
+        // Limpiar Fecha fin
+        jDaChFechaFin.setDate(null);
+
+        // Seteo model de cientifico de 0
+        DefaultListModel modelCientifico = new DefaultListModel();
+        for (Cientifico e : listaCientifico) {
+            modelCientifico.addElement(e.getNombre() + " " + e.getApellido());
+        }
+        jListCientificos.setModel(modelCientifico);
+
+        // Fecha Contratacion
+        jDaChInicioCientificos.setDate(null);
+
+        // Seteo Model de Equipo de 0 
+        DefaultListModel modelEquipo = new DefaultListModel();
+
+        for (Equipo e : listaEquipo) {
+            modelEquipo.addElement(e.getNombre());
+        }
+        jListEquipos.setModel(modelEquipo);
+
+    }
+
+    //Imprime lista BioFis para ver si esta bien cargada
+    private void imprimirPorPantallaListaPrincipal() {
+        int n = 0;
+        for (Experimento e : listaExperimentosBioFis) {
+            System.out.println("EXPERIMENTO: " + n++);
+            System.out.println(e.getTitulo());
+            System.out.println(e.getDescripcion());
+            System.out.println(e.getFin());
+            System.out.println(e.getInicio());
+            System.out.println(e.getPresupuesto());
+            int j = 0;
+            for (Equipo i : e.getListaEquipo()) {
+                System.out.println(i.getNombre() + " EQUIPO"+ j++);//"""" IMPRRIME EL NOMBRE Y TAMBIEN IMPRIME EL SET MODEL ????""""
+            }
+            j = 0;
+            for (Cientifico i : e.getListaCientifico()) {
+                System.out.println(i.getNombre() + " CIENTIFICO"+ j++);//"""" IMPRRIME EL NOMBRE Y TAMBIEN IMPRIME EL SET MODEL ????""""
+            }
+            if (e instanceof Experimento_Biologico) {
+                System.out.println(((Experimento_Biologico) e).getOrganismo());
+            } else if (e instanceof Experimento_Fisico) {
+                System.out.println(((Experimento_Fisico) e).getFenomeno());
+            }
+        }
+    }
+
+    private void jBtnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEnviarActionPerformed
 
         // Titulo
         String expTitulo = txtTitulo.getText().trim();
@@ -771,21 +699,21 @@ public class Principal extends javax.swing.JFrame {
         String expDescripcion = txtADescripcion.getText().trim();
         if ("".equals(expDescripcion)) {
             JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
-            
+
             return;
         }
 
         // Fecha inicio
-        Date expFechaInicioValue = fechaInicio.getDate();
-        if (fechaInicio.getDate() == null) {
+        Date expFechaInicioValue = jDaChFechaInicio.getDate();
+        if (jDaChFechaInicio.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
             return;
             // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
         }
 
         // Fecha fin
-        Date expFechaFinValue = fechaFin.getDate();
-        if (fechaFin.getDate() == null) {
+        Date expFechaFinValue = jDaChFechaFin.getDate();
+        if (jDaChFechaFin.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
             return;
             // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
@@ -804,6 +732,29 @@ public class Principal extends javax.swing.JFrame {
             return;
         }
 
+        // Cientifico
+        ArrayList<Cientifico> expCientifico = auxListaCientifico;
+        if (auxListaCientifico.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun cientifico.");
+            return;
+        }
+
+        // Equipos
+        ArrayList<Equipo> expEquipo = auxListaEquipos;
+        if (auxListaEquipos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun equipo.");
+            return;
+        }
+
+        //Tipo
+        //(String) castea lo seleccionado del combo box a tipo String.
+        String expTipo = (String) jComboBoxTipos.getSelectedItem();
+        System.out.println(expTipo);
+        if (jComboBoxTipos.getSelectedItem().equals("-")) {
+            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun tipo.");
+            return;
+        }
+
         // Biologico
         if ("Biologico".equals(jComboBoxTipos.getSelectedItem())) {
             // Organismo
@@ -817,10 +768,11 @@ public class Principal extends javax.swing.JFrame {
                             expTitulo,
                             expDescripcion,
                             expPresupuestoFloat,
+                            expTipo,
                             expFechaInicioValue,
                             expFechaFinValue,
-                            new ArrayList<>(),
-                            new ArrayList<>(),
+                            expCientifico,
+                            expEquipo,
                             expOrganismo));
             // Fisico
         } else if ("Fisico".equals(jComboBoxTipos.getSelectedItem())) {
@@ -835,10 +787,11 @@ public class Principal extends javax.swing.JFrame {
                             expTitulo,
                             expDescripcion,
                             expPresupuestoFloat,
+                            expTipo,
                             expFechaInicioValue,
                             expFechaFinValue,
-                            new ArrayList<>(),
-                            new ArrayList<>(),
+                            expCientifico,
+                            expEquipo,
                             expFenomeno));
 
         } else {
@@ -848,52 +801,29 @@ public class Principal extends javax.swing.JFrame {
             //hay que poner que va a dar un error
             //cada vez que hay un campo vacio colocar un return
         }
-        
+
+        // Seteo el model del jlist experimentos. " HACER FUNCION " 
         DefaultListModel model = new DefaultListModel();
-        for (Experimento e : listaExperimentosBioFis){
-            model.addElement( e.getTitulo());
+        for (Experimento e : listaExperimentosBioFis) {
+            model.addElement(e.getTitulo());
         }
-        jListModifica1.setModel((model ));
-        
-        contenedor.removeAll();
-        contenedor.add(cargarEquipo);
+        jListMuestraExperimentos.setModel(model);
+
+        // Funcion para limpiar todo " Hacer todo"
+        limpiarCampos();
+
         contenedor.repaint();
         contenedor.revalidate();
 
-        for (Experimento e : listaExperimentosBioFis) {
-            System.out.println(e.getTitulo());
-            System.out.println(e.getDescripcion());
-            System.out.println(e.getFin());
-            System.out.println(e.getInicio());
-            System.out.println(e.getPresupuesto());
-            if (e instanceof Experimento_Biologico) {
-                System.out.println(((Experimento_Biologico) e).getOrganismo());
-            } else if (e instanceof Experimento_Fisico) {
-                System.out.println(((Experimento_Fisico) e).getFenomeno());
-            }
+        // Para ver si se cargan dentro de lista principal
+//        
+//
+//        }
+        imprimirPorPantallaListaPrincipal();
 
-        }
-        jListaEquipos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
-        ArrayList<Equipo> listaEquipo = new ArrayList<>();//esta lista es para llenar la lista de la interfaz
-        
-        Equipo a = new Equipo("Martillo","Martilla","Todas");
-        Equipo b = new Equipo("Tornillo","Martisdadsalla","Todasffsafdsa");
-        Equipo c = new Equipo("Rosca","de tu ","");
-        //hacer la lectura de archivo de los equipos
-        listaEquipo.add(a);
-        listaEquipo.add(b);
-        listaEquipo.add(c);
-        
-        DefaultListModel modelEquipo = new  DefaultListModel();
-                
-        for (Equipo e : listaEquipo){
-            modelEquipo.addElement( e.getNombre());
-        }
-        jListaEquipos.setModel((modelEquipo ));
-
-
-    }//GEN-LAST:event_btnEnviarActionPerformed
+        auxListaEquipos.clear();
+        auxListaCientifico.clear();
+    }//GEN-LAST:event_jBtnEnviarActionPerformed
 
     private void jComboBoxTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTiposActionPerformed
         // TODO add your handling code here:
@@ -901,17 +831,17 @@ public class Principal extends javax.swing.JFrame {
         if ("Biologico".equals(jComboBoxTipos.getSelectedItem())) {
             lOrganismo.setVisible(true);
             txtOrganismo.setVisible(true);
-            lFenomeno.setVisible(false);
+            lFecha.setVisible(false);
             txtFenomeno.setVisible(false);
         } else if ("Fisico".equals(jComboBoxTipos.getSelectedItem())) {
-            lFenomeno.setVisible(true);
+            lFecha.setVisible(true);
             txtFenomeno.setVisible(true);
             lOrganismo.setVisible(false);
             txtOrganismo.setVisible(false);
         } else {
             lOrganismo.setVisible(false);
             txtOrganismo.setVisible(false);
-            lFenomeno.setVisible(false);
+            lFecha.setVisible(false);
             txtFenomeno.setVisible(false);
         }
 
@@ -922,49 +852,81 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtOrganismoActionPerformed
 
-    private void btnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformacionActionPerformed
+    private void jBtnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInformacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnInformacionActionPerformed
-
-    private void JbtnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnModificarActionPerformed
-        // TODO add your handling code here:
-        contenedor.removeAll();
-        contenedor.add(modifica);
-        contenedor.repaint();
-        contenedor.revalidate();
-    }//GEN-LAST:event_JbtnModificarActionPerformed
+    }//GEN-LAST:event_jBtnInformacionActionPerformed
 
     private void txtPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPresupuestoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPresupuestoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jBtnCargarCientificoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarCientificoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        // Cientifico 
+        String auxCientifico = jListCientificos.getSelectedValue();
 
-    private void JbtnModificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnModificar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JbtnModificar1ActionPerformed
+        // Control de cientifico 
+        if (auxCientifico == null) {
+            JOptionPane.showMessageDialog(null, "Seleccione un cientifico valido");
+            return;
+        }
 
-    private void jComboBoxTipos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipos1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxTipos1ActionPerformed
+        // Control de Fecha
+        Date auxFecha = jDaChInicioCientificos.getDate();
+        if (jDaChInicioCientificos.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
+            return;
+            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+        }
 
-    private void txtTitulo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitulo1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTitulo1ActionPerformed
+// LLeno la lista auxiliar para luego pasarla al experimento.
+        for (Cientifico e : listaCientifico) {
+            if (auxCientifico.contains("-")) {
+                auxListaCientifico.remove(e);
+            }
+            if (auxCientifico.contains(e.getDni())) {
+                auxListaCientifico.add(e);
+            }
+        }
 
-    private void txtPresupuesto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPresupuesto1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPresupuesto1ActionPerformed
+        // Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
+//        DefaultListModel modelEquipo = new DefaultListModel();
+        DefaultListModel modelCientifico = new DefaultListModel();
+        for (Cientifico e : listaCientifico) {
+            if (auxListaCientifico.contains(e)) {
+                modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni() + " - " + auxFecha);
+            } else {
+                modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
+            }
+        }
 
-    private void txtOrganismo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrganismo1ActionPerformed
+        jListCientificos.setModel(modelCientifico);
+        Cientifico cientifico = new Cientifico(auxCientifico, auxFecha);
+        auxListaCientifico.add(cientifico);
+
+        // Repintar contenedor
+        contenedor.repaint();
+        contenedor.revalidate();
+
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtOrganismo1ActionPerformed
+
+    }//GEN-LAST:event_jBtnCargarCientificoActionPerformed
+
+    private void jComboBoxTiposModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTiposModificaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxTiposModificaActionPerformed
+
+    private void txtTituloModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloModificaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTituloModificaActionPerformed
+
+    private void txtPresupuestoModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPresupuestoModificaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPresupuestoModificaActionPerformed
+
+    private void txtOrganismoModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrganismoModificaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtOrganismoModificaActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -985,6 +947,201 @@ public class Principal extends javax.swing.JFrame {
     private void jButtoneliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtoneliminar1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtoneliminar1ActionPerformed
+
+    private void jBtnEliminarExperimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarExperimentoActionPerformed
+        // TODO add your handling code here:
+
+        // Error por si no selecciona
+        if (jListMuestraExperimentos.getSelectedValue() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Seleccione un experimento de la lista.");
+            return;
+        }
+
+        // Eliminar elemento de la lista con iterador
+        // No es seguro modificar lista con un bucle for each ya que lansa exepcion ConcurrentModificationException
+        String experimentoSeleccionado = (String) jListMuestraExperimentos.getSelectedValue();
+
+        //Un Iterator es una interfaz en Java que se utiliza para recorrer y manipular colecciones de elementos, como listas, conjuntos y mapas. Se utiliza para garantizar un acceso controlado 
+        //y seguro a los elementos de una colección, lo que lo hace especialmente útil para eliminar elementos mientras se itera a través de la colección.
+        Iterator<Experimento> iter = listaExperimentosBioFis.iterator();
+
+        //iter.hasNext() verifica si hay elementos restantes en la iteración. Mientras haya elementos en la lista no iterados, el bucle continuará.
+        //El bucle while continuará hasta que hasNext() sea false, lo que significa que se han revisado todos los elementos de la lista. 
+        while (iter.hasNext()) {
+
+            //avanza al siguiente elemento en la lista y lo almacena en la variable exp. Esto permite que accedas a los elementos individuales de la lista uno por uno.
+            Experimento exp = iter.next();
+
+            //Busca el que queremos eliminar
+            if (experimentoSeleccionado.equals(exp.getTitulo())) {
+                //Cuando se encuentra el elemento que deseas eliminar, se utiliza el método remove() del Iterator para eliminarlo de la lista listaExperimentosBioFis
+                iter.remove(); // Elimina el experimento de la lista
+            }
+        }
+
+        // Seteo el modelo de vuelta para que se vea sin el eliminado
+        DefaultListModel model = new DefaultListModel();
+        for (Experimento e : listaExperimentosBioFis) {
+            model.addElement(e.getTitulo());
+        }
+        jListMuestraExperimentos.setModel(model);
+
+        contenedor.repaint();
+        contenedor.revalidate();
+
+    }//GEN-LAST:event_jBtnEliminarExperimentoActionPerformed
+
+    private void JbtnModificarExperimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnModificarExperimentoActionPerformed
+        // TODO add your handling code here:
+        int auxIndex = 0;
+
+        for (Experimento e : listaExperimentosBioFis) {
+            for (Cientifico i : e.getListaCientifico()) {
+                System.out.println(i.getNombre());
+            }
+        }
+
+        if (jListMuestraExperimentos.getSelectedValue() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Seleccione un experimento de la lista.");
+            return;
+        }
+        Experimento aux = null;
+
+        // Busco el elemento seleccionado de la lista dentro de mi lista principal
+        for (Experimento exp : listaExperimentosBioFis) {
+            if (jListMuestraExperimentos.getSelectedValue().equals(exp.getTitulo())) {
+                for (Equipo e : exp.getListaEquipo()) {
+                    System.out.println(e.getNombre());
+                }
+                aux = exp;
+
+                // Guardamos index para luego borrar y guardar en la misma posicion
+                auxIndex = listaExperimentosBioFis.indexOf(exp);
+            }
+        }
+        if (aux == null) {
+            JOptionPane.showMessageDialog(null, "Esto no va a suceder nunca");
+            return;
+        }
+        contenedor.removeAll();
+        contenedor.add(modifica);
+        contenedor.repaint();
+        contenedor.revalidate();
+
+        // Modifica Titulo
+        txtTituloModifica.setText(aux.getTitulo());
+
+        // Modifica Descripcion
+        txtADescripcionModifica.setText(aux.getDescripcion());
+
+        // Modifica Presupuesto
+        txtPresupuestoModifica.setText(Float.toString(aux.getPresupuesto()));
+
+        //Modifica ComboBox
+        jComboBoxTiposModifica.setSelectedItem(aux.getTipo());
+
+        if (aux.getTipo().equals("Biologico")) {
+            // Modifica Organismo
+            txtOrganismoModifica.setText("Biologico");
+            txtFenomenoModifica.setVisible(false);
+            lFenomenoModifica.setVisible(false);
+
+        } else {
+            // Modifica Fenomeno
+            txtFenomenoModifica.setText("Fisico");
+            txtOrganismoModifica.setVisible(false);
+            lOrganismoModifica.setVisible(false);
+
+        }
+
+        // Modifica Lista Equipo
+        DefaultListModel modelEquipo = new DefaultListModel();
+
+        System.out.println(aux.getListaEquipo().isEmpty());
+
+        for (Equipo e : aux.getListaEquipo()) {
+            System.out.println(e.getNombre());
+            System.out.println("hola");
+        }
+
+        for (Equipo e : listaEquipo) {
+            if (aux.getListaEquipo().contains(e)) {
+                modelEquipo.addElement(e.getNombre() + " - Seleccionado");
+                System.out.println("Hola");//NO ENTRA A ESTO PORQUE NO TIENE INFO 
+            } else {
+                modelEquipo.addElement(e.getNombre());
+
+            }
+
+        }
+
+        jListEquipoModifica.setModel(modelEquipo);
+
+        // Modifica Lista Cientifico
+        DefaultListModel modelCientifico = new DefaultListModel();
+        for (Cientifico c : listaCientifico) {
+            if (aux.getListaCientifico().contains(c)) {
+                modelCientifico.addElement(c.getNombre() + " " + c.getApellido() + "-" + c.getContratacion());
+                System.out.println("Hola");//NO ENTRA A ESTO
+            } else {
+                modelCientifico.addElement(c.getNombre() + " " + c.getApellido());
+            }
+        }
+        jListCientificoModifica.setModel(modelCientifico);
+
+        // Modifica Fecha Fin
+        fechaFinModifica.setDate(aux.getFin());
+        // Modifica Fecha Inicio
+        fechaInicioModifica.setDate(aux.getInicio());
+        contenedor.repaint();
+        contenedor.revalidate();
+    }//GEN-LAST:event_JbtnModificarExperimentoActionPerformed
+
+    private void jBtnCargarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarEquipoActionPerformed
+
+        //Equipo
+        String auxEquipo = jListEquipos.getSelectedValue();
+
+        // Control de Equipo
+        if (auxEquipo == null) {
+            JOptionPane.showMessageDialog(null, "Seleccione un Equipo valido");
+            return;
+        }
+        // LLeno la lista auxiliar para luego pasarla al experimento.
+        for (Equipo e : listaEquipo) {
+            if ((e.getNombre() + " - Seleccionado").equals(auxEquipo)) {
+                auxListaEquipos.remove(e);
+            }
+            if ((e.getNombre()).equals(auxEquipo)) {
+                auxListaEquipos.add(e);
+            }
+        }
+
+        //Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
+        DefaultListModel modelEquipo = new DefaultListModel();
+
+        for (Equipo e : listaEquipo) {
+            if (auxListaEquipos.contains(e)) {
+                modelEquipo.addElement(e.getNombre() + " - Seleccionado");
+            } else {
+                modelEquipo.addElement(e.getNombre());
+            }
+
+        }
+
+        jListEquipos.setModel(modelEquipo);
+
+//        // Guardo en la lista auxiliar de equipo
+//        Equipo equipo = new Equipo(auxEquipo);
+//        auxListaEquipos.add(equipo);
+        repaint();
+        revalidate();
+
+    }//GEN-LAST:event_jBtnCargarEquipoActionPerformed
+
+    private void txtFenomenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFenomenoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFenomenoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1031,21 +1188,19 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton JbtnModificar;
-    private javax.swing.JButton JbtnModificar1;
-    private javax.swing.JButton btnCargar;
-    private javax.swing.JButton btnEnviar;
+    private javax.swing.JButton JbtnModificarExperimento;
     private javax.swing.JButton btnEnviar1;
-    private javax.swing.JButton btnInformacion;
     private javax.swing.JPanel cargarExperimento;
     private javax.swing.JPanel contenedor;
-    private com.toedter.calendar.JDateChooser fechaFin;
-    private com.toedter.calendar.JDateChooser fechaFin2;
-    private com.toedter.calendar.JDateChooser fechaInicio;
-    private com.toedter.calendar.JDateChooser fechaInicio2;
+    private com.toedter.calendar.JDateChooser fechaFinModifica;
+    private com.toedter.calendar.JDateChooser fechaInicioModifica;
     private javax.swing.JPanel frenteAzul;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jBtnCargarCientifico;
+    private javax.swing.JButton jBtnCargarEquipo;
+    private javax.swing.JButton jBtnCargarExperimento;
+    private javax.swing.JButton jBtnEliminarExperimento;
+    private javax.swing.JButton jBtnEnviar;
+    private javax.swing.JButton jBtnInformacion;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtoneliminar;
@@ -1053,14 +1208,16 @@ public class Principal extends javax.swing.JFrame {
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBoxTipos;
-    private javax.swing.JComboBox<String> jComboBoxTipos1;
+    private javax.swing.JComboBox<String> jComboBoxTiposModifica;
+    private com.toedter.calendar.JDateChooser jDaChFechaFin;
+    private com.toedter.calendar.JDateChooser jDaChFechaInicio;
+    private com.toedter.calendar.JDateChooser jDaChInicioCientificos;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
@@ -1070,19 +1227,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
-    private javax.swing.JList<String> jList3;
-    private javax.swing.JList<String> jList4;
-    private javax.swing.JList<String> jList5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JList<String> jListCientificoModifica;
+    private javax.swing.JList<String> jListCientificos;
+    private javax.swing.JList<String> jListEquipoModifica;
+    private javax.swing.JList<String> jListEquipos;
+    private javax.swing.JList<String> jListMuestraExperimentos;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1091,20 +1244,21 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lFecha;
     private javax.swing.JLabel lFenomeno;
-    private javax.swing.JLabel lFenomeno1;
+    private javax.swing.JLabel lFenomenoModifica;
     private javax.swing.JLabel lOrganismo;
-    private javax.swing.JLabel lOrganismo1;
+    private javax.swing.JLabel lOrganismoModifica;
     private javax.swing.JPanel modifica;
     private javax.swing.JTextArea txtADescripcion;
-    private javax.swing.JTextArea txtADescripcion1;
+    private javax.swing.JTextArea txtADescripcionModifica;
     private javax.swing.JTextField txtFenomeno;
-    private javax.swing.JTextField txtFenomeno1;
+    private javax.swing.JTextField txtFenomenoModifica;
     private javax.swing.JTextField txtOrganismo;
-    private javax.swing.JTextField txtOrganismo1;
+    private javax.swing.JTextField txtOrganismoModifica;
     private javax.swing.JTextField txtPresupuesto;
-    private javax.swing.JTextField txtPresupuesto1;
+    private javax.swing.JTextField txtPresupuestoModifica;
     private javax.swing.JTextField txtTitulo;
-    private javax.swing.JTextField txtTitulo1;
+    private javax.swing.JTextField txtTituloModifica;
     // End of variables declaration//GEN-END:variables
 }
