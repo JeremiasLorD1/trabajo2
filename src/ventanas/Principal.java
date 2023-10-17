@@ -34,9 +34,9 @@ public class Principal extends javax.swing.JFrame {
     ArrayList<Experimento> listaExperimentosBioFis;
     ArrayList<Equipo> auxListaEquipos;
     ArrayList<Cientifico> auxListaCientifico;
-    // Esta es la informacion inicial de mi programa, ya que no se usar archivos. jijiji.
-    
-    
+    int auxIndex;
+// Esta es la informacion inicial de mi programa, ya que no se usar archivos. jijiji.
+
     AdministradorDeRecursos recursos;
 
     //Objeto auxiliar para cargar la lista
@@ -50,7 +50,6 @@ public class Principal extends javax.swing.JFrame {
 
         jListEquipos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        
         // Seteo model Equipo
         DefaultListModel modelEquipo = new DefaultListModel();
 
@@ -61,8 +60,6 @@ public class Principal extends javax.swing.JFrame {
 
         // Carga de Cientifico 
         jListCientificos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        
 
         // Seteo model Cientifico
         DefaultListModel modelCientifico = new DefaultListModel();
@@ -134,8 +131,8 @@ public class Principal extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        fechaFinModifica = new com.toedter.calendar.JDateChooser();
-        fechaInicioModifica = new com.toedter.calendar.JDateChooser();
+        jDaChFechaInicioModifica = new com.toedter.calendar.JDateChooser();
+        jDaChFechaFinModifica = new com.toedter.calendar.JDateChooser();
         jLabel16 = new javax.swing.JLabel();
         lOrganismoModifica = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
@@ -147,17 +144,17 @@ public class Principal extends javax.swing.JFrame {
         lFenomenoModifica = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtADescripcionModifica = new javax.swing.JTextArea();
-        btnEnviar1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButtoneliminar1 = new javax.swing.JButton();
+        btnEnviarModifica = new javax.swing.JButton();
+        jBtnCargarCientificoModifica = new javax.swing.JButton();
         jScrollPane10 = new javax.swing.JScrollPane();
         jListCientificoModifica = new javax.swing.JList<>();
         jLabel34 = new javax.swing.JLabel();
-        jButtoneliminar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jBtnSeleccionEquipoModifica = new javax.swing.JButton();
         jScrollPane9 = new javax.swing.JScrollPane();
         jListEquipoModifica = new javax.swing.JList<>();
         jLabel33 = new javax.swing.JLabel();
+        jDaChInicioCientificos1 = new com.toedter.calendar.JDateChooser();
+        lFenomeno1 = new javax.swing.JLabel();
         jPanelInformacion = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -359,216 +356,117 @@ public class Principal extends javax.swing.JFrame {
 
         contenedor.add(cargarExperimento, "card4");
 
+        modifica.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jComboBoxTiposModifica.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Fisico", "Biologico" }));
         jComboBoxTiposModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxTiposModificaActionPerformed(evt);
             }
         });
+        modifica.add(jComboBoxTiposModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 144, -1, -1));
+        modifica.add(txtFenomenoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 256, 85, -1));
 
         jLabel13.setText("Fecha Fin");
+        modifica.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 234, -1, -1));
 
         jLabel14.setText("Descripcion");
+        modifica.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 290, -1, -1));
 
         jLabel15.setText("Fecha Inicio");
+        modifica.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 178, -1, -1));
+        modifica.add(jDaChFechaInicioModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 200, -1, -1));
+        modifica.add(jDaChFechaFinModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 256, -1, -1));
 
         jLabel16.setText("Tipo");
+        modifica.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 122, -1, -1));
 
         lOrganismoModifica.setText("Organismo");
+        modifica.add(lOrganismoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 178, -1, 13));
 
         jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel32.setText("Carga Experimento");
+        modifica.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 6, -1, 34));
 
         jLabel17.setText("Presupuesto");
+        modifica.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 122, -1, -1));
 
         txtTituloModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTituloModificaActionPerformed(evt);
             }
         });
+        modifica.add(txtTituloModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 88, 192, -1));
 
         jLabel18.setText("Titulo");
+        modifica.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 66, -1, -1));
 
         txtPresupuestoModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPresupuestoModificaActionPerformed(evt);
             }
         });
+        modifica.add(txtPresupuestoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 144, 90, -1));
 
         txtOrganismoModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtOrganismoModificaActionPerformed(evt);
             }
         });
+        modifica.add(txtOrganismoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 198, 85, -1));
 
         lFenomenoModifica.setText("Fenomeno");
+        modifica.add(lFenomenoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 234, -1, -1));
 
         txtADescripcionModifica.setColumns(20);
         txtADescripcionModifica.setRows(5);
         jScrollPane3.setViewportView(txtADescripcionModifica);
 
-        btnEnviar1.setText("Enviar");
-        btnEnviar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnviar1ActionPerformed(evt);
-            }
-        });
+        modifica.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 318, 193, -1));
 
-        jButton4.setText("Cargar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnEnviarModifica.setText("Enviar");
+        btnEnviarModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnEnviarModificaActionPerformed(evt);
             }
         });
+        modifica.add(btnEnviarModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 390, -1, -1));
 
-        jButtoneliminar1.setText("Eliminar");
-        jButtoneliminar1.addActionListener(new java.awt.event.ActionListener() {
+        jBtnCargarCientificoModifica.setText("Seleccion");
+        jBtnCargarCientificoModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtoneliminar1ActionPerformed(evt);
+                jBtnCargarCientificoModificaActionPerformed(evt);
             }
         });
+        modifica.add(jBtnCargarCientificoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, -1, -1));
 
         jScrollPane10.setViewportView(jListCientificoModifica);
 
+        modifica.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 235, 162, 97));
+
         jLabel34.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel34.setText("Cargar Cientifico");
+        modifica.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 195, -1, 34));
 
-        jButtoneliminar.setText("Eliminar");
-        jButtoneliminar.addActionListener(new java.awt.event.ActionListener() {
+        jBtnSeleccionEquipoModifica.setText("Seleccion");
+        jBtnSeleccionEquipoModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtoneliminarActionPerformed(evt);
+                jBtnSeleccionEquipoModificaActionPerformed(evt);
             }
         });
-
-        jButton3.setText("Cargar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        modifica.add(jBtnSeleccionEquipoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 166, -1, -1));
 
         jScrollPane9.setViewportView(jListEquipoModifica);
 
+        modifica.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 62, 162, 98));
+
         jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel33.setText("Cargar Equipo");
+        modifica.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 18, -1, 34));
+        modifica.add(jDaChInicioCientificos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 90, -1));
 
-        javax.swing.GroupLayout modificaLayout = new javax.swing.GroupLayout(modifica);
-        modifica.setLayout(modificaLayout);
-        modificaLayout.setHorizontalGroup(
-            modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14)
-                    .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel18)
-                        .addGroup(modificaLayout.createSequentialGroup()
-                            .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jComboBoxTiposModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel16))
-                            .addGap(18, 18, 18)
-                            .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtPresupuestoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel17)))
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGroup(modificaLayout.createSequentialGroup()
-                            .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lOrganismoModifica)
-                                .addComponent(lFenomenoModifica)
-                                .addComponent(txtFenomenoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtOrganismoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel15)
-                                .addComponent(fechaFinModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(fechaInicioModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel13)))
-                        .addComponent(jLabel32)
-                        .addComponent(txtTituloModifica, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(54, 54, 54)
-                .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnEnviar1)
-                    .addGroup(modificaLayout.createSequentialGroup()
-                        .addComponent(jButtoneliminar1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4))
-                    .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, modificaLayout.createSequentialGroup()
-                            .addComponent(jButtoneliminar)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton3))
-                        .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel33, javax.swing.GroupLayout.Alignment.LEADING))))
-                .addGap(547, 547, 547))
-        );
-        modificaLayout.setVerticalGroup(
-            modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(modificaLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTituloModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(modificaLayout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxTiposModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(modificaLayout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPresupuestoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12)
-                .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(modificaLayout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fechaFinModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(modificaLayout.createSequentialGroup()
-                        .addComponent(lOrganismoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addComponent(txtOrganismoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(modificaLayout.createSequentialGroup()
-                        .addComponent(lFenomenoModifica)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFenomenoModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(modificaLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fechaInicioModifica, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel14)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modificaLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButtoneliminar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(modificaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButtoneliminar1))
-                .addGap(18, 18, 18)
-                .addComponent(btnEnviar1)
-                .addGap(34, 34, 34))
-        );
+        lFenomeno1.setText("Fecha Contratacion");
+        modifica.add(lFenomeno1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, -1, -1));
 
         contenedor.add(modifica, "card5");
 
@@ -775,7 +673,6 @@ public class Principal extends javax.swing.JFrame {
 // LLeno la lista auxiliar para luego pasarla al experimento.
         for (Cientifico e : recursos.getListaCientifico()) {
             if (auxCientifico.contains(e.getDni()) && auxCientifico.contains("-")) {
-                System.out.println("ENTRA 1");
                 auxListaCientifico.remove(e);
             }
             if ((e.getNombre() + " " + e.getApellido() + " " + e.getDni()).equals(auxCientifico)) {
@@ -820,28 +717,159 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtOrganismoModificaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jBtnSeleccionEquipoModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSeleccionEquipoModificaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jBtnSeleccionEquipoModificaActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jBtnCargarCientificoModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarCientificoModificaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jBtnCargarCientificoModificaActionPerformed
 
-    private void btnEnviar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviar1ActionPerformed
+    private void btnEnviarModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarModificaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEnviar1ActionPerformed
+        // Titulo
+        String expTitulo = txtTituloModifica.getText().trim();
+        //Trim borra los espacios iniciales y si tiene un titulo de solo espacios lo toma como si fuera ""
+        if ("".equals(expTitulo)) {
+            JOptionPane.showMessageDialog(null, "Error: El campo de titulo esta vacio.");
+            return;
 
-    private void jButtoneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtoneliminarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtoneliminarActionPerformed
+        }
+        // Descripcion
+        String expDescripcion = txtADescripcionModifica.getText().trim();
+        if ("".equals(expDescripcion)) {
+            JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
 
-    private void jButtoneliminar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtoneliminar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtoneliminar1ActionPerformed
+            return;
+        }
+
+        // Fecha inicio
+        Date expFechaInicioValue = jDaChFechaInicioModifica.getDate();
+        if (jDaChFechaInicioModifica.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
+            return;
+            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+        }
+
+        // Fecha fin
+        Date expFechaFinValue = jDaChFechaFinModifica.getDate();
+        if (jDaChFechaFinModifica.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
+            return;
+            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+        }
+
+        // Presupuesto
+        float expPresupuestoFloat;
+        try {
+            expPresupuestoFloat = Float.parseFloat(txtPresupuestoModifica.getText().trim());
+            // Ahora tienes el valor en formato float
+            // Lo que hacemos con el try es ver que sea un numero si no lansa la exepcion. Para que no se rompa el programa y lo atrapamos con
+            //el catch.
+        } catch (NumberFormatException e) {
+            // Maneja aquí la excepción si la entrada no es un float válido
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor float válido.");
+            return;
+        }
+
+        // Cientifico
+        if (auxListaCientifico.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun cientifico.");
+            return;
+        }
+
+        // Equipos
+        if (auxListaEquipos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun equipo.");
+            return;
+        }
+
+        //Tipo
+        //(String) castea lo seleccionado del combo box a tipo String.
+        String expTipo = (String) jComboBoxTiposModifica.getSelectedItem();
+        System.out.println(expTipo);
+        if (jComboBoxTiposModifica.getSelectedItem().equals("-")) {
+            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun tipo.");
+            return;
+        }
+
+        // Biologico
+        if ("Biologico".equals(jComboBoxTiposModifica.getSelectedItem())) {
+            // Organismo
+            String expOrganismo = txtOrganismoModifica.getText().trim();
+            if ("".equals(expOrganismo)) {
+                JOptionPane.showMessageDialog(null, "Error: El campo de organismo esta vacio.");
+                return;
+            }
+            listaExperimentosBioFis.remove(auxIndex);
+            listaExperimentosBioFis.add(auxIndex,
+                    new Experimento_Biologico(
+                            expTitulo,
+                            expDescripcion,
+                            expPresupuestoFloat,
+                            expTipo,
+                            expFechaInicioValue,
+                            expFechaFinValue,
+                            (ArrayList<Cientifico>) auxListaCientifico.clone(),//Tengo que clonar la lista porque si lo hago de manera directa lo que pasa en realidad es que el puntero va a la direccion de memoria de la lista y esa esta permamentemente cambiando.
+                            (ArrayList<Equipo>) auxListaEquipos.clone(),
+                            expOrganismo));
+            // Fisico
+        } else if ("Fisico".equals(jComboBoxTiposModifica.getSelectedItem())) {
+            // Fenomeno
+            String expFenomeno = txtFenomenoModifica.getText().trim();
+            if ("".equals(expFenomeno)) {
+                JOptionPane.showMessageDialog(null, "Error: El campo de fenomeno esta vacio.");
+                return;
+            }
+            listaExperimentosBioFis.remove(auxIndex);
+            listaExperimentosBioFis.add(auxIndex,
+                    new Experimento_Fisico(
+                            expTitulo,
+                            expDescripcion,
+                            expPresupuestoFloat,
+                            expTipo,
+                            expFechaInicioValue,
+                            expFechaFinValue,
+                            (ArrayList<Cientifico>) auxListaCientifico.clone(),
+                            (ArrayList<Equipo>) auxListaEquipos.clone(),
+                            expFenomeno));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: elige un tipo de experimento.");
+            return;
+
+            //hay que poner que va a dar un error
+            //cada vez que hay un campo vacio colocar un return
+        }
+
+        // Seteo el model del jlist experimentos. " HACER FUNCION "
+        DefaultListModel model = new DefaultListModel();
+        for (Experimento e : listaExperimentosBioFis) {
+            model.addElement(e.getTitulo());
+        }
+        jListMuestraExperimentos.setModel(model);
+
+        // Funcion para limpiar todo " Hacer todo"
+        limpiarCampos();
+
+        // Para ver si se cargan dentro de lista principal
+        //
+        //
+        //        }
+        imprimirPorPantallaListaPrincipal();
+
+        auxListaEquipos.clear();
+        auxListaCientifico.clear();
+        contenedor.removeAll();
+        contenedor.add(cargarExperimento);
+        contenedor.repaint();
+        contenedor.revalidate();
+
+
+    }//GEN-LAST:event_btnEnviarModificaActionPerformed
 
     private void jBtnEliminarExperimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarExperimentoActionPerformed
-       // Titulo
+        // Titulo
         String expTitulo = txtTitulo.getText().trim();
         //Trim borra los espacios iniciales y si tiene un titulo de solo espacios lo toma como si fuera ""
         if ("".equals(expTitulo)) {
@@ -982,13 +1010,14 @@ public class Principal extends javax.swing.JFrame {
         auxListaEquipos.clear();
         auxListaCientifico.clear();
 
+
     }//GEN-LAST:event_jBtnEliminarExperimentoActionPerformed
 
     private void JbtnModificarExperimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnModificarExperimentoActionPerformed
         // TODO add your handling code here:
 
         imprimirPorPantallaListaPrincipal();
-        int auxIndex = 0;
+        auxIndex = 0;
 
         for (Experimento e : listaExperimentosBioFis) {
             for (Cientifico i : e.getListaCientifico()) {
@@ -1037,13 +1066,15 @@ public class Principal extends javax.swing.JFrame {
 
         if (aux.getTipo().equals("Biologico")) {
             // Modifica Organismo
-            txtOrganismoModifica.setText("Biologico");
+            Experimento_Biologico name = (Experimento_Biologico) aux;
+            txtOrganismoModifica.setText(name.getOrganismo());
             txtFenomenoModifica.setVisible(false);
             lFenomenoModifica.setVisible(false);
 
         } else {
             // Modifica Fenomeno
-            txtFenomenoModifica.setText("Fisico");
+            Experimento_Fisico name = (Experimento_Fisico) aux;
+            txtFenomenoModifica.setText(name.getFenomeno());
             txtOrganismoModifica.setVisible(false);
             lOrganismoModifica.setVisible(false);
 
@@ -1085,9 +1116,15 @@ public class Principal extends javax.swing.JFrame {
         jListCientificoModifica.setModel(modelCientifico);
 
         // Modifica Fecha Fin
-        fechaFinModifica.setDate(aux.getFin());
+        jDaChFechaInicioModifica.setDate(aux.getFin());
         // Modifica Fecha Inicio
-        fechaInicioModifica.setDate(aux.getInicio());
+        jDaChFechaFinModifica.setDate(aux.getInicio());
+
+        // LLeno la lista auxiliar para luego pasarla al experimento que voy a modificar.
+        auxListaEquipos = (ArrayList<Equipo>) (listaExperimentosBioFis.get(auxIndex).getListaEquipo()).clone();
+        // LLeno la lista auxiliar para luego pasarla al experimento que voy a modificar.
+        auxListaCientifico = (ArrayList<Cientifico>) (listaExperimentosBioFis.get(auxIndex).getListaCientifico()).clone();
+
         contenedor.repaint();
         contenedor.revalidate();
     }//GEN-LAST:event_JbtnModificarExperimentoActionPerformed
@@ -1333,28 +1370,27 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JbtnModificarExperimento;
-    private javax.swing.JButton btnEnviar1;
+    private javax.swing.JButton btnEnviarModifica;
     private javax.swing.JPanel cargarExperimento;
     private javax.swing.JPanel contenedor;
-    private com.toedter.calendar.JDateChooser fechaFinModifica;
-    private com.toedter.calendar.JDateChooser fechaInicioModifica;
     private javax.swing.JPanel frenteAzul;
     private javax.swing.JButton jBtnCargarCientifico;
+    private javax.swing.JButton jBtnCargarCientificoModifica;
     private javax.swing.JButton jBtnCargarEquipo;
     private javax.swing.JButton jBtnCargarExperimento;
     private javax.swing.JButton jBtnEliminarExperimento;
     private javax.swing.JButton jBtnEnviar;
     private javax.swing.JButton jBtnEnviar2;
     private javax.swing.JButton jBtnInformacion;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButtoneliminar;
-    private javax.swing.JButton jButtoneliminar1;
+    private javax.swing.JButton jBtnSeleccionEquipoModifica;
     private javax.swing.JComboBox<String> jComboBoxTipos;
     private javax.swing.JComboBox<String> jComboBoxTiposModifica;
     private com.toedter.calendar.JDateChooser jDaChFechaFin;
+    private com.toedter.calendar.JDateChooser jDaChFechaFinModifica;
     private com.toedter.calendar.JDateChooser jDaChFechaInicio;
+    private com.toedter.calendar.JDateChooser jDaChFechaInicioModifica;
     private com.toedter.calendar.JDateChooser jDaChInicioCientificos;
+    private com.toedter.calendar.JDateChooser jDaChInicioCientificos1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1391,6 +1427,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel lFecha;
     private javax.swing.JLabel lFenomeno;
+    private javax.swing.JLabel lFenomeno1;
     private javax.swing.JLabel lFenomenoModifica;
     private javax.swing.JLabel lOrganismo;
     private javax.swing.JLabel lOrganismoModifica;
