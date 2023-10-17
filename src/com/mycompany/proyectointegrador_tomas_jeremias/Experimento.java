@@ -16,9 +16,11 @@ public abstract class Experimento {
 
     private String titulo;
     private String descripcion;
+    private String tipo;
     private float presupuesto;
     private Date inicio;
     private Date fin;
+    
     
     private ArrayList<Cientifico> listaCientifico;
     private ArrayList<Equipo> listaEquipo;
@@ -27,10 +29,11 @@ public abstract class Experimento {
         
     }
 
-    public Experimento(String titulo, String descripcion, float presupuesto, Date inicio, Date fin, ArrayList<Cientifico> listaCientifico, ArrayList<Equipo> listaEquipo) {
+    public Experimento(String titulo, String descripcion, float presupuesto,String tipo ,Date inicio, Date fin, ArrayList<Cientifico> listaCientifico, ArrayList<Equipo> listaEquipo) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.presupuesto = presupuesto;
+        this.tipo = tipo;
         this.inicio = inicio;
         this.fin = fin;
         this.listaCientifico = listaCientifico;
@@ -45,6 +48,15 @@ public abstract class Experimento {
         this.titulo = titulo;
     }
 
+      public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
+    
     public ArrayList<Cientifico> getListaCientifico() {
         return listaCientifico;
     }
@@ -102,7 +114,7 @@ public abstract class Experimento {
     public void setOrganismo(String text) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
 }
 
    /* public abstract void carga(Experimento e);

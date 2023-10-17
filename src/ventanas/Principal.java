@@ -40,9 +40,9 @@ public class Principal extends javax.swing.JFrame {
     //Data cargada
     public Principal() {
         initComponents();
-        listaExperimentosBioFis = new ArrayList<Experimento>();
-        auxListaCientifico = new ArrayList<Cientifico>();
-        auxListaEquipos = new ArrayList<Equipo>();
+        listaExperimentosBioFis = new ArrayList<>();
+        auxListaCientifico = new ArrayList<>();
+        auxListaEquipos = new ArrayList<>();
 
         jListEquipos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
@@ -81,6 +81,10 @@ public class Principal extends javax.swing.JFrame {
             modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
         }
         jListCientificos.setModel(modelCientifico);
+        txtFenomeno.setVisible(false);
+        txtOrganismo.setVisible(false);
+        lFecha.setVisible(false);
+        lOrganismo.setVisible(false);
 
 //       jListCientificos.setCellRenderer(new NombreRenderer());
 //       jListEquipos.setCellRenderer(new NombreRenderer());
@@ -167,7 +171,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel33 = new javax.swing.JLabel();
         jPanelInformacion = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTxtPresupuestoTotal = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -581,13 +585,6 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel1.setText("Suma de presupuesto de todos los experimentos");
 
-        jTxtPresupuestoTotal.setText("jTextField1");
-        jTxtPresupuestoTotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtPresupuestoTotalActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelInformacionLayout = new javax.swing.GroupLayout(jPanelInformacion);
         jPanelInformacion.setLayout(jPanelInformacionLayout);
         jPanelInformacionLayout.setHorizontalGroup(
@@ -595,18 +592,18 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanelInformacionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jTxtPresupuestoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(611, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(jLabel2)
+                .addContainerGap(674, Short.MAX_VALUE))
         );
         jPanelInformacionLayout.setVerticalGroup(
             jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInformacionLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
                 .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTxtPresupuestoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(405, Short.MAX_VALUE))
+                    .addComponent(jLabel2))
+                .addContainerGap(408, Short.MAX_VALUE))
         );
 
         contenedor.add(jPanelInformacion, "card4");
@@ -670,10 +667,16 @@ public class Principal extends javax.swing.JFrame {
         // Limpiar Fecha fin
         jDaChFechaFin.setDate(null);
 
+        // Limpiar Organismo
+        txtFenomeno.setText("");
+
+        // Limpiar Fenomeno
+        txtOrganismo.setText("");
+
         // Seteo model de cientifico de 0
         DefaultListModel modelCientifico = new DefaultListModel();
         for (Cientifico e : listaCientifico) {
-            modelCientifico.addElement(e.getNombre() + " " + e.getApellido()+ " " + e.getContratacion());
+            modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
         }
         jListCientificos.setModel(modelCientifico);
 
@@ -745,6 +748,16 @@ public class Principal extends javax.swing.JFrame {
 
     private void jBtnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInformacionActionPerformed
         // TODO add your handling code here:
+        contenedor.removeAll();
+        contenedor.add(jPanelInformacion);
+        contenedor.repaint();
+        contenedor.revalidate();
+
+        float auxTotal = 0;
+        for (Experimento e : listaExperimentosBioFis) {
+            auxTotal = e.getPresupuesto() + auxTotal;
+        }
+        jLabel2.setText(Float.toString(auxTotal));
     }//GEN-LAST:event_jBtnInformacionActionPerformed
 
     private void txtPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPresupuestoActionPerformed
@@ -779,7 +792,7 @@ public class Principal extends javax.swing.JFrame {
             if ((e.getNombre() + " " + e.getApellido() + " " + e.getDni()).equals(auxCientifico)) {
                 e.setContratacion(auxFecha);
                 auxListaCientifico.add(e);
-        }
+            }
         }
         // Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
 //        DefaultListModel modelEquipo = new DefaultListModel();
@@ -839,45 +852,146 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtoneliminar1ActionPerformed
 
     private void jBtnEliminarExperimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarExperimentoActionPerformed
-        // TODO add your handling code here:
+       // Titulo
+        String expTitulo = txtTitulo.getText().trim();
+        //Trim borra los espacios iniciales y si tiene un titulo de solo espacios lo toma como si fuera ""
+        if ("".equals(expTitulo)) {
+            JOptionPane.showMessageDialog(null, "Error: El campo de titulo esta vacio.");
+            return;
+        } else {
+            for (Experimento exp : listaExperimentosBioFis) {
+                if (exp.getTitulo().equals(txtTitulo.getText())) {
+                    JOptionPane.showMessageDialog(null, "Error: El titulo ya existe en la lista");
+                    return;
+                }
+            }
+        }
+        // Descripcion
+        String expDescripcion = txtADescripcion.getText().trim();
+        if ("".equals(expDescripcion)) {
+            JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
 
-        // Error por si no selecciona
-        if (jListMuestraExperimentos.getSelectedValue() == null) {
-            JOptionPane.showMessageDialog(null, "Error: Seleccione un experimento de la lista.");
             return;
         }
 
-        // Eliminar elemento de la lista con iterador
-        // No es seguro modificar lista con un bucle for each ya que lansa exepcion ConcurrentModificationException
-        String experimentoSeleccionado = (String) jListMuestraExperimentos.getSelectedValue();
-
-        //Un Iterator es una interfaz en Java que se utiliza para recorrer y manipular colecciones de elementos, como listas, conjuntos y mapas. Se utiliza para garantizar un acceso controlado 
-        //y seguro a los elementos de una colección, lo que lo hace especialmente útil para eliminar elementos mientras se itera a través de la colección.
-        Iterator<Experimento> iter = listaExperimentosBioFis.iterator();
-
-        //iter.hasNext() verifica si hay elementos restantes en la iteración. Mientras haya elementos en la lista no iterados, el bucle continuará.
-        //El bucle while continuará hasta que hasNext() sea false, lo que significa que se han revisado todos los elementos de la lista. 
-        while (iter.hasNext()) {
-
-            //avanza al siguiente elemento en la lista y lo almacena en la variable exp. Esto permite que accedas a los elementos individuales de la lista uno por uno.
-            Experimento exp = iter.next();
-
-            //Busca el que queremos eliminar
-            if (experimentoSeleccionado.equals(exp.getTitulo())) {
-                //Cuando se encuentra el elemento que deseas eliminar, se utiliza el método remove() del Iterator para eliminarlo de la lista listaExperimentosBioFis
-                iter.remove(); // Elimina el experimento de la lista
-            }
+        // Fecha inicio
+        Date expFechaInicioValue = jDaChFechaInicio.getDate();
+        if (jDaChFechaInicio.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
+            return;
+            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
         }
 
-        // Seteo el modelo de vuelta para que se vea sin el eliminado
+        // Fecha fin
+        Date expFechaFinValue = jDaChFechaFin.getDate();
+        if (jDaChFechaFin.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
+            return;
+            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+        }
+
+        // Presupuesto
+        float expPresupuestoFloat;
+        try {
+            expPresupuestoFloat = Float.parseFloat(txtPresupuesto.getText().trim());
+            // Ahora tienes el valor en formato float
+            // Lo que hacemos con el try es ver que sea un numero si no lansa la exepcion. Para que no se rompa el programa y lo atrapamos con
+            //el catch.
+        } catch (NumberFormatException e) {
+            // Maneja aquí la excepción si la entrada no es un float válido
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor float válido.");
+            return;
+        }
+
+        // Cientifico
+        if (auxListaCientifico.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun cientifico.");
+            return;
+        }
+
+        // Equipos
+        if (auxListaEquipos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun equipo.");
+            return;
+        }
+
+        //Tipo
+        //(String) castea lo seleccionado del combo box a tipo String.
+        String expTipo = (String) jComboBoxTipos.getSelectedItem();
+        System.out.println(expTipo);
+        if (jComboBoxTipos.getSelectedItem().equals("-")) {
+            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun tipo.");
+            return;
+        }
+
+        // Biologico
+        if ("Biologico".equals(jComboBoxTipos.getSelectedItem())) {
+            // Organismo
+            String expOrganismo = txtOrganismo.getText().trim();
+            if ("".equals(expOrganismo)) {
+                JOptionPane.showMessageDialog(null, "Error: El campo de organismo esta vacio.");
+                return;
+            }
+            listaExperimentosBioFis.add(
+                    new Experimento_Biologico(
+                            expTitulo,
+                            expDescripcion,
+                            expPresupuestoFloat,
+                            expTipo,
+                            expFechaInicioValue,
+                            expFechaFinValue,
+                            (ArrayList<Cientifico>) auxListaCientifico.clone(),//Tengo que clonar la lista porque si lo hago de manera directa lo que pasa en realidad es que el puntero va a la direccion de memoria de la lista y esa esta permamentemente cambiando.
+                            (ArrayList<Equipo>) auxListaEquipos.clone(),
+                            expOrganismo));
+            // Fisico
+        } else if ("Fisico".equals(jComboBoxTipos.getSelectedItem())) {
+            // Fenomeno
+            String expFenomeno = txtFenomeno.getText().trim();
+            if ("".equals(expFenomeno)) {
+                JOptionPane.showMessageDialog(null, "Error: El campo de fenomeno esta vacio.");
+                return;
+            }
+            listaExperimentosBioFis.add(
+                    new Experimento_Fisico(
+                            expTitulo,
+                            expDescripcion,
+                            expPresupuestoFloat,
+                            expTipo,
+                            expFechaInicioValue,
+                            expFechaFinValue,
+                            (ArrayList<Cientifico>) auxListaCientifico.clone(),
+                            (ArrayList<Equipo>) auxListaEquipos.clone(),
+                            expFenomeno));
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: elige un tipo de experimento.");
+            return;
+
+            //hay que poner que va a dar un error
+            //cada vez que hay un campo vacio colocar un return
+        }
+
+        // Seteo el model del jlist experimentos. " HACER FUNCION "
         DefaultListModel model = new DefaultListModel();
         for (Experimento e : listaExperimentosBioFis) {
             model.addElement(e.getTitulo());
         }
         jListMuestraExperimentos.setModel(model);
 
+        // Funcion para limpiar todo " Hacer todo"
+        limpiarCampos();
+
         contenedor.repaint();
         contenedor.revalidate();
+
+        // Para ver si se cargan dentro de lista principal
+        //
+        //
+        //        }
+        imprimirPorPantallaListaPrincipal();
+
+        auxListaEquipos.clear();
+        auxListaCientifico.clear();
 
     }//GEN-LAST:event_jBtnEliminarExperimentoActionPerformed
 
@@ -1089,14 +1203,12 @@ public class Principal extends javax.swing.JFrame {
         }
 
         // Cientifico
-        ArrayList<Cientifico> expCientifico = auxListaCientifico;
         if (auxListaCientifico.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error: No selecciono ningun cientifico.");
             return;
         }
 
         // Equipos
-        ArrayList<Equipo> expEquipo = auxListaEquipos;
         if (auxListaEquipos.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Error: No selecciono ningun equipo.");
             return;
@@ -1127,8 +1239,8 @@ public class Principal extends javax.swing.JFrame {
                             expTipo,
                             expFechaInicioValue,
                             expFechaFinValue,
-                            expCientifico,
-                            expEquipo,
+                            (ArrayList<Cientifico>) auxListaCientifico.clone(),//Tengo que clonar la lista porque si lo hago de manera directa lo que pasa en realidad es que el puntero va a la direccion de memoria de la lista y esa esta permamentemente cambiando.
+                            (ArrayList<Equipo>) auxListaEquipos.clone(),
                             expOrganismo));
             // Fisico
         } else if ("Fisico".equals(jComboBoxTipos.getSelectedItem())) {
@@ -1146,8 +1258,8 @@ public class Principal extends javax.swing.JFrame {
                             expTipo,
                             expFechaInicioValue,
                             expFechaFinValue,
-                            expCientifico,
-                            expEquipo,
+                            (ArrayList<Cientifico>) auxListaCientifico.clone(),
+                            (ArrayList<Equipo>) auxListaEquipos.clone(),
                             expFenomeno));
 
         } else {
@@ -1185,20 +1297,6 @@ public class Principal extends javax.swing.JFrame {
         imprimirPorPantallaListaPrincipal();
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnEnviar2ActionPerformed
-
-    private void jTxtPresupuestoTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtPresupuestoTotalActionPerformed
-        // TODO add your handling code here:
-        if (listaExperimentosBioFis.isEmpty()) {
-            jTxtPresupuestoTotal.setText("");
-        } else {
-            float presupuesto = 0;
-            for (Experimento e : listaExperimentosBioFis) {
-                presupuesto = e.getPresupuesto() + presupuesto;
-            }
-            jTxtPresupuestoTotal.setText(String.valueOf(presupuesto));
-
-        }
-    }//GEN-LAST:event_jTxtPresupuestoTotalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1275,6 +1373,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
@@ -1301,7 +1400,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTextField jTxtPresupuestoTotal;
     private javax.swing.JLabel lFecha;
     private javax.swing.JLabel lFenomeno;
     private javax.swing.JLabel lFenomenoModifica;

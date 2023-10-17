@@ -17,6 +17,10 @@ public class Equipo {
         this.descripcion = descripcion;
         this.areaEspecialidad = areaEspecialidad;
     }
+    public Equipo(String nombre) {
+        this.nombre = nombre;
+        
+    }
     public Equipo() {
         
     }
@@ -44,6 +48,9 @@ public class Equipo {
     public void setAreaEspecialidad(String areaEspecialidad) {
         this.areaEspecialidad = areaEspecialidad;
     }
-    
+     @Override
+    public String toString() {
+        return nombre; // El método toString muestra solo el nombre
+    }
     
 }

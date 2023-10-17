@@ -4,24 +4,38 @@
  */
 package com.mycompany.proyectointegrador_tomas_jeremias;
 
-/**
- *Científicos: (conoce su nombre, especialidad y fecha de contratación) x experimento hasta 4.
+import java.util.Date;
 
+/**
+ * Científicos: (conoce su nombre, especialidad y fecha de contratación) x
+ * experimento hasta 4.
+ *
  * @author jeremias
  */
 public class Cientifico {
-    private String nombre,apellido,especialidad;
-    private Fecha contratacion;
-    private int cantidadExperimentos;
 
-    public Cientifico(String nombre,String apellido, String especialidad, Fecha contratacion, int cantidadExperimentos) {
+    private String nombre, apellido, especialidad, dni;
+    private Date contratacion;
+
+    public Cientifico(String nombre, String apellido, String especialidad, String dni) {
         this.nombre = nombre;
-                this.apellido = apellido;
+        this.apellido = apellido;
+        this.especialidad = especialidad;
+        this.dni = dni;
 
+    }
+
+    public Cientifico(String nombre, String apellido, String especialidad, Date contratacion, String dni) {
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.especialidad = especialidad;
         this.contratacion = contratacion;
-        this.cantidadExperimentos = cantidadExperimentos;
-        
+
+    }
+
+    public Cientifico(String nombre, Date contratacion) {
+        this.nombre = nombre;
+        this.contratacion = contratacion;
     }
 
     public String getNombre() {
@@ -31,13 +45,15 @@ public class Cientifico {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-        public String getApellido() {
+
+    public String getApellido() {
         return apellido;
     }
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+
     public String getEspecialidad() {
         return especialidad;
     }
@@ -46,21 +62,24 @@ public class Cientifico {
         this.especialidad = especialidad;
     }
 
-    public Fecha getContratacion() {
+    public Date getContratacion() {
         return contratacion;
     }
 
-    public void setContratacion(Fecha contratacion) {
+    public void setContratacion(Date contratacion) {
         this.contratacion = contratacion;
     }
-    
-    public int getCantidadExperimentos(){
-    return cantidadExperimentos;
+
+    public String getDni() {
+        return dni;
     }
-    
-    public void setCantidadExperimentos(int cantidadExperimentos){
-        this.cantidadExperimentos = cantidadExperimentos;}
-                            
-    
-    
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    @Override
+    public String toString() {
+        return nombre; // El método toString muestra solo el nombre
+    }
 }
