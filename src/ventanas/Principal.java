@@ -4,6 +4,7 @@
  */
 package ventanas;
 
+import com.mycompany.proyectointegrador_tomas_jeremias.AdministradorDeRecursos;
 import com.mycompany.proyectointegrador_tomas_jeremias.Experimento;
 import com.mycompany.proyectointegrador_tomas_jeremias.Experimento_Biologico;
 import com.mycompany.proyectointegrador_tomas_jeremias.Experimento_Fisico;
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 import com.mycompany.proyectointegrador_tomas_jeremias.Cientifico;
 import com.mycompany.proyectointegrador_tomas_jeremias.Equipo;
 import javax.swing.ListSelectionModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Iterator;
@@ -33,8 +35,9 @@ public class Principal extends javax.swing.JFrame {
     ArrayList<Equipo> auxListaEquipos;
     ArrayList<Cientifico> auxListaCientifico;
     // Esta es la informacion inicial de mi programa, ya que no se usar archivos. jijiji.
-    ArrayList<Cientifico> listaCientifico;
-    ArrayList<Equipo> listaEquipo;
+    
+    
+    AdministradorDeRecursos recursos;
 
     //Objeto auxiliar para cargar la lista
     //Data cargada
@@ -43,24 +46,15 @@ public class Principal extends javax.swing.JFrame {
         listaExperimentosBioFis = new ArrayList<>();
         auxListaCientifico = new ArrayList<>();
         auxListaEquipos = new ArrayList<>();
+        recursos = new AdministradorDeRecursos();
 
         jListEquipos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Carga de Equipo.//hacer la lectura de archivo de los equipos
-        listaEquipo = new ArrayList<>();//esta lista es para llenar la lista de la interfaz
-
-        Equipo a = new Equipo("Martillo", "Martilla", "Todas");
-        Equipo b = new Equipo("Tornillo", "Martisdadsalla", "Todasffsafdsa");
-        Equipo c = new Equipo("Rosca", "de tu ", "");
-
-        listaEquipo.add(a);
-        listaEquipo.add(b);
-        listaEquipo.add(c);
-
+        
         // Seteo model Equipo
         DefaultListModel modelEquipo = new DefaultListModel();
 
-        for (Equipo e : listaEquipo) {
+        for (Equipo e : recursos.getListaEquipo()) {
             modelEquipo.addElement(e.getNombre());
         }
         jListEquipos.setModel(modelEquipo);
@@ -68,16 +62,11 @@ public class Principal extends javax.swing.JFrame {
         // Carga de Cientifico 
         jListCientificos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        listaCientifico = new ArrayList<>();//esta lista es para llenar la lista de la interfaz
-
-        //no usar variables si no las uso
-        listaCientifico.add(new Cientifico("Jeremias", "Martinez", "Doctor", "111"));
-        listaCientifico.add(new Cientifico("Facu", "Joaquin", "inge", "222"));
-        listaCientifico.add(new Cientifico("Capo", "Matias", "ijisdajidjsa", "333"));
+        
 
         // Seteo model Cientifico
         DefaultListModel modelCientifico = new DefaultListModel();
-        for (Cientifico e : listaCientifico) {
+        for (Cientifico e : recursos.getListaCientifico()) {
             modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
         }
         jListCientificos.setModel(modelCientifico);
@@ -675,7 +664,7 @@ public class Principal extends javax.swing.JFrame {
 
         // Seteo model de cientifico de 0
         DefaultListModel modelCientifico = new DefaultListModel();
-        for (Cientifico e : listaCientifico) {
+        for (Cientifico e : recursos.getListaCientifico()) {
             modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
         }
         jListCientificos.setModel(modelCientifico);
@@ -686,7 +675,7 @@ public class Principal extends javax.swing.JFrame {
         // Seteo Model de Equipo de 0 
         DefaultListModel modelEquipo = new DefaultListModel();
 
-        for (Equipo e : listaEquipo) {
+        for (Equipo e : recursos.getListaEquipo()) {
             modelEquipo.addElement(e.getNombre());
         }
         jListEquipos.setModel(modelEquipo);
@@ -784,7 +773,7 @@ public class Principal extends javax.swing.JFrame {
         }
 
 // LLeno la lista auxiliar para luego pasarla al experimento.
-        for (Cientifico e : listaCientifico) {
+        for (Cientifico e : recursos.getListaCientifico()) {
             if (auxCientifico.contains(e.getDni()) && auxCientifico.contains("-")) {
                 System.out.println("ENTRA 1");
                 auxListaCientifico.remove(e);
@@ -797,7 +786,7 @@ public class Principal extends javax.swing.JFrame {
         // Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
 //        DefaultListModel modelEquipo = new DefaultListModel();
         DefaultListModel modelCientifico = new DefaultListModel();
-        for (Cientifico e : listaCientifico) {
+        for (Cientifico e : recursos.getListaCientifico()) {
             if (auxListaCientifico.contains(e)) {
                 modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni() + " - " + e.getContratacion());
             } else {
@@ -1070,7 +1059,7 @@ public class Principal extends javax.swing.JFrame {
             System.out.println("hola");
         }
 
-        for (Equipo e : listaEquipo) {
+        for (Equipo e : recursos.getListaEquipo()) {
             if (aux.getListaEquipo().contains(e)) {
                 modelEquipo.addElement(e.getNombre() + " - Seleccionado");
                 System.out.println("Hola");//NO ENTRA A ESTO PORQUE NO TIENE INFO 
@@ -1085,7 +1074,7 @@ public class Principal extends javax.swing.JFrame {
 
         // Modifica Lista Cientifico
         DefaultListModel modelCientifico = new DefaultListModel();
-        for (Cientifico c : listaCientifico) {
+        for (Cientifico c : recursos.getListaCientifico()) {
             if (aux.getListaCientifico().contains(c)) {
                 modelCientifico.addElement(c.getNombre() + " " + c.getApellido() + "-" + c.getContratacion());
                 System.out.println("Hola");//NO ENTRA A ESTO
@@ -1114,7 +1103,7 @@ public class Principal extends javax.swing.JFrame {
             return;
         }
         // LLeno la lista auxiliar para luego pasarla al experimento.
-        for (Equipo e : listaEquipo) {
+        for (Equipo e : recursos.getListaEquipo()) {
             if ((e.getNombre() + " - Seleccionado").equals(auxEquipo)) {
                 auxListaEquipos.remove(e);
             }
@@ -1126,7 +1115,7 @@ public class Principal extends javax.swing.JFrame {
         //Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
         DefaultListModel modelEquipo = new DefaultListModel();
 
-        for (Equipo e : listaEquipo) {
+        for (Equipo e : recursos.getListaEquipo()) {
             if (auxListaEquipos.contains(e)) {
                 modelEquipo.addElement(e.getNombre() + " - Seleccionado");
             } else {
