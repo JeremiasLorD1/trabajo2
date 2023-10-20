@@ -156,8 +156,14 @@ public class Principal extends javax.swing.JFrame {
         jDaChInicioCientificos1 = new com.toedter.calendar.JDateChooser();
         lFenomeno1 = new javax.swing.JLabel();
         jPanelInformacion = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jPanelInformacion1 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -470,27 +476,82 @@ public class Principal extends javax.swing.JFrame {
 
         contenedor.add(modifica, "card5");
 
-        jLabel1.setText("Suma de presupuesto de todos los experimentos");
+        jLabel9.setText("Suma de presupuesto de todos los experimentos");
+
+        jLabel10.setText("info");
+
+        jLabel11.setText("Cantidad de Experimentos Biologicos");
+
+        jLabel12.setText("info");
+
+        jLabel19.setText("Cantidad de Experimentos Fisicos");
+
+        jLabel20.setText("info");
+
+        javax.swing.GroupLayout jPanelInformacion1Layout = new javax.swing.GroupLayout(jPanelInformacion1);
+        jPanelInformacion1.setLayout(jPanelInformacion1Layout);
+        jPanelInformacion1Layout.setHorizontalGroup(
+            jPanelInformacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInformacion1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelInformacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelInformacion1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelInformacion1Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelInformacion1Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(643, Short.MAX_VALUE))
+        );
+        jPanelInformacion1Layout.setVerticalGroup(
+            jPanelInformacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInformacion1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanelInformacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelInformacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelInformacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(334, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanelInformacionLayout = new javax.swing.GroupLayout(jPanelInformacion);
         jPanelInformacion.setLayout(jPanelInformacionLayout);
         jPanelInformacionLayout.setHorizontalGroup(
             jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInformacionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(26, 26, 26)
+                .addGap(288, 288, 288)
                 .addComponent(jLabel2)
                 .addContainerGap(674, Short.MAX_VALUE))
+            .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelInformacionLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelInformacion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanelInformacionLayout.setVerticalGroup(
             jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInformacionLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addContainerGap(408, Short.MAX_VALUE))
+                .addComponent(jLabel2)
+                .addContainerGap(424, Short.MAX_VALUE))
+            .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelInformacionLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelInformacion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         contenedor.add(jPanelInformacion, "card4");
@@ -634,17 +695,46 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtOrganismoActionPerformed
 
     private void jBtnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInformacionActionPerformed
-        // TODO add your handling code here:
+          // TODO add your handling code here:
         contenedor.removeAll();
         contenedor.add(jPanelInformacion);
         contenedor.repaint();
         contenedor.revalidate();
 
+        // Presupuesto Total
         float auxTotal = 0;
         for (Experimento e : listaExperimentosBioFis) {
             auxTotal = e.getPresupuesto() + auxTotal;
         }
         jLabel2.setText(Float.toString(auxTotal));
+
+        // Cantidad de Biologicos
+        int cantTotalBiologicos = 0;
+        for (Experimento e : listaExperimentosBioFis) {
+            if ("Biologico".equals(e.getTipo())) {
+                cantTotalBiologicos = cantTotalBiologicos + 1;
+            }
+        }
+        jLabel10.setText(Float.toString(cantTotalBiologicos));
+
+        // Cantidad de Fisico
+        int cantTotalFisicos = 0;
+        for (Experimento e : listaExperimentosBioFis) {
+            if ("Fisico".equals(e.getTipo())) {
+                cantTotalFisicos = cantTotalFisicos + 1;
+            }
+        }
+        jLabel12.setText(Float.toString(cantTotalFisicos));
+
+        // Experimento mas largo
+        int auxFecha = 0;
+        for (Experimento e : listaExperimentosBioFis) {
+            auxFecha = (int) (e.getFin().getTime() - e.getInicio().getTime());
+        }
+        System.out.println(auxFecha);
+        // Experimento mas corto
+
+        // El equipo mas utilizado
     }//GEN-LAST:event_jBtnInformacionActionPerformed
 
     private void txtPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPresupuestoActionPerformed
@@ -718,15 +808,147 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtOrganismoModificaActionPerformed
 
     private void jBtnSeleccionEquipoModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSeleccionEquipoModificaActionPerformed
+         //Equipo
+        String auxEquipo = jListEquipoModifica.getSelectedValue();
+
+        // Control de Equipo
+        if (auxEquipo == null) {
+            JOptionPane.showMessageDialog(null, "Seleccione un Equipo valido");
+            return;
+        }
+        // LLeno la lista auxiliar para luego pasarla al experimento.
+        for (Equipo e : recursos.getListaEquipo()) {
+            if ((e.getNombre() + " - Seleccionado").equals(auxEquipo)) {
+                auxListaEquipos.remove(e);
+            }
+            if ((e.getNombre()).equals(auxEquipo)) {
+                auxListaEquipos.add(e);
+            }
+        }
+
+        //Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
+        DefaultListModel modelEquipo = new DefaultListModel();
+
+        for (Equipo e : recursos.getListaEquipo()) {
+            if (auxListaEquipos.contains(e)) {
+                modelEquipo.addElement(e.getNombre() + " - Seleccionado");
+            } else {
+                modelEquipo.addElement(e.getNombre());
+            }
+
+        }
+
+        jListEquipoModifica.setModel(modelEquipo);
+
+//        // Guardo en la lista auxiliar de equipo
+//        Equipo equipo = new Equipo(auxEquipo);
+//        auxListaEquipos.add(equipo);
+        repaint();
+        revalidate();
+                                                             
+
+    /*  private void jBtnCargarCientificoActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+
+        // Cientifico 
+        String auxCientifico = jListCientificos.getSelectedValue();
+
+        // Control de cientifico 
+        if (auxCientifico == null) {
+            JOptionPane.showMessageDialog(null, "Seleccione un cientifico valido");
+            return;
+        }
+
+        // Control de Fecha
+        Date auxFecha = jDaChInicioCientificos.getDate();
+        if (jDaChInicioCientificos.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
+            return;
+            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+        }
+
+// LLeno la lista auxiliar para luego pasarla al experimento.
+        for (Cientifico e : recursos.getListaCientifico()) {
+            if (auxCientifico.contains(e.getDni()) && auxCientifico.contains("-")) {
+                auxListaCientifico.remove(e);
+            }
+            if ((e.getNombre() + " " + e.getApellido() + " " + e.getDni()).equals(auxCientifico)) {
+                e.setContratacion(auxFecha);
+                auxListaCientifico.add(e);
+            }
+        }
+        // Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
+//        DefaultListModel modelEquipo = new DefaultListModel();
+        DefaultListModel modelCientifico = new DefaultListModel();
+        for (Cientifico e : recursos.getListaCientifico()) {
+            if (auxListaCientifico.contains(e)) {
+                modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni() + " - " + e.getContratacion());
+            } else {
+                modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
+            }
+        }
+
+        jListCientificos.setModel(modelCientifico);
+
+        // Repintar contenedor
+        contenedor.repaint();
+        contenedor.revalidate();
+
         // TODO add your handling code here:
+
+    }  */
+    
+   
     }//GEN-LAST:event_jBtnSeleccionEquipoModificaActionPerformed
 
     private void jBtnCargarCientificoModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarCientificoModificaActionPerformed
-        // TODO add your handling code here:
+
+      String auxCientifico = jListCientificoModifica.getSelectedValue();
+
+        // Control de cientifico 
+        if (auxCientifico == null) {
+            JOptionPane.showMessageDialog(null, "Seleccione un cientifico valido");
+            return;
+        }
+
+        // Control de Fecha
+        Date auxFecha = jDaChInicioCientificos1.getDate();
+        if (jDaChInicioCientificos1.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
+            return;
+            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+        }
+
+// LLeno la lista auxiliar para luego pasarla al experimento.
+        for (Cientifico e : recursos.getListaCientifico()) {
+            if (auxCientifico.contains(e.getDni()) && auxCientifico.contains("-")) {
+                auxListaCientifico.remove(e);
+            }
+            if ((e.getNombre() + " " + e.getApellido() + " " + e.getDni()).equals(auxCientifico)) {
+                e.setContratacion(auxFecha);
+                auxListaCientifico.add(e);
+            }
+        }
+        // Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
+//        DefaultListModel modelEquipo = new DefaultListModel();
+        DefaultListModel modelCientifico = new DefaultListModel();
+        for (Cientifico e : recursos.getListaCientifico()) {
+            if (auxListaCientifico.contains(e)) {
+                modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni() + " - " + e.getContratacion());
+            } else {
+                modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
+            }
+        }
+
+        jListCientificoModifica.setModel(modelCientifico);
+
+        // Repintar contenedor
+        contenedor.repaint();
+        contenedor.revalidate();
+
     }//GEN-LAST:event_jBtnCargarCientificoModificaActionPerformed
 
     private void btnEnviarModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarModificaActionPerformed
-        // TODO add your handling code here:
+          // TODO add your handling code here:
         // Titulo
         String expTitulo = txtTituloModifica.getText().trim();
         //Trim borra los espacios iniciales y si tiene un titulo de solo espacios lo toma como si fuera ""
@@ -865,156 +1087,56 @@ public class Principal extends javax.swing.JFrame {
         contenedor.repaint();
         contenedor.revalidate();
 
-
     }//GEN-LAST:event_btnEnviarModificaActionPerformed
 
     private void jBtnEliminarExperimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarExperimentoActionPerformed
-        // Titulo
-        String expTitulo = txtTitulo.getText().trim();
-        //Trim borra los espacios iniciales y si tiene un titulo de solo espacios lo toma como si fuera ""
-        if ("".equals(expTitulo)) {
-            JOptionPane.showMessageDialog(null, "Error: El campo de titulo esta vacio.");
+        if (jListMuestraExperimentos.getSelectedValue() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Seleccione un experimento de la lista.");
             return;
-        } else {
-            for (Experimento exp : listaExperimentosBioFis) {
-                if (exp.getTitulo().equals(txtTitulo.getText())) {
-                    JOptionPane.showMessageDialog(null, "Error: El titulo ya existe en la lista");
-                    return;
-                }
+        }
+        String expe = jListMuestraExperimentos.getSelectedValue();
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro que desea eliminar el experimento " + expe + "?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (respuesta == JOptionPane.NO_OPTION) {
+            return;
+        }
+
+        // Eliminar elemento de la lista con iterador
+        // No es seguro modificar lista con un bucle for each ya que lansa exepcion ConcurrentModificationException
+        String experimentoSeleccionado = (String) jListMuestraExperimentos.getSelectedValue();
+
+        //Un Iterator es una interfaz en Java que se utiliza para recorrer y manipular colecciones de elementos, como listas, conjuntos y mapas. Se utiliza para garantizar un acceso controlado 
+        //y seguro a los elementos de una colección, lo que lo hace especialmente útil para eliminar elementos mientras se itera a través de la colección.
+        Iterator<Experimento> iter = listaExperimentosBioFis.iterator();
+
+        //iter.hasNext() verifica si hay elementos restantes en la iteración. Mientras haya elementos en la lista no iterados, el bucle continuará.
+        //El bucle while continuará hasta que hasNext() sea false, lo que significa que se han revisado todos los elementos de la lista. 
+        while (iter.hasNext()) {
+
+            //avanza al siguiente elemento en la lista y lo almacena en la variable exp. Esto permite que accedas a los elementos individuales de la lista uno por uno.
+            Experimento exp = iter.next();
+
+            //Busca el que queremos eliminar
+            if (experimentoSeleccionado.equals(exp.getTitulo())) {
+                //Cuando se encuentra el elemento que deseas eliminar, se utiliza el método remove() del Iterator para eliminarlo de la lista listaExperimentosBioFis
+                iter.remove(); // Elimina el experimento de la lista
             }
         }
-        // Descripcion
-        String expDescripcion = txtADescripcion.getText().trim();
-        if ("".equals(expDescripcion)) {
-            JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
 
-            return;
-        }
-
-        // Fecha inicio
-        Date expFechaInicioValue = jDaChFechaInicio.getDate();
-        if (jDaChFechaInicio.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
-            return;
-            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
-        }
-
-        // Fecha fin
-        Date expFechaFinValue = jDaChFechaFin.getDate();
-        if (jDaChFechaFin.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
-            return;
-            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
-        }
-
-        // Presupuesto
-        float expPresupuestoFloat;
-        try {
-            expPresupuestoFloat = Float.parseFloat(txtPresupuesto.getText().trim());
-            // Ahora tienes el valor en formato float
-            // Lo que hacemos con el try es ver que sea un numero si no lansa la exepcion. Para que no se rompa el programa y lo atrapamos con
-            //el catch.
-        } catch (NumberFormatException e) {
-            // Maneja aquí la excepción si la entrada no es un float válido
-            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor float válido.");
-            return;
-        }
-
-        // Cientifico
-        if (auxListaCientifico.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun cientifico.");
-            return;
-        }
-
-        // Equipos
-        if (auxListaEquipos.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun equipo.");
-            return;
-        }
-
-        //Tipo
-        //(String) castea lo seleccionado del combo box a tipo String.
-        String expTipo = (String) jComboBoxTipos.getSelectedItem();
-        System.out.println(expTipo);
-        if (jComboBoxTipos.getSelectedItem().equals("-")) {
-            JOptionPane.showMessageDialog(null, "Error: No selecciono ningun tipo.");
-            return;
-        }
-
-        // Biologico
-        if ("Biologico".equals(jComboBoxTipos.getSelectedItem())) {
-            // Organismo
-            String expOrganismo = txtOrganismo.getText().trim();
-            if ("".equals(expOrganismo)) {
-                JOptionPane.showMessageDialog(null, "Error: El campo de organismo esta vacio.");
-                return;
-            }
-            listaExperimentosBioFis.add(
-                    new Experimento_Biologico(
-                            expTitulo,
-                            expDescripcion,
-                            expPresupuestoFloat,
-                            expTipo,
-                            expFechaInicioValue,
-                            expFechaFinValue,
-                            (ArrayList<Cientifico>) auxListaCientifico.clone(),//Tengo que clonar la lista porque si lo hago de manera directa lo que pasa en realidad es que el puntero va a la direccion de memoria de la lista y esa esta permamentemente cambiando.
-                            (ArrayList<Equipo>) auxListaEquipos.clone(),
-                            expOrganismo));
-            // Fisico
-        } else if ("Fisico".equals(jComboBoxTipos.getSelectedItem())) {
-            // Fenomeno
-            String expFenomeno = txtFenomeno.getText().trim();
-            if ("".equals(expFenomeno)) {
-                JOptionPane.showMessageDialog(null, "Error: El campo de fenomeno esta vacio.");
-                return;
-            }
-            listaExperimentosBioFis.add(
-                    new Experimento_Fisico(
-                            expTitulo,
-                            expDescripcion,
-                            expPresupuestoFloat,
-                            expTipo,
-                            expFechaInicioValue,
-                            expFechaFinValue,
-                            (ArrayList<Cientifico>) auxListaCientifico.clone(),
-                            (ArrayList<Equipo>) auxListaEquipos.clone(),
-                            expFenomeno));
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Error: elige un tipo de experimento.");
-            return;
-
-            //hay que poner que va a dar un error
-            //cada vez que hay un campo vacio colocar un return
-        }
-
-        // Seteo el model del jlist experimentos. " HACER FUNCION "
+        // Seteo el modelo de vuelta para que se vea sin el eliminado
         DefaultListModel model = new DefaultListModel();
         for (Experimento e : listaExperimentosBioFis) {
             model.addElement(e.getTitulo());
         }
         jListMuestraExperimentos.setModel(model);
 
-        // Funcion para limpiar todo " Hacer todo"
-        limpiarCampos();
-
         contenedor.repaint();
         contenedor.revalidate();
-
-        // Para ver si se cargan dentro de lista principal
-        //
-        //
-        //        }
-        imprimirPorPantallaListaPrincipal();
-
-        auxListaEquipos.clear();
-        auxListaCientifico.clear();
 
 
     }//GEN-LAST:event_jBtnEliminarExperimentoActionPerformed
 
     private void JbtnModificarExperimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnModificarExperimentoActionPerformed
-        // TODO add your handling code here:
+       // TODO add your handling code here:
 
         imprimirPorPantallaListaPrincipal();
         auxIndex = 0;
@@ -1107,10 +1229,10 @@ public class Principal extends javax.swing.JFrame {
         DefaultListModel modelCientifico = new DefaultListModel();
         for (Cientifico c : recursos.getListaCientifico()) {
             if (aux.getListaCientifico().contains(c)) {
-                modelCientifico.addElement(c.getNombre() + " " + c.getApellido() + "-" + c.getContratacion());
+                modelCientifico.addElement(c.getNombre() + " " + c.getApellido() +" "+c.getDni()+ "-" + c.getContratacion());
                 System.out.println("Hola");//NO ENTRA A ESTO
             } else {
-                modelCientifico.addElement(c.getNombre() + " " + c.getApellido());
+                modelCientifico.addElement(c.getNombre() + " " + c.getApellido()+" "+c.getDni());
             }
         }
         jListCientificoModifica.setModel(modelCientifico);
@@ -1124,7 +1246,7 @@ public class Principal extends javax.swing.JFrame {
         auxListaEquipos = (ArrayList<Equipo>) (listaExperimentosBioFis.get(auxIndex).getListaEquipo()).clone();
         // LLeno la lista auxiliar para luego pasarla al experimento que voy a modificar.
         auxListaCientifico = (ArrayList<Cientifico>) (listaExperimentosBioFis.get(auxIndex).getListaCientifico()).clone();
-
+        
         contenedor.repaint();
         contenedor.revalidate();
     }//GEN-LAST:event_JbtnModificarExperimentoActionPerformed
@@ -1391,14 +1513,18 @@ public class Principal extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDaChFechaInicioModifica;
     private com.toedter.calendar.JDateChooser jDaChInicioCientificos;
     private com.toedter.calendar.JDateChooser jDaChInicioCientificos1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
@@ -1412,12 +1538,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jListCientificoModifica;
     private javax.swing.JList<String> jListCientificos;
     private javax.swing.JList<String> jListEquipoModifica;
     private javax.swing.JList<String> jListEquipos;
     private javax.swing.JList<String> jListMuestraExperimentos;
     private javax.swing.JPanel jPanelInformacion;
+    private javax.swing.JPanel jPanelInformacion1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
