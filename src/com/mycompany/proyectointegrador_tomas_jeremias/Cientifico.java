@@ -15,7 +15,7 @@ import java.util.Date;
 public class Cientifico {
 
     private String nombre, apellido, especialidad, dni;
-    private Date contratacion;
+    private String contratacion;
 
     public Cientifico(String nombre, String apellido, String especialidad, String dni) {
         this.nombre = nombre;
@@ -25,7 +25,7 @@ public class Cientifico {
 
     }
 
-    public Cientifico(String nombre, String apellido, String especialidad, Date contratacion, String dni) {
+    public Cientifico(String nombre, String apellido, String especialidad, String contratacion, String dni) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.especialidad = especialidad;
@@ -33,7 +33,7 @@ public class Cientifico {
 
     }
 
-    public Cientifico(String nombre, Date contratacion) {
+    public Cientifico(String nombre, String contratacion) {
         this.nombre = nombre;
         this.contratacion = contratacion;
     }
@@ -62,11 +62,11 @@ public class Cientifico {
         this.especialidad = especialidad;
     }
 
-    public Date getContratacion() {
+    public String getContratacion() {
         return contratacion;
     }
 
-    public void setContratacion(Date contratacion) {
+    public void setContratacion(String contratacion) {
         this.contratacion = contratacion;
     }
 

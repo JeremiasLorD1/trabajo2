@@ -5,24 +5,30 @@
 package com.mycompany.proyectointegrador_tomas_jeremias;
 
 /**
- *Equipos:(el nombre, descripción y área de especialidad.) x experimento mas de 1.
-
+ * Equipos:(el nombre, descripción y área de especialidad.) x experimento mas de
+ * 1.
+ *
  * @author jeremias
  */
 public class Equipo {
-    private String nombre,descripcion,areaEspecialidad;
 
-    public Equipo(String nombre, String descripcion, String areaEspecialidad) {
+    private String nombre, descripcion, areaEspecialidad;
+    private int contador;
+
+    public Equipo(String nombre, String descripcion, String areaEspecialidad, int contador) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.areaEspecialidad = areaEspecialidad;
+        this.contador = contador;
     }
+
     public Equipo(String nombre) {
         this.nombre = nombre;
-        
+
     }
+
     public Equipo() {
-        
+
     }
 
     public String getNombre() {
@@ -37,6 +43,14 @@ public class Equipo {
         return descripcion;
     }
 
+    public int getContador() {
+        return contador;
+    }
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
@@ -48,9 +62,10 @@ public class Equipo {
     public void setAreaEspecialidad(String areaEspecialidad) {
         this.areaEspecialidad = areaEspecialidad;
     }
-     @Override
+
+    @Override
     public String toString() {
         return nombre; // El método toString muestra solo el nombre
     }
-    
+
 }

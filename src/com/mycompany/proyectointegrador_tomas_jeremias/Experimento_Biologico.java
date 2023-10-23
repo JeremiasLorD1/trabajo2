@@ -16,7 +16,7 @@ public class Experimento_Biologico extends Experimento {
 
     private String organismo;
 
-    public Experimento_Biologico(String titulo, String descripcion, float presupuesto,String tipo, Date inicio, Date fin, ArrayList<Cientifico> listaCientifico, ArrayList<Equipo> listaEquipo,String organismo) {
+    public Experimento_Biologico(String titulo, String descripcion, float presupuesto,String tipo, String inicio, String fin, ArrayList<Cientifico> listaCientifico, ArrayList<Equipo> listaEquipo,String organismo) {
         super(titulo, descripcion, presupuesto,tipo,  inicio,  fin, listaCientifico,listaEquipo);
 
         this.organismo = organismo;

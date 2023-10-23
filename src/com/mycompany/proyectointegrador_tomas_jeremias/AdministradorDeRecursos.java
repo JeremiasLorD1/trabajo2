@@ -7,8 +7,12 @@ package com.mycompany.proyectointegrador_tomas_jeremias;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jerem
@@ -19,62 +23,69 @@ public class AdministradorDeRecursos {
     ArrayList<Equipo> listaEquipo;
     HashMap<Cientifico, Integer> contadorCientificos;
     HashMap<Equipo, Integer> contadorEquipos;
+    String nombreArchivo = "experimentos.txt";
+    String nombreArchivoEquipos = "equipos.txt";
 
     public AdministradorDeRecursos() {
         // Carga de Equipo.
         listaEquipo = new ArrayList<>();//esta lista es para llenar la lista de la interfaz
-         try{
+        try {
             BufferedReader lector = new BufferedReader(new FileReader("equipos.txt"));
             String linea;
             int contador = 0;
             String nombre = "";
             String descripcion = "";
             String areaEspecialidad = "";
-            while((linea=lector.readLine())!=null){
-                switch(contador){
+            int contadorEquipo = 0;
+            while ((linea = lector.readLine()) != null) {
+                switch (contador) {
                     case 0:
-                        nombre=linea;
+                        nombre = linea;
                         break;
                     case 1:
-                        descripcion=linea;
+                        descripcion = linea;
                         break;
                     case 2:
-                        areaEspecialidad=linea;
-                        listaEquipo.add(new Equipo(nombre,descripcion,areaEspecialidad));
+                        areaEspecialidad = linea;
+                        break;
+                    case 3:
+                        contadorEquipo = Integer.parseInt(linea);
+                        listaEquipo.add(new Equipo(nombre, descripcion, areaEspecialidad, 0));
+                        break;
                 }
-                contador=(contador+1)%3;
+                contador = (contador + 1) % 4;
             }
             lector.close();
-         } catch(IOException e) {
-             e.printStackTrace();
-         }       
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // Carga de Cientiifico.//hacer la lectura de archivo de los equipos
         listaCientifico = new ArrayList<>();//esta lista es para llenar la lista de la interfaz
         try {
-            BufferedReader lector= new BufferedReader(new FileReader("cientificos.txt"));
+            BufferedReader lector = new BufferedReader(new FileReader("cientificos.txt"));
             String linea;
-            int contador=0;
-            String nombre="";
-            String apellido="";
-            String especialidad="";
-            String dni="";
-            while((linea=lector.readLine())!=null){
-                switch(contador){
+            int contador = 0;
+            String nombre = "";
+            String apellido = "";
+            String especialidad = "";
+            String dni = "";
+            while ((linea = lector.readLine()) != null) {
+                switch (contador) {
                     case 0:
-                        nombre=linea;
+                        nombre = linea;
                         break;
                     case 1:
-                        apellido=linea;
+                        apellido = linea;
                         break;
                     case 2:
-                        especialidad=linea;                       
+                        especialidad = linea;
                         break;
                     case 3:
-                        dni=linea;
-                         listaCientifico.add(new Cientifico(nombre,apellido,especialidad,dni));
-                        break;                        
+                        dni = linea;
+                        listaCientifico.add(new Cientifico(nombre, apellido, especialidad, dni));
+                        break;
                 }
-                contador=(contador+1)%4;
+                contador = (contador + 1) % 4;
             }
             lector.close();
         } catch (Exception e) {
@@ -84,10 +95,9 @@ public class AdministradorDeRecursos {
         listaCientifico.add(new Cientifico("Facu", "Joaquin", "inge", "222"));
         listaCientifico.add(new Cientifico("Capo", "Matias", "ijisdajidjsa", "333"));*/
 
-       // for (Cientifico d : listaCientifico) {
-         //   contadorCientificos.put(d,0);
+        // for (Cientifico d : listaCientifico) {
+        //   contadorCientificos.put(d,0);
         //}
-
     }
 
     public ArrayList<Cientifico> getListaCientifico() {
@@ -106,4 +116,194 @@ public class AdministradorDeRecursos {
         this.listaEquipo = listaEquipo;
     }
 
+    public ArrayList<Experimento> cargarExperimentos() {
+
+        ArrayList<Experimento> listaExperimentosBioFis = new ArrayList<>();
+        try {
+            BufferedReader lector = new BufferedReader(new FileReader("experimentos.txt"));
+            String linea;
+
+            // PONER TRY POR SI NO HAY ARCHIVO
+            while ((linea = lector.readLine()) != null) {
+                // Titulo
+                String expTitulo = linea;
+
+                // Descripcion
+                String expDescr = lector.readLine();
+
+                // Presupuesto
+                Float expPresupuesto = Float.valueOf(lector.readLine());
+
+                // Fecha Inicio
+                String expFechaIn = lector.readLine();
+
+                // Fecha Fin
+                String expFechaFin = lector.readLine();    
+
+                // Cientifico
+                ArrayList<Cientifico> expListaCientifico = new ArrayList<>();
+                String[] arregloCientifico = lector.readLine().split(" ");
+                for (String dniFecha : arregloCientifico) {
+                    String[] arregloDniFecha = dniFecha.split(",");
+                    for (Cientifico c : listaCientifico) {
+                        if (arregloDniFecha[0].equals(c.getDni())) {
+                            c.setContratacion(arregloDniFecha[1]);
+                            expListaCientifico.add(c);
+                        }
+                    }
+                }
+
+                // Equipoj
+                ArrayList<Equipo> expListaEquipos = new ArrayList<>();
+                String[] arregloEquipos = lector.readLine().split(",");
+                for (String nombreEquipo : arregloEquipos) {
+                    for (Equipo e : listaEquipo) {
+                        if (nombreEquipo.equals(e.getNombre())) {
+                            e.setContador(e.getContador() + 1);
+                            expListaEquipos.add(e);
+
+                        }
+                    }
+                }
+                // Tipo de Experimento
+                String expTipo = lector.readLine();
+
+                if (expTipo.equals("Fisico")) {
+                    // Fenomeno
+                    String expFenomeno = lector.readLine();
+                    listaExperimentosBioFis.add(
+                            new Experimento_Fisico(
+                                    expTitulo,
+                                    expDescr,
+                                    expPresupuesto,
+                                    expTipo,
+                                    expFechaIn,
+                                    expFechaFin,
+                                    expListaCientifico,//Tengo que clonar la lista porque si lo hago de manera directa lo que pasa en realidad es que el puntero va a la direccion de memoria de la lista y esa esta permamentemente cambiando.
+                                    expListaEquipos,
+                                    expFenomeno));
+                } else {
+                    //Organismo
+                    String expOrganismo = lector.readLine();
+                    listaExperimentosBioFis.add(
+                            new Experimento_Biologico(
+                                    expTitulo,
+                                    expDescr,
+                                    expPresupuesto,
+                                    expTipo,
+                                    expFechaIn,
+                                    expFechaFin,
+                                    expListaCientifico,//Tengo que clonar la lista porque si lo hago de manera directa lo que pasa en realidad es que el puntero va a la direccion de memoria de la lista y esa esta permamentemente cambiando.
+                                    expListaEquipos,
+                                    expOrganismo));
+                }
+            }
+        } catch (Exception e) {
+
+            return null;
+        }
+        return listaExperimentosBioFis;
+    }
+
+    public void guardarExperimentos(ArrayList<Experimento> listaExperimentos) {
+
+        try {
+            File myObj = new File(nombreArchivo);
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        try {
+            FileWriter escritorArchivo = new FileWriter(nombreArchivo);
+            for (Experimento e : listaExperimentos) {
+
+                // Titulo
+                escritorArchivo.write(e.getTitulo() + "\n");
+
+                // Descripcion
+                escritorArchivo.write(e.getDescripcion() + "\n");
+
+                // Presupuesto
+                escritorArchivo.write(Float.toString(e.getPresupuesto()) + "\n");
+
+                // Fecha Inicio
+                escritorArchivo.write(e.getInicio() + "\n");
+
+                // Fecha Fin
+                escritorArchivo.write(e.getFin() + "\n");
+
+                // Cientifico
+                boolean primerElemento = true;
+
+                for (Cientifico c : e.getListaCientifico()) {
+                    // Si no es el primer elemento, agrega una coma antes del nombre del equipo
+                    if (!primerElemento) {
+                        escritorArchivo.write(" ");
+                    } else {
+                        // Si es el primer elemento, actualiza la variable a "false"
+                        primerElemento = false;
+                    }
+                    escritorArchivo.write(c.getDni()+","+c.getContratacion());
+                }
+                escritorArchivo.write("\n");
+
+                // Equipo
+                boolean primerElementoEquipo = true;
+
+                for (Equipo equipo : e.getListaEquipo()) {
+                    // Si no es el primer elemento, agrega una coma antes del nombre del equipo
+                    if (!primerElementoEquipo) {
+                        escritorArchivo.write(",");
+                    } else {
+                        // Si es el primer elemento, actualiza la variable a "false"
+                        primerElementoEquipo = false;
+                    }
+                    escritorArchivo.write(equipo.getNombre());
+                }
+                escritorArchivo.write("\n");
+
+                // Tipo de Experimento
+                escritorArchivo.write(e.getTipo() + "\n");
+
+                if (e.getTipo().equals("Fisico")) {
+                    // Fenomeno
+                    escritorArchivo.write(((Experimento_Fisico) e).getFenomeno() + "\n");
+                } else {
+                    //Organismo
+                    escritorArchivo.write(((Experimento_Biologico) e).getOrganismo() + "\n");
+                }
+
+            }
+            escritorArchivo.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void guardarEquipos() {
+        try {
+            FileWriter escritorArchivo = new FileWriter(nombreArchivoEquipos);
+            for (Equipo e1 : listaEquipo) {
+                // Titulo
+                escritorArchivo.write(e1.getNombre() + "\n");
+
+                // Descripcion
+                escritorArchivo.write(e1.getDescripcion() + "\n");
+
+                // Presupuesto
+                escritorArchivo.write((e1.getAreaEspecialidad()) + "\n");
+
+                // Contador
+                escritorArchivo.write((e1.getContador()) + "\n");
+            }
+            escritorArchivo.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

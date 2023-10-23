@@ -23,7 +23,7 @@ public class Experimento_Fisico extends Experimento {
 
     }
 
-    public Experimento_Fisico(String titulo, String descripcion, float presupuesto,String tipo ,Date inicio, Date fin, ArrayList<Cientifico> listaCientifico, ArrayList<Equipo> listaEquipo, String fenomeno) {
+    public Experimento_Fisico(String titulo, String descripcion, float presupuesto,String tipo ,String inicio, String fin, ArrayList<Cientifico> listaCientifico, ArrayList<Equipo> listaEquipo, String fenomeno) {
         super(titulo, descripcion, presupuesto,tipo, inicio, fin, listaCientifico, listaEquipo);
         this.fenomeno = fenomeno;
     }

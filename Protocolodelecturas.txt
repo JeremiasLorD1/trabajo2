@@ -1,0 +1,9 @@
+Para leer equipos seguir el siguiente formato:
+nombre:
+descripcion:
+areadeespecialidad:
+
+Para leer cientificos seguir el siguiente formato:
+nombre:
+apellido
+especialidad

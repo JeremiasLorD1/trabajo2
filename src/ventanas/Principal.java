@@ -19,8 +19,17 @@ import javax.swing.ListSelectionModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,7 +42,9 @@ public class Principal extends javax.swing.JFrame {
      */
     ArrayList<Experimento> listaExperimentosBioFis;
     ArrayList<Equipo> auxListaEquipos;
+    ArrayList<Equipo> auxListaEquiposOriginal;
     ArrayList<Cientifico> auxListaCientifico;
+
     int auxIndex;
 // Esta es la informacion inicial de mi programa, ya que no se usar archivos. jijiji.
 
@@ -73,7 +84,20 @@ public class Principal extends javax.swing.JFrame {
         lOrganismo.setVisible(false);
 
 //       jListCientificos.setCellRenderer(new NombreRenderer());
-//       jListEquipos.setCellRenderer(new NombreRenderer());
+//       jListEquipos.setCellRenderer(new NombreRenderer());\
+        listaExperimentosBioFis = recursos.cargarExperimentos();
+        if (listaExperimentosBioFis == null) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error en la lectura del archivo");
+            listaExperimentosBioFis = new ArrayList<>();
+        }
+        DefaultListModel model = new DefaultListModel();
+        for (Experimento e : listaExperimentosBioFis) {
+            model.addElement(e.getTitulo());
+        }
+        jListMuestraExperimentos.setModel(model);
+
+        recursos.guardarEquipos();
+
     }
 
     /**
@@ -159,11 +183,13 @@ public class Principal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanelInformacion1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jCantidadExpFisicos = new javax.swing.JLabel();
+        jCantidadExpBiologicos = new javax.swing.JLabel();
+        jSumaPresupuestosExp = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        jCantidadExpFisicos1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -289,7 +315,7 @@ public class Principal extends javax.swing.JFrame {
         });
         cargarExperimento.add(jBtnCargarCientifico, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 350, -1, -1));
 
-        jBtnEnviar.setText("Enviar");
+        jBtnEnviar.setText("Guardar");
         jBtnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnEnviarActionPerformed(evt);
@@ -476,83 +502,35 @@ public class Principal extends javax.swing.JFrame {
 
         contenedor.add(modifica, "card5");
 
-        jLabel9.setText("Suma de presupuesto de todos los experimentos");
+        jPanelInformacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelInformacion.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(288, 18, -1, -1));
 
-        jLabel10.setText("info");
+        jPanelInformacion1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelInformacion.add(jPanelInformacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(481, 221, -1, -1));
+
+        jLabel9.setText("Suma de presupuesto de todos los experimentos");
+        jPanelInformacion.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 41, -1, -1));
 
         jLabel11.setText("Cantidad de Experimentos Biologicos");
-
-        jLabel12.setText("info");
+        jPanelInformacion.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 73, -1, -1));
 
         jLabel19.setText("Cantidad de Experimentos Fisicos");
+        jPanelInformacion.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 105, -1, -1));
 
-        jLabel20.setText("info");
+        jCantidadExpFisicos.setText("info");
+        jPanelInformacion.add(jCantidadExpFisicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 100, 39, 26));
 
-        javax.swing.GroupLayout jPanelInformacion1Layout = new javax.swing.GroupLayout(jPanelInformacion1);
-        jPanelInformacion1.setLayout(jPanelInformacion1Layout);
-        jPanelInformacion1Layout.setHorizontalGroup(
-            jPanelInformacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelInformacion1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelInformacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelInformacion1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelInformacion1Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelInformacion1Layout.createSequentialGroup()
-                        .addComponent(jLabel19)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(643, Short.MAX_VALUE))
-        );
-        jPanelInformacion1Layout.setVerticalGroup(
-            jPanelInformacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelInformacion1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanelInformacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelInformacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelInformacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(334, Short.MAX_VALUE))
-        );
+        jCantidadExpBiologicos.setText("info");
+        jPanelInformacion.add(jCantidadExpBiologicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 68, 39, 26));
 
-        javax.swing.GroupLayout jPanelInformacionLayout = new javax.swing.GroupLayout(jPanelInformacion);
-        jPanelInformacion.setLayout(jPanelInformacionLayout);
-        jPanelInformacionLayout.setHorizontalGroup(
-            jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelInformacionLayout.createSequentialGroup()
-                .addGap(288, 288, 288)
-                .addComponent(jLabel2)
-                .addContainerGap(674, Short.MAX_VALUE))
-            .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelInformacionLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanelInformacion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        jPanelInformacionLayout.setVerticalGroup(
-            jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelInformacionLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addContainerGap(424, Short.MAX_VALUE))
-            .addGroup(jPanelInformacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelInformacionLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanelInformacion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        jSumaPresupuestosExp.setText("info");
+        jPanelInformacion.add(jSumaPresupuestosExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(287, 36, 39, 26));
+
+        jLabel20.setText("Experimento mas usado");
+        jPanelInformacion.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+
+        jCantidadExpFisicos1.setText("info");
+        jPanelInformacion.add(jCantidadExpFisicos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 39, 26));
 
         contenedor.add(jPanelInformacion, "card4");
 
@@ -695,7 +673,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtOrganismoActionPerformed
 
     private void jBtnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInformacionActionPerformed
-          // TODO add your handling code here:
+        // TODO add your handling code here:
         contenedor.removeAll();
         contenedor.add(jPanelInformacion);
         contenedor.repaint();
@@ -706,7 +684,7 @@ public class Principal extends javax.swing.JFrame {
         for (Experimento e : listaExperimentosBioFis) {
             auxTotal = e.getPresupuesto() + auxTotal;
         }
-        jLabel2.setText(Float.toString(auxTotal));
+        jSumaPresupuestosExp.setText(Float.toString(auxTotal));
 
         // Cantidad de Biologicos
         int cantTotalBiologicos = 0;
@@ -715,7 +693,7 @@ public class Principal extends javax.swing.JFrame {
                 cantTotalBiologicos = cantTotalBiologicos + 1;
             }
         }
-        jLabel10.setText(Float.toString(cantTotalBiologicos));
+        jCantidadExpBiologicos.setText(Float.toString(cantTotalBiologicos));
 
         // Cantidad de Fisico
         int cantTotalFisicos = 0;
@@ -724,14 +702,14 @@ public class Principal extends javax.swing.JFrame {
                 cantTotalFisicos = cantTotalFisicos + 1;
             }
         }
-        jLabel12.setText(Float.toString(cantTotalFisicos));
+        jCantidadExpFisicos.setText(Float.toString(cantTotalFisicos));
 
         // Experimento mas largo
         int auxFecha = 0;
-        for (Experimento e : listaExperimentosBioFis) {
-            auxFecha = (int) (e.getFin().getTime() - e.getInicio().getTime());
-        }
-        System.out.println(auxFecha);
+//        for (Experimento e : listaExperimentosBioFis) {
+//            auxFecha = (int) (e.getFin().getTime() - e.getInicio().getTime());
+//        }
+//        System.out.println(auxFecha);
         // Experimento mas corto
 
         // El equipo mas utilizado
@@ -759,6 +737,8 @@ public class Principal extends javax.swing.JFrame {
             return;
             // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
         }
+        LocalDate localDate = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String fechaCientifico = localDate.toString();
 
 // LLeno la lista auxiliar para luego pasarla al experimento.
         for (Cientifico e : recursos.getListaCientifico()) {
@@ -766,7 +746,7 @@ public class Principal extends javax.swing.JFrame {
                 auxListaCientifico.remove(e);
             }
             if ((e.getNombre() + " " + e.getApellido() + " " + e.getDni()).equals(auxCientifico)) {
-                e.setContratacion(auxFecha);
+                e.setContratacion(fechaCientifico);
                 auxListaCientifico.add(e);
             }
         }
@@ -808,7 +788,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtOrganismoModificaActionPerformed
 
     private void jBtnSeleccionEquipoModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSeleccionEquipoModificaActionPerformed
-         //Equipo
+        //Equipo
         String auxEquipo = jListEquipoModifica.getSelectedValue();
 
         // Control de Equipo
@@ -845,9 +825,9 @@ public class Principal extends javax.swing.JFrame {
 //        auxListaEquipos.add(equipo);
         repaint();
         revalidate();
-                                                             
 
-    /*  private void jBtnCargarCientificoActionPerformed(java.awt.event.ActionEvent evt) {                                                     
+
+        /*  private void jBtnCargarCientificoActionPerformed(java.awt.event.ActionEvent evt) {                                                     
 
         // Cientifico 
         String auxCientifico = jListCientificos.getSelectedValue();
@@ -896,13 +876,12 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }  */
-    
-   
+
     }//GEN-LAST:event_jBtnSeleccionEquipoModificaActionPerformed
 
     private void jBtnCargarCientificoModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarCientificoModificaActionPerformed
 
-      String auxCientifico = jListCientificoModifica.getSelectedValue();
+        String auxCientifico = jListCientificoModifica.getSelectedValue();
 
         // Control de cientifico 
         if (auxCientifico == null) {
@@ -912,6 +891,9 @@ public class Principal extends javax.swing.JFrame {
 
         // Control de Fecha
         Date auxFecha = jDaChInicioCientificos1.getDate();
+        LocalDate localDate = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String fechaCientifico = localDate.toString();
+
         if (jDaChInicioCientificos1.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
             return;
@@ -924,7 +906,7 @@ public class Principal extends javax.swing.JFrame {
                 auxListaCientifico.remove(e);
             }
             if ((e.getNombre() + " " + e.getApellido() + " " + e.getDni()).equals(auxCientifico)) {
-                e.setContratacion(auxFecha);
+                e.setContratacion(fechaCientifico);
                 auxListaCientifico.add(e);
             }
         }
@@ -948,7 +930,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnCargarCientificoModificaActionPerformed
 
     private void btnEnviarModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarModificaActionPerformed
-          // TODO add your handling code here:
+        // TODO add your handling code here:
         // Titulo
         String expTitulo = txtTituloModifica.getText().trim();
         //Trim borra los espacios iniciales y si tiene un titulo de solo espacios lo toma como si fuera ""
@@ -967,6 +949,9 @@ public class Principal extends javax.swing.JFrame {
 
         // Fecha inicio
         Date expFechaInicioValue = jDaChFechaInicioModifica.getDate();
+        LocalDate localDate = expFechaInicioValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String expFechaInicioValue1 = localDate.toString();
+
         if (jDaChFechaInicioModifica.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
             return;
@@ -975,6 +960,9 @@ public class Principal extends javax.swing.JFrame {
 
         // Fecha fin
         Date expFechaFinValue = jDaChFechaFinModifica.getDate();
+        LocalDate localDate2 = expFechaFinValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String expFechaFinValue1 = localDate.toString();
+
         if (jDaChFechaFinModifica.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
             return;
@@ -1030,8 +1018,8 @@ public class Principal extends javax.swing.JFrame {
                             expDescripcion,
                             expPresupuestoFloat,
                             expTipo,
-                            expFechaInicioValue,
-                            expFechaFinValue,
+                            expFechaInicioValue1,
+                            expFechaFinValue1,
                             (ArrayList<Cientifico>) auxListaCientifico.clone(),//Tengo que clonar la lista porque si lo hago de manera directa lo que pasa en realidad es que el puntero va a la direccion de memoria de la lista y esa esta permamentemente cambiando.
                             (ArrayList<Equipo>) auxListaEquipos.clone(),
                             expOrganismo));
@@ -1050,8 +1038,8 @@ public class Principal extends javax.swing.JFrame {
                             expDescripcion,
                             expPresupuestoFloat,
                             expTipo,
-                            expFechaInicioValue,
-                            expFechaFinValue,
+                            expFechaInicioValue1,
+                            expFechaFinValue1,
                             (ArrayList<Cientifico>) auxListaCientifico.clone(),
                             (ArrayList<Equipo>) auxListaEquipos.clone(),
                             expFenomeno));
@@ -1062,6 +1050,22 @@ public class Principal extends javax.swing.JFrame {
 
             //hay que poner que va a dar un error
             //cada vez que hay un campo vacio colocar un return
+        }
+
+        // Actualizar contador de equipos
+        if (auxListaEquiposOriginal != auxListaEquipos) {
+            //Original
+            for (Equipo e : auxListaEquiposOriginal) {
+                if (!auxListaEquipos.contains(e)) {
+                    e.setContador(e.getContador() - 1);
+                }
+            }
+            //Modificada
+            for (Equipo e2 : auxListaEquipos) {
+                if (!auxListaEquiposOriginal.contains(e2)) {
+                    e2.setContador(e2.getContador() + 1);
+                }
+            }
         }
 
         // Seteo el model del jlist experimentos. " HACER FUNCION "
@@ -1079,6 +1083,7 @@ public class Principal extends javax.swing.JFrame {
         //
         //        }
         imprimirPorPantallaListaPrincipal();
+        recursos.guardarEquipos();
 
         auxListaEquipos.clear();
         auxListaCientifico.clear();
@@ -1136,7 +1141,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnEliminarExperimentoActionPerformed
 
     private void JbtnModificarExperimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnModificarExperimentoActionPerformed
-       // TODO add your handling code here:
+        // TODO add your handling code here:
 
         imprimirPorPantallaListaPrincipal();
         auxIndex = 0;
@@ -1215,7 +1220,7 @@ public class Principal extends javax.swing.JFrame {
         for (Equipo e : recursos.getListaEquipo()) {
             if (aux.getListaEquipo().contains(e)) {
                 modelEquipo.addElement(e.getNombre() + " - Seleccionado");
-                System.out.println("Hola");//NO ENTRA A ESTO PORQUE NO TIENE INFO 
+                
             } else {
                 modelEquipo.addElement(e.getNombre());
 
@@ -1229,24 +1234,43 @@ public class Principal extends javax.swing.JFrame {
         DefaultListModel modelCientifico = new DefaultListModel();
         for (Cientifico c : recursos.getListaCientifico()) {
             if (aux.getListaCientifico().contains(c)) {
-                modelCientifico.addElement(c.getNombre() + " " + c.getApellido() +" "+c.getDni()+ "-" + c.getContratacion());
-                System.out.println("Hola");//NO ENTRA A ESTO
+                modelCientifico.addElement(c.getNombre() + " " + c.getApellido() + " " + c.getDni() + "-" + c.getContratacion());
+             
             } else {
-                modelCientifico.addElement(c.getNombre() + " " + c.getApellido()+" "+c.getDni());
+                modelCientifico.addElement(c.getNombre() + " " + c.getApellido() + " " + c.getDni());
             }
         }
         jListCientificoModifica.setModel(modelCientifico);
 
-        // Modifica Fecha Fin
-        jDaChFechaInicioModifica.setDate(aux.getFin());
-        // Modifica Fecha Inicio
-        jDaChFechaFinModifica.setDate(aux.getInicio());
+        // Configurar la fecha de inicio
+        String fechaInicioModifica = aux.getInicio();
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate = dateFormat.parse(fechaInicioModifica);
+            jDaChFechaInicioModifica.setDate(startDate);
+        } catch (ParseException e) {
+            // Maneja la excepción de análisis si es necesario
+            e.printStackTrace();
+        }
+
+        // Configurar la fecha de fin
+        String fechaFinModifica = aux.getFin();
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date endDate = dateFormat.parse(fechaFinModifica);
+            jDaChFechaFinModifica.setDate(endDate);
+        } catch (ParseException e) {
+            // Maneja la excepción de análisis si es necesario
+            e.printStackTrace();
+        }
 
         // LLeno la lista auxiliar para luego pasarla al experimento que voy a modificar.
         auxListaEquipos = (ArrayList<Equipo>) (listaExperimentosBioFis.get(auxIndex).getListaEquipo()).clone();
         // LLeno la lista auxiliar para luego pasarla al experimento que voy a modificar.
         auxListaCientifico = (ArrayList<Cientifico>) (listaExperimentosBioFis.get(auxIndex).getListaCientifico()).clone();
-        
+        // Clono la lista original
+        auxListaEquiposOriginal = (ArrayList<Equipo>) (listaExperimentosBioFis.get(auxIndex).getListaEquipo()).clone();
+        recursos.guardarExperimentos(listaExperimentosBioFis);
         contenedor.repaint();
         contenedor.revalidate();
     }//GEN-LAST:event_JbtnModificarExperimentoActionPerformed
@@ -1263,6 +1287,7 @@ public class Principal extends javax.swing.JFrame {
         }
         // LLeno la lista auxiliar para luego pasarla al experimento.
         for (Equipo e : recursos.getListaEquipo()) {
+            int aux = 0;
             if ((e.getNombre() + " - Seleccionado").equals(auxEquipo)) {
                 auxListaEquipos.remove(e);
             }
@@ -1329,6 +1354,9 @@ public class Principal extends javax.swing.JFrame {
             // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
         }
 
+        LocalDate localDate = expFechaInicioValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String expFechaInicioValue1 = localDate.toString();
+
         // Fecha fin
         Date expFechaFinValue = jDaChFechaFin.getDate();
         if (jDaChFechaFin.getDate() == null) {
@@ -1336,6 +1364,8 @@ public class Principal extends javax.swing.JFrame {
             return;
             // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
         }
+        LocalDate localDate1 = expFechaFinValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String expFechaFinValue1 = localDate.toString();
 
         // Presupuesto
         float expPresupuestoFloat;
@@ -1385,8 +1415,8 @@ public class Principal extends javax.swing.JFrame {
                             expDescripcion,
                             expPresupuestoFloat,
                             expTipo,
-                            expFechaInicioValue,
-                            expFechaFinValue,
+                            expFechaInicioValue1,
+                            expFechaFinValue1,
                             (ArrayList<Cientifico>) auxListaCientifico.clone(),//Tengo que clonar la lista porque si lo hago de manera directa lo que pasa en realidad es que el puntero va a la direccion de memoria de la lista y esa esta permamentemente cambiando.
                             (ArrayList<Equipo>) auxListaEquipos.clone(),
                             expOrganismo));
@@ -1404,8 +1434,8 @@ public class Principal extends javax.swing.JFrame {
                             expDescripcion,
                             expPresupuestoFloat,
                             expTipo,
-                            expFechaInicioValue,
-                            expFechaFinValue,
+                            expFechaInicioValue1,
+                            expFechaFinValue1,
                             (ArrayList<Cientifico>) auxListaCientifico.clone(),
                             (ArrayList<Equipo>) auxListaEquipos.clone(),
                             expFenomeno));
@@ -1417,6 +1447,20 @@ public class Principal extends javax.swing.JFrame {
             //hay que poner que va a dar un error
             //cada vez que hay un campo vacio colocar un return
         }
+
+        // Actualizar contador de equipo
+        for (Equipo e1 : auxListaEquipos) {
+            for (Equipo e2 : recursos.getListaEquipo()) {
+                if (e1.getNombre().equals(e2.getNombre())) {
+                    e2.setContador(e2.getContador() + 1);
+                }
+            }
+        }
+        for (Equipo e2 : recursos.getListaEquipo()) {
+            System.out.println(e2.getNombre() + " tiene " + e2.getContador());
+        }
+        // Actualizo archivo Equipos.txt
+        recursos.guardarEquipos();
 
         // Seteo el model del jlist experimentos. " HACER FUNCION "
         DefaultListModel model = new DefaultListModel();
@@ -1436,7 +1480,7 @@ public class Principal extends javax.swing.JFrame {
         //
         //        }
         imprimirPorPantallaListaPrincipal();
-
+        recursos.guardarExperimentos(listaExperimentosBioFis);
         auxListaEquipos.clear();
         auxListaCientifico.clear();
     }//GEN-LAST:event_jBtnEnviarActionPerformed
@@ -1505,6 +1549,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jBtnEnviar2;
     private javax.swing.JButton jBtnInformacion;
     private javax.swing.JButton jBtnSeleccionEquipoModifica;
+    private javax.swing.JLabel jCantidadExpBiologicos;
+    private javax.swing.JLabel jCantidadExpFisicos;
+    private javax.swing.JLabel jCantidadExpFisicos1;
     private javax.swing.JComboBox<String> jComboBoxTipos;
     private javax.swing.JComboBox<String> jComboBoxTiposModifica;
     private com.toedter.calendar.JDateChooser jDaChFechaFin;
@@ -1513,9 +1560,7 @@ public class Principal extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDaChFechaInicioModifica;
     private com.toedter.calendar.JDateChooser jDaChInicioCientificos;
     private com.toedter.calendar.JDateChooser jDaChInicioCientificos1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1553,6 +1598,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
+    private javax.swing.JLabel jSumaPresupuestosExp;
     private javax.swing.JLabel lFecha;
     private javax.swing.JLabel lFenomeno;
     private javax.swing.JLabel lFenomeno1;

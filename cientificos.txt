@@ -1,0 +1,36 @@
+Juan
+Perez
+Anatomia
+30000123
+Maria
+Lopez
+Genetica molecular
+29456981
+Luis
+Fernandez
+Microbiologia
+16789234
+Ana
+Romero
+Bioquimica
+22798321
+Laura
+Hernandez
+Medicina
+35889771
+Enrico
+Fermi
+Fisica nuclear
+20987521
+Marie
+Curie
+Quimica nuclear
+23722534
+Michael
+Faraday
+Electromagnetismo
+39671345
+James
+Clerk
+Electromagnetismo
+32330620

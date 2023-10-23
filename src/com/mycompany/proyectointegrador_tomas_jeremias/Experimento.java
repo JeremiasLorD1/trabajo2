@@ -18,8 +18,8 @@ public abstract class Experimento {
     private String descripcion;
     private String tipo;
     private float presupuesto;
-    private Date inicio;
-    private Date fin;
+    private String inicio;
+    private String fin;
     
     
     private ArrayList<Cientifico> listaCientifico;
@@ -29,7 +29,7 @@ public abstract class Experimento {
         
     }
 
-    public Experimento(String titulo, String descripcion, float presupuesto,String tipo ,Date inicio, Date fin, ArrayList<Cientifico> listaCientifico, ArrayList<Equipo> listaEquipo) {
+    public Experimento(String titulo, String descripcion, float presupuesto,String tipo ,String inicio, String fin, ArrayList<Cientifico> listaCientifico, ArrayList<Equipo> listaEquipo) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.presupuesto = presupuesto;
@@ -89,19 +89,19 @@ public abstract class Experimento {
         this.presupuesto = presupuesto;
     }
 
-    public Date getInicio() {
+    public String getInicio() {
         return inicio;
     }
 
-    public void setInicio(Date inicio) {
+    public void setInicio(String inicio) {
         this.inicio = inicio;
     }
 
-    public Date getFin() {
+    public String getFin() {
         return fin;
     }
 
-    public void setFin(Date fin) {
+    public void setFin(String fin) {
         this.fin = fin;
     }
 
