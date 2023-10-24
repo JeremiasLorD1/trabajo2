@@ -31,9 +31,11 @@ import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
- * 
+ *
  *
  * @author jerem
  */
@@ -96,6 +98,24 @@ public class Principal extends javax.swing.JFrame {
         for (Experimento e : listaExperimentosBioFis) {
             model.addElement(e.getTitulo());
         }
+        
+        
+        
+        // Botones de seleccion cambien cuando presiono algo o no 
+        jListEquipos.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    if (jListEquipos.getSelectedIndices().length > 0) {
+                        jBtnCargarEquipo.setText("Deseleccionar");
+                    } else {
+                        jBtnCargarEquipo.setText("Seleccionar");
+                    }
+                }
+            }
+        });
+        
+        
         jListMuestraExperimentos.setModel(model);
 
         recursos.guardarEquipos();
@@ -150,7 +170,6 @@ public class Principal extends javax.swing.JFrame {
         jDaChFechaFin = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         lFenomeno = new javax.swing.JLabel();
-        jBtnEnviar2 = new javax.swing.JButton();
         modifica = new javax.swing.JPanel();
         jComboBoxTiposModifica = new javax.swing.JComboBox<>();
         txtFenomenoModifica = new javax.swing.JTextField();
@@ -256,12 +275,16 @@ public class Principal extends javax.swing.JFrame {
         cargarExperimento.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, -1, -1));
 
         jLabel3.setText("Descripcion");
-        cargarExperimento.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, -1, -1));
+        cargarExperimento.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
 
         jLabel6.setText("Fecha Inicio");
         cargarExperimento.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
-        cargarExperimento.add(jDaChInicioCientificos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, 90, -1));
-        cargarExperimento.add(jDaChFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 110, -1));
+        cargarExperimento.add(jDaChInicioCientificos, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 540, 200, -1));
+
+        jDaChFechaInicio.setFocusable(false);
+        jDaChFechaInicio.setMaxSelectableDate(new java.util.Date(2524622491000L));
+        jDaChFechaInicio.setMinSelectableDate(new java.util.Date(1672545691000L));
+        cargarExperimento.add(jDaChFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 190, -1));
 
         jLabel8.setText("Tipo");
         cargarExperimento.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
@@ -282,7 +305,7 @@ public class Principal extends javax.swing.JFrame {
                 txtTituloActionPerformed(evt);
             }
         });
-        cargarExperimento.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 220, -1));
+        cargarExperimento.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 290, -1));
 
         txtPresupuesto.setText("2");
         txtPresupuesto.addActionListener(new java.awt.event.ActionListener() {
@@ -290,7 +313,7 @@ public class Principal extends javax.swing.JFrame {
                 txtPresupuestoActionPerformed(evt);
             }
         });
-        cargarExperimento.add(txtPresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 120, -1));
+        cargarExperimento.add(txtPresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 190, -1));
 
         txtOrganismo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,86 +330,91 @@ public class Principal extends javax.swing.JFrame {
         txtADescripcion.setText("412");
         jScrollPane2.setViewportView(txtADescripcion);
 
-        cargarExperimento.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 220, 110));
+        cargarExperimento.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 290, 290));
 
-        jBtnCargarCientifico.setText("Seleccion");
+        jBtnCargarCientifico.setText("Seleccionar");
+        jBtnCargarCientifico.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBtnCargarCientifico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCargarCientificoActionPerformed(evt);
             }
         });
-        cargarExperimento.add(jBtnCargarCientifico, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 350, -1, -1));
+        cargarExperimento.add(jBtnCargarCientifico, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 530, -1, 30));
 
         jBtnEnviar.setText("Guardar");
+        jBtnEnviar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBtnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnEnviarActionPerformed(evt);
             }
         });
-        cargarExperimento.add(jBtnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 400, -1, -1));
+        cargarExperimento.add(jBtnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 590, -1, 30));
 
-        JbtnModificarExperimento.setText("Modificar");
+        JbtnModificarExperimento.setText("Guardar");
+        JbtnModificarExperimento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JbtnModificarExperimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JbtnModificarExperimentoActionPerformed(evt);
             }
         });
-        cargarExperimento.add(JbtnModificarExperimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 400, -1, -1));
+        cargarExperimento.add(JbtnModificarExperimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 600, -1, 30));
 
         jScrollPane8.setViewportView(jListMuestraExperimentos);
 
-        cargarExperimento.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 200, 330));
+        cargarExperimento.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 60, 240, 530));
 
         jBtnEliminarExperimento.setText("Eliminar");
+        jBtnEliminarExperimento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBtnEliminarExperimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnEliminarExperimentoActionPerformed(evt);
             }
         });
-        cargarExperimento.add(jBtnEliminarExperimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 400, -1, -1));
+        cargarExperimento.add(jBtnEliminarExperimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 600, -1, 30));
 
         jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel31.setText("Experimentos Cargados");
-        cargarExperimento.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, -1, -1));
+        cargarExperimento.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, -1, -1));
 
+        jListEquipos.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jListEquiposValueChanged(evt);
+            }
+        });
         jScrollPane6.setViewportView(jListEquipos);
 
-        cargarExperimento.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 170, 100));
+        cargarExperimento.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, 320, 180));
 
-        jBtnCargarEquipo.setText("Seleccion");
+        jBtnCargarEquipo.setText("Seleccionar");
+        jBtnCargarEquipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBtnCargarEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCargarEquipoActionPerformed(evt);
             }
         });
-        cargarExperimento.add(jBtnCargarEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, -1, -1));
+        cargarExperimento.add(jBtnCargarEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 270, -1, 30));
 
         jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel29.setText("Cargar Equipo");
-        cargarExperimento.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, -1, -1));
+        cargarExperimento.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, -1, -1));
 
         jScrollPane7.setViewportView(jListCientificos);
 
-        cargarExperimento.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 170, 100));
+        cargarExperimento.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 320, 320, 190));
 
         jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel30.setText("Cargar Cientifico");
-        cargarExperimento.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, -1, -1));
-        cargarExperimento.add(jDaChFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 110, -1));
+        cargarExperimento.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, -1, -1));
+
+        jDaChFechaFin.setMaxSelectableDate(new java.util.Date(2524622491000L));
+        jDaChFechaFin.setMinSelectableDate(new java.util.Date(1672545691000L));
+        cargarExperimento.add(jDaChFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 190, -1));
 
         jLabel5.setText("Titulo");
         cargarExperimento.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         lFenomeno.setText("Fecha Contratacion");
-        cargarExperimento.add(lFenomeno, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, -1, -1));
-
-        jBtnEnviar2.setText("Enviar");
-        jBtnEnviar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnEnviar2ActionPerformed(evt);
-            }
-        });
-        cargarExperimento.add(jBtnEnviar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 260, 210, 60));
+        cargarExperimento.add(lFenomeno, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 520, -1, -1));
 
         contenedor.add(cargarExperimento, "card4");
 
@@ -540,7 +568,7 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 1088, Short.MAX_VALUE)
             .addComponent(frenteAzul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -548,7 +576,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(frenteAzul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE))
         );
 
         pack();
@@ -740,18 +768,19 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPresupuestoActionPerformed
 
     private void jBtnCargarCientificoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarCientificoActionPerformed
-         String auxCientifico = jListCientificos.getSelectedValue();
+        String auxCientifico = jListCientificos.getSelectedValue();
 
         // Control de cientifico 
         if (auxCientifico == null) {
             JOptionPane.showMessageDialog(null, "Seleccione un cientifico valido");
             return;
         }
-        
+
         // Control de Fecha
-        if(jDaChFechaInicio.getDate()==null || jDaChFechaFin.getDate()==null){
-             JOptionPane.showMessageDialog(null, "Error: Primero cargue las fechas de inicio y fin de experimento.");
-              return;}
+        if (jDaChFechaInicio.getDate() == null || jDaChFechaFin.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Primero cargue las fechas de inicio y fin de experimento.");
+            return;
+        }
         Date auxFecha = jDaChInicioCientificos.getDate();
         if (jDaChInicioCientificos.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
@@ -760,21 +789,20 @@ public class Principal extends javax.swing.JFrame {
         }
         //Control Para que la fecha de contratacion del cientifico este dentro del rango que dura el experimento
         //iniMayor=eMayor.getInicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        Date iniExp=jDaChFechaInicio.getDate();
-        Date finExp=jDaChFechaFin.getDate();  
-        LocalDate localIniExp=iniExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate localFinExp=finExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate localAuxFecha=auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Date iniExp = jDaChFechaInicio.getDate();
+        Date finExp = jDaChFechaFin.getDate();
+        LocalDate localIniExp = iniExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localFinExp = finExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localAuxFecha = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         //if((auxFecha.equals(iniExp)||auxFecha.after(iniExp)) && (auxFecha.equals(finExp) || auxFecha.before(finExp))){
-        if((localAuxFecha.isAfter(localIniExp)||localAuxFecha.equals(localIniExp)) && localAuxFecha.isBefore(localFinExp)||localAuxFecha.equals(localFinExp)) {        
-        ; 
-        }
-        else{
+        if ((localAuxFecha.isAfter(localIniExp) || localAuxFecha.equals(localIniExp)) && localAuxFecha.isBefore(localFinExp) || localAuxFecha.equals(localFinExp)) {
+            ;
+        } else {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha que este dentro del Rango de duracion del experimento.");
             return;
         }
-        
-        LocalDate localDate = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();             
+
+        LocalDate localDate = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String fechaCientifico = localDate.toString();
 // LLeno la lista auxiliar para luego pasarla al experimento.
         for (Cientifico e : recursos.getListaCientifico()) {
@@ -1111,7 +1139,8 @@ public class Principal extends javax.swing.JFrame {
         }
         jListMuestraExperimentos.setModel(model);
         recursos.cargarExperimentos();
-        recursos.guardarEquipos();  
+        recursos.guardarExperimentos(listaExperimentosBioFis);
+        recursos.guardarEquipos();
         // Funcion para limpiar todo " Hacer todo"
         limpiarCampos();
 
@@ -1120,7 +1149,6 @@ public class Principal extends javax.swing.JFrame {
         //
         //        }
         imprimirPorPantallaListaPrincipal();
-        
 
         auxListaEquipos.clear();
         auxListaCientifico.clear();
@@ -1160,6 +1188,13 @@ public class Principal extends javax.swing.JFrame {
             //Busca el que queremos eliminar
             if (experimentoSeleccionado.equals(exp.getTitulo())) {
                 //Cuando se encuentra el elemento que deseas eliminar, se utiliza el método remove() del Iterator para eliminarlo de la lista listaExperimentosBioFis
+                for (Equipo e2 : recursos.getListaEquipo()) {
+                    if (jListMuestraExperimentos.getSelectedValue().equals(e2.getNombre())) {
+                        e2.setContador(e2.getContador() - 1);
+                    }
+                }        recursos.guardarEquipos();
+
+
                 iter.remove(); // Elimina el experimento de la lista
             }
         }
@@ -1170,8 +1205,10 @@ public class Principal extends javax.swing.JFrame {
             model.addElement(e.getTitulo());
         }
         jListMuestraExperimentos.setModel(model);
+        recursos.guardarExperimentos(listaExperimentosBioFis);
 
         contenedor.repaint();
+
         contenedor.revalidate();
 
 
@@ -1300,7 +1337,7 @@ public class Principal extends javax.swing.JFrame {
             // Maneja la excepción de análisis si es necesario
             e.printStackTrace();
         }
-        
+
         // LLeno la lista auxiliar para luego pasarla al experimento que voy a modificar.
         auxListaEquipos = (ArrayList<Equipo>) (listaExperimentosBioFis.get(auxIndex).getListaEquipo()).clone();
         // LLeno la lista auxiliar para luego pasarla al experimento que voy a modificar.
@@ -1401,9 +1438,9 @@ public class Principal extends javax.swing.JFrame {
             return;
             // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
         }
-         LocalDate localExpFechaInicio=expFechaInicioValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate localExpFechaFin=expFechaFinValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if(localExpFechaFin.isBefore(localExpFechaInicio)||localExpFechaInicio.isAfter(localExpFechaFin)){
+        LocalDate localExpFechaInicio = expFechaInicioValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localExpFechaFin = expFechaFinValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (localExpFechaFin.isBefore(localExpFechaInicio) || localExpFechaInicio.isAfter(localExpFechaFin)) {
             JOptionPane.showMessageDialog(null, "Error: La fecha de Inicio No puede ser posterior a la fecha de fin.");
             return;
         }
@@ -1528,10 +1565,9 @@ public class Principal extends javax.swing.JFrame {
         auxListaCientifico.clear();
     }//GEN-LAST:event_jBtnEnviarActionPerformed
 
-    private void jBtnEnviar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEnviar2ActionPerformed
-        imprimirPorPantallaListaPrincipal();
+    private void jListEquiposValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListEquiposValueChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnEnviar2ActionPerformed
+    }//GEN-LAST:event_jListEquiposValueChanged
 
     /**
      * @param args the command line arguments
@@ -1589,7 +1625,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jBtnCargarExperimento;
     private javax.swing.JButton jBtnEliminarExperimento;
     private javax.swing.JButton jBtnEnviar;
-    private javax.swing.JButton jBtnEnviar2;
     private javax.swing.JButton jBtnInformacion;
     private javax.swing.JButton jBtnSeleccionEquipoModifica;
     private javax.swing.JLabel jCantidadEquipos;
