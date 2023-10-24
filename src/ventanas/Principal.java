@@ -1,6 +1,7 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+//este sirve
  */
 package ventanas;
 
@@ -32,7 +33,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * //putoputoputo
+ * 
  *
  * @author jerem
  */
@@ -739,26 +740,42 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPresupuestoActionPerformed
 
     private void jBtnCargarCientificoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarCientificoActionPerformed
-
-        // Cientifico 
-        String auxCientifico = jListCientificos.getSelectedValue();
+         String auxCientifico = jListCientificos.getSelectedValue();
 
         // Control de cientifico 
         if (auxCientifico == null) {
             JOptionPane.showMessageDialog(null, "Seleccione un cientifico valido");
             return;
         }
-
+        
         // Control de Fecha
+        if(jDaChFechaInicio.getDate()==null || jDaChFechaFin.getDate()==null){
+             JOptionPane.showMessageDialog(null, "Error: Primero cargue las fechas de inicio y fin de experimento.");
+              return;}
         Date auxFecha = jDaChInicioCientificos.getDate();
         if (jDaChInicioCientificos.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
             return;
             // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
         }
-        LocalDate localDate = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        //Control Para que la fecha de contratacion del cientifico este dentro del rango que dura el experimento
+        //iniMayor=eMayor.getInicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Date iniExp=jDaChFechaInicio.getDate();
+        Date finExp=jDaChFechaFin.getDate();  
+        LocalDate localIniExp=iniExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localFinExp=finExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localAuxFecha=auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        //if((auxFecha.equals(iniExp)||auxFecha.after(iniExp)) && (auxFecha.equals(finExp) || auxFecha.before(finExp))){
+        if((localAuxFecha.isAfter(localIniExp)||localAuxFecha.equals(localIniExp)) && localAuxFecha.isBefore(localFinExp)||localAuxFecha.equals(localFinExp)) {        
+        ; 
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha que este dentro del Rango de duracion del experimento.");
+            return;
+        }
+        
+        LocalDate localDate = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();             
         String fechaCientifico = localDate.toString();
-
 // LLeno la lista auxiliar para luego pasarla al experimento.
         for (Cientifico e : recursos.getListaCientifico()) {
             if (auxCientifico.contains(e.getDni()) && auxCientifico.contains("-")) {
@@ -1383,6 +1400,12 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
             return;
             // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+        }
+         LocalDate localExpFechaInicio=expFechaInicioValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localExpFechaFin=expFechaFinValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if(localExpFechaFin.isBefore(localExpFechaInicio)||localExpFechaInicio.isAfter(localExpFechaFin)){
+            JOptionPane.showMessageDialog(null, "Error: La fecha de Inicio No puede ser posterior a la fecha de fin.");
+            return;
         }
         LocalDate localDate1 = expFechaFinValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String expFechaFinValue1 = localDate.toString();
