@@ -189,7 +189,7 @@ public class Principal extends javax.swing.JFrame {
         jCantidadExpBiologicos = new javax.swing.JLabel();
         jSumaPresupuestosExp = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jCantidadExpFisicos1 = new javax.swing.JLabel();
+        jCantidadEquipos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -518,19 +518,19 @@ public class Principal extends javax.swing.JFrame {
         jPanelInformacion.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 105, -1, -1));
 
         jCantidadExpFisicos.setText("info");
-        jPanelInformacion.add(jCantidadExpFisicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 100, 39, 26));
+        jPanelInformacion.add(jCantidadExpFisicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 39, 26));
 
         jCantidadExpBiologicos.setText("info");
-        jPanelInformacion.add(jCantidadExpBiologicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 68, 39, 26));
+        jPanelInformacion.add(jCantidadExpBiologicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 39, 26));
 
         jSumaPresupuestosExp.setText("info");
-        jPanelInformacion.add(jSumaPresupuestosExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(287, 36, 39, 26));
+        jPanelInformacion.add(jSumaPresupuestosExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 39, 26));
 
-        jLabel20.setText("Experimento mas usado");
-        jPanelInformacion.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        jLabel20.setText("Equipo mas usado");
+        jPanelInformacion.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
-        jCantidadExpFisicos1.setText("info");
-        jPanelInformacion.add(jCantidadExpFisicos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 39, 26));
+        jCantidadEquipos.setText("info");
+        jPanelInformacion.add(jCantidadEquipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 500, -1));
 
         contenedor.add(jPanelInformacion, "card4");
 
@@ -713,6 +713,24 @@ public class Principal extends javax.swing.JFrame {
         // Experimento mas corto
 
         // El equipo mas utilizado
+        int mayor = 0;
+        String equipoMayor = "";
+
+        for (Equipo e : recursos.getListaEquipo()) {
+            if (e.getContador() > mayor) {
+                mayor = e.getContador();
+                equipoMayor = e.getNombre();
+            } else if (e.getContador() == mayor) {
+                equipoMayor += ", " + e.getNombre();
+            }
+        }
+
+        if (mayor != 0) {
+            jCantidadEquipos.setText("El equipo(s) más usado(s) es(son): " + equipoMayor + ", usado(s) esta cantidad: " + String.valueOf(mayor));
+        } else {
+            jCantidadEquipos.setText("No hay equipos usados");
+        }
+
     }//GEN-LAST:event_jBtnInformacionActionPerformed
 
     private void txtPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPresupuestoActionPerformed
@@ -1074,7 +1092,8 @@ public class Principal extends javax.swing.JFrame {
             model.addElement(e.getTitulo());
         }
         jListMuestraExperimentos.setModel(model);
-
+        recursos.cargarExperimentos();
+        recursos.guardarEquipos();  
         // Funcion para limpiar todo " Hacer todo"
         limpiarCampos();
 
@@ -1083,7 +1102,7 @@ public class Principal extends javax.swing.JFrame {
         //
         //        }
         imprimirPorPantallaListaPrincipal();
-        recursos.guardarEquipos();
+        
 
         auxListaEquipos.clear();
         auxListaCientifico.clear();
@@ -1220,7 +1239,7 @@ public class Principal extends javax.swing.JFrame {
         for (Equipo e : recursos.getListaEquipo()) {
             if (aux.getListaEquipo().contains(e)) {
                 modelEquipo.addElement(e.getNombre() + " - Seleccionado");
-                
+
             } else {
                 modelEquipo.addElement(e.getNombre());
 
@@ -1235,7 +1254,7 @@ public class Principal extends javax.swing.JFrame {
         for (Cientifico c : recursos.getListaCientifico()) {
             if (aux.getListaCientifico().contains(c)) {
                 modelCientifico.addElement(c.getNombre() + " " + c.getApellido() + " " + c.getDni() + "-" + c.getContratacion());
-             
+
             } else {
                 modelCientifico.addElement(c.getNombre() + " " + c.getApellido() + " " + c.getDni());
             }
@@ -1263,7 +1282,7 @@ public class Principal extends javax.swing.JFrame {
             // Maneja la excepción de análisis si es necesario
             e.printStackTrace();
         }
-
+        
         // LLeno la lista auxiliar para luego pasarla al experimento que voy a modificar.
         auxListaEquipos = (ArrayList<Equipo>) (listaExperimentosBioFis.get(auxIndex).getListaEquipo()).clone();
         // LLeno la lista auxiliar para luego pasarla al experimento que voy a modificar.
@@ -1549,9 +1568,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jBtnEnviar2;
     private javax.swing.JButton jBtnInformacion;
     private javax.swing.JButton jBtnSeleccionEquipoModifica;
+    private javax.swing.JLabel jCantidadEquipos;
     private javax.swing.JLabel jCantidadExpBiologicos;
     private javax.swing.JLabel jCantidadExpFisicos;
-    private javax.swing.JLabel jCantidadExpFisicos1;
     private javax.swing.JComboBox<String> jComboBoxTipos;
     private javax.swing.JComboBox<String> jComboBoxTiposModifica;
     private com.toedter.calendar.JDateChooser jDaChFechaFin;
