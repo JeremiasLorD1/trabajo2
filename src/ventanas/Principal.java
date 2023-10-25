@@ -20,6 +20,8 @@ import javax.swing.ListSelectionModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,10 +29,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -41,6 +47,8 @@ import javax.swing.event.ListSelectionListener;
  */
 public class Principal extends javax.swing.JFrame {
 
+    int xMouse, yMouse;
+
     /**
      * Creates new form Principal
      */
@@ -49,9 +57,10 @@ public class Principal extends javax.swing.JFrame {
     ArrayList<Equipo> auxListaEquiposOriginal;
     ArrayList<Cientifico> auxListaCientifico;
 
+    // Indice para recuperar informacion de la lista
     int auxIndex;
-// Esta es la informacion inicial de mi programa, ya que no se usar archivos. jijiji.
 
+    // Esta es la informacion inicial de mi programa    
     AdministradorDeRecursos recursos;
 
     //Objeto auxiliar para cargar la lista
@@ -63,9 +72,17 @@ public class Principal extends javax.swing.JFrame {
         auxListaEquipos = new ArrayList<>();
         recursos = new AdministradorDeRecursos();
 
+        // Metodo para que solo se pueda seleccionar un elemento de las lista
+        // Lista Experimentos
+        jListMuestraExperimentos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Lista Equipos
         jListEquipos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Seteo model Equipo
+        // Lista Cientifico 
+        jListCientificos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        // Seteo model lista Equipo
         DefaultListModel modelEquipo = new DefaultListModel();
 
         for (Equipo e : recursos.getListaEquipo()) {
@@ -73,40 +90,43 @@ public class Principal extends javax.swing.JFrame {
         }
         jListEquipos.setModel(modelEquipo);
 
-        // Carga de Cientifico 
-        jListCientificos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        // Seteo model Cientifico
+        // Seteo model lista Cientifico
         DefaultListModel modelCientifico = new DefaultListModel();
         for (Cientifico e : recursos.getListaCientifico()) {
             modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
         }
         jListCientificos.setModel(modelCientifico);
+
+        // Visisbilidad del Tipo de Experimento
         txtFenomeno.setVisible(false);
         txtOrganismo.setVisible(false);
         lFecha.setVisible(false);
         lOrganismo.setVisible(false);
 
-//       jListCientificos.setCellRenderer(new NombreRenderer());
-//       jListEquipos.setCellRenderer(new NombreRenderer());\
+        // Carga de la lista principal con el archivo
         listaExperimentosBioFis = recursos.cargarExperimentos();
+
+        // Control de la lista bio fis por si se llena mal desde el archivo
         if (listaExperimentosBioFis == null) {
             JOptionPane.showMessageDialog(null, "Ocurrio un error en la lectura del archivo");
             listaExperimentosBioFis = new ArrayList<>();
         }
+
+        // Seteo model lista experimento
         DefaultListModel model = new DefaultListModel();
         for (Experimento e : listaExperimentosBioFis) {
             model.addElement(e.getTitulo());
         }
-        
-        
-        
+        jListMuestraExperimentos.setModel(model);
+
         // Botones de seleccion cambien cuando presiono algo o no 
+        // Equipo
         jListEquipos.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    if (jListEquipos.getSelectedIndices().length > 0) {
+                    Object selectedValue = jListEquipos.getSelectedValue();
+                    if (selectedValue != null && selectedValue.toString().contains("-")) {
                         jBtnCargarEquipo.setText("Deseleccionar");
                     } else {
                         jBtnCargarEquipo.setText("Seleccionar");
@@ -114,10 +134,52 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
         });
-        
-        
-        jListMuestraExperimentos.setModel(model);
 
+        // Cientifico
+        jListCientificos.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    Object selectedValue = jListCientificos.getSelectedValue();
+                    if (selectedValue != null && selectedValue.toString().contains("-")) {
+                        jBtnCargarCientifico.setText("Deseleccionar");
+                    } else {
+                        jBtnCargarCientifico.setText("Seleccionar");
+                    }
+                }
+            }
+        });
+        // Equipo Modifica
+        jListEquipoModifica.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    Object selectedValue = jListCientificos.getSelectedValue();
+                    if (selectedValue != null && jListEquipoModifica.getSelectedValue().contains("-")) {
+                        jBtnSeleccionEquipoModifica.setText("Deseleccionar");
+                    } else {
+                        jBtnSeleccionEquipoModifica.setText("Seleccionar");
+                    }
+                }
+            }
+        });
+
+        // Cientifico Modifica
+        jListCientificoModifica.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    Object selectedValue = jListCientificos.getSelectedValue();
+                    if (selectedValue != null && jListCientificoModifica.getSelectedValue().contains("-")) {
+                        jBtnCargarCientificoModifica.setText("Deseleccionar");
+                    } else {
+                        jBtnCargarCientificoModifica.setText("Seleccionar");
+                    }
+                }
+            }
+        });
+
+        // Guardo equipo?????????
         recursos.guardarEquipos();
 
     }
@@ -134,6 +196,10 @@ public class Principal extends javax.swing.JFrame {
         frenteAzul = new javax.swing.JPanel();
         jBtnCargarExperimento = new javax.swing.JButton();
         jBtnInformacion = new javax.swing.JButton();
+        jBtnSalir = new javax.swing.JPanel();
+        jBtnSalirTxt = new javax.swing.JLabel();
+        jBtnMinimiza = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
         contenedor = new javax.swing.JPanel();
         cargarExperimento = new javax.swing.JPanel();
         jComboBoxTipos = new javax.swing.JComboBox<>();
@@ -145,7 +211,6 @@ public class Principal extends javax.swing.JFrame {
         jDaChFechaInicio = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         lOrganismo = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JTextField();
         txtPresupuesto = new javax.swing.JTextField();
@@ -154,8 +219,8 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtADescripcion = new javax.swing.JTextArea();
         jBtnCargarCientifico = new javax.swing.JButton();
-        jBtnEnviar = new javax.swing.JButton();
         JbtnModificarExperimento = new javax.swing.JButton();
+        jBtnEnviar = new javax.swing.JButton();
         jScrollPane8 = new javax.swing.JScrollPane();
         jListMuestraExperimentos = new javax.swing.JList<>();
         jBtnEliminarExperimento = new javax.swing.JButton();
@@ -170,6 +235,12 @@ public class Principal extends javax.swing.JFrame {
         jDaChFechaFin = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         lFenomeno = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
         modifica = new javax.swing.JPanel();
         jComboBoxTiposModifica = new javax.swing.JComboBox<>();
         txtFenomenoModifica = new javax.swing.JTextField();
@@ -200,9 +271,12 @@ public class Principal extends javax.swing.JFrame {
         jLabel33 = new javax.swing.JLabel();
         jDaChInicioCientificos1 = new com.toedter.calendar.JDateChooser();
         lFenomeno1 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
         jPanelInformacion = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPanelInformacion1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -210,172 +284,276 @@ public class Principal extends javax.swing.JFrame {
         jCantidadExpBiologicos = new javax.swing.JLabel();
         jSumaPresupuestosExp = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jCantidadEquipos = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jCantidadEquipos = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabelResultadoMenor = new javax.swing.JLabel();
+        jLabelResultadoMayor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        setUndecorated(true);
+        setResizable(false);
 
-        frenteAzul.setBackground(new java.awt.Color(0, 51, 204));
+        frenteAzul.setBackground(new java.awt.Color(51, 102, 255));
+        frenteAzul.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        frenteAzul.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                frenteAzulMouseDragged(evt);
+            }
+        });
+        frenteAzul.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                frenteAzulMousePressed(evt);
+            }
+        });
+        frenteAzul.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jBtnCargarExperimento.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jBtnCargarExperimento.setText("Carga");
+        jBtnCargarExperimento.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jBtnCargarExperimento.setContentAreaFilled(false);
+        jBtnCargarExperimento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnCargarExperimento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtnCargarExperimento.setOpaque(true);
         jBtnCargarExperimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCargarExperimentoActionPerformed1(evt);
             }
         });
+        frenteAzul.add(jBtnCargarExperimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 100, 40));
 
+        jBtnInformacion.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jBtnInformacion.setText("Informacion");
+        jBtnInformacion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jBtnInformacion.setContentAreaFilled(false);
+        jBtnInformacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnInformacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtnInformacion.setOpaque(true);
         jBtnInformacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnInformacionActionPerformed(evt);
             }
         });
+        frenteAzul.add(jBtnInformacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 120, 40));
 
-        javax.swing.GroupLayout frenteAzulLayout = new javax.swing.GroupLayout(frenteAzul);
-        frenteAzul.setLayout(frenteAzulLayout);
-        frenteAzulLayout.setHorizontalGroup(
-            frenteAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(frenteAzulLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jBtnCargarExperimento)
-                .addGap(43, 43, 43)
-                .addComponent(jBtnInformacion)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jBtnSalirTxt.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jBtnSalirTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jBtnSalirTxt.setText("X");
+        jBtnSalirTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnSalirTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBtnSalirTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jBtnSalirTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jBtnSalirTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jBtnSalirLayout = new javax.swing.GroupLayout(jBtnSalir);
+        jBtnSalir.setLayout(jBtnSalirLayout);
+        jBtnSalirLayout.setHorizontalGroup(
+            jBtnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jBtnSalirLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jBtnSalirTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        frenteAzulLayout.setVerticalGroup(
-            frenteAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(frenteAzulLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(frenteAzulLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnCargarExperimento)
-                    .addComponent(jBtnInformacion))
-                .addContainerGap(16, Short.MAX_VALUE))
+        jBtnSalirLayout.setVerticalGroup(
+            jBtnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jBtnSalirTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
+
+        frenteAzul.add(jBtnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, 40, 40));
+
+        jLabel12.setFont(new java.awt.Font("Swis721 LtEx BT", 1, 48)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("-");
+        jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jBtnMinimizaLayout = new javax.swing.GroupLayout(jBtnMinimiza);
+        jBtnMinimiza.setLayout(jBtnMinimizaLayout);
+        jBtnMinimizaLayout.setHorizontalGroup(
+            jBtnMinimizaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+        jBtnMinimizaLayout.setVerticalGroup(
+            jBtnMinimizaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        frenteAzul.add(jBtnMinimiza, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 10, 40, 40));
 
         contenedor.setLayout(new java.awt.CardLayout());
 
+        cargarExperimento.setBackground(new java.awt.Color(255, 255, 255));
+        cargarExperimento.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        cargarExperimento.setForeground(new java.awt.Color(51, 51, 51));
         cargarExperimento.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jComboBoxTipos.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jComboBoxTipos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Fisico", "Biologico" }));
+        jComboBoxTipos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jComboBoxTipos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxTiposActionPerformed(evt);
             }
         });
-        cargarExperimento.add(jComboBoxTipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+        cargarExperimento.add(jComboBoxTipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 120, -1));
 
-        txtFenomeno.setText("3");
+        txtFenomeno.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         txtFenomeno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFenomenoActionPerformed(evt);
             }
         });
-        cargarExperimento.add(txtFenomeno, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 85, -1));
+        cargarExperimento.add(txtFenomeno, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 120, -1));
 
+        jLabel7.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jLabel7.setText("Fecha Fin");
-        cargarExperimento.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, -1, -1));
+        cargarExperimento.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 100, -1));
 
+        jLabel3.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jLabel3.setText("Descripcion");
-        cargarExperimento.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, -1, -1));
+        cargarExperimento.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
 
+        jLabel6.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jLabel6.setText("Fecha Inicio");
-        cargarExperimento.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
-        cargarExperimento.add(jDaChInicioCientificos, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 540, 200, -1));
+        cargarExperimento.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 80, -1));
 
+        jDaChInicioCientificos.setBackground(new java.awt.Color(255, 255, 255));
+        jDaChInicioCientificos.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        cargarExperimento.add(jDaChInicioCientificos, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 520, 200, -1));
+
+        jDaChFechaInicio.setBackground(new java.awt.Color(255, 255, 255));
         jDaChFechaInicio.setFocusable(false);
+        jDaChFechaInicio.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jDaChFechaInicio.setMaxSelectableDate(new java.util.Date(2524622491000L));
         jDaChFechaInicio.setMinSelectableDate(new java.util.Date(1672545691000L));
-        cargarExperimento.add(jDaChFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 190, -1));
+        cargarExperimento.add(jDaChFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 130, -1));
 
+        jLabel8.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jLabel8.setText("Tipo");
-        cargarExperimento.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+        cargarExperimento.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
+        lOrganismo.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         lOrganismo.setText("Organismo");
-        cargarExperimento.add(lOrganismo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, 13));
+        cargarExperimento.add(lOrganismo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
 
-        jLabel28.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel28.setText("Carga Experimento");
-        cargarExperimento.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 34));
-
+        jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jLabel4.setText("Presupuesto");
-        cargarExperimento.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
+        cargarExperimento.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 110, 80, -1));
 
-        txtTitulo.setText("1");
+        txtTitulo.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         txtTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTituloActionPerformed(evt);
             }
         });
-        cargarExperimento.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 290, -1));
+        cargarExperimento.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 290, -1));
 
-        txtPresupuesto.setText("2");
+        txtPresupuesto.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         txtPresupuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPresupuestoActionPerformed(evt);
             }
         });
-        cargarExperimento.add(txtPresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 190, -1));
+        cargarExperimento.add(txtPresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 130, -1));
 
         txtOrganismo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtOrganismoActionPerformed(evt);
             }
         });
-        cargarExperimento.add(txtOrganismo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 85, -1));
+        cargarExperimento.add(txtOrganismo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 120, 30));
 
+        lFecha.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         lFecha.setText("Fenomeno");
-        cargarExperimento.add(lFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
+        cargarExperimento.add(lFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
 
+        txtADescripcion.setBackground(new java.awt.Color(243, 243, 243));
         txtADescripcion.setColumns(20);
+        txtADescripcion.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         txtADescripcion.setRows(5);
-        txtADescripcion.setText("412");
         jScrollPane2.setViewportView(txtADescripcion);
 
-        cargarExperimento.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 290, 290));
+        cargarExperimento.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 290, 290));
 
+        jBtnCargarCientifico.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jBtnCargarCientifico.setText("Seleccionar");
+        jBtnCargarCientifico.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jBtnCargarCientifico.setContentAreaFilled(false);
         jBtnCargarCientifico.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnCargarCientifico.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtnCargarCientifico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCargarCientificoActionPerformed(evt);
             }
         });
-        cargarExperimento.add(jBtnCargarCientifico, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 530, -1, 30));
+        cargarExperimento.add(jBtnCargarCientifico, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 510, 100, 30));
 
-        jBtnEnviar.setText("Guardar");
-        jBtnEnviar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnEnviar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnEnviarActionPerformed(evt);
-            }
-        });
-        cargarExperimento.add(jBtnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 590, -1, 30));
-
-        JbtnModificarExperimento.setText("Guardar");
+        JbtnModificarExperimento.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
+        JbtnModificarExperimento.setText("Modificar");
+        JbtnModificarExperimento.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        JbtnModificarExperimento.setContentAreaFilled(false);
         JbtnModificarExperimento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        JbtnModificarExperimento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         JbtnModificarExperimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JbtnModificarExperimentoActionPerformed(evt);
             }
         });
-        cargarExperimento.add(JbtnModificarExperimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 600, -1, 30));
+        cargarExperimento.add(JbtnModificarExperimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 510, 70, 30));
 
+        jBtnEnviar.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
+        jBtnEnviar.setText("Guardar");
+        jBtnEnviar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jBtnEnviar.setContentAreaFilled(false);
+        jBtnEnviar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnEnviar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnEnviarActionPerformed(evt);
+            }
+        });
+        cargarExperimento.add(jBtnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 550, 100, 30));
+
+        jListMuestraExperimentos.setBackground(new java.awt.Color(243, 243, 243));
+        jListMuestraExperimentos.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jListMuestraExperimentos.setSelectionBackground(new java.awt.Color(51, 102, 255));
         jScrollPane8.setViewportView(jListMuestraExperimentos);
 
-        cargarExperimento.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 60, 240, 530));
+        cargarExperimento.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 70, 240, 420));
 
+        jBtnEliminarExperimento.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jBtnEliminarExperimento.setText("Eliminar");
+        jBtnEliminarExperimento.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jBtnEliminarExperimento.setContentAreaFilled(false);
         jBtnEliminarExperimento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnEliminarExperimento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtnEliminarExperimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnEliminarExperimentoActionPerformed(evt);
             }
         });
-        cargarExperimento.add(jBtnEliminarExperimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 600, -1, 30));
+        cargarExperimento.add(jBtnEliminarExperimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 510, 60, 30));
 
-        jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel31.setText("Experimentos Cargados");
-        cargarExperimento.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, -1, -1));
+        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel31.setText("EXPERIMENTOS CARGADOS");
+        cargarExperimento.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 10, -1, -1));
 
+        jListEquipos.setBackground(new java.awt.Color(243, 243, 243));
+        jListEquipos.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jListEquipos.setSelectionBackground(new java.awt.Color(51, 102, 255));
         jListEquipos.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 jListEquiposValueChanged(evt);
@@ -383,160 +561,241 @@ public class Principal extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(jListEquipos);
 
-        cargarExperimento.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, 320, 180));
+        cargarExperimento.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 320, 140));
 
+        jBtnCargarEquipo.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jBtnCargarEquipo.setText("Seleccionar");
+        jBtnCargarEquipo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jBtnCargarEquipo.setContentAreaFilled(false);
         jBtnCargarEquipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnCargarEquipo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jBtnCargarEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCargarEquipoActionPerformed(evt);
             }
         });
-        cargarExperimento.add(jBtnCargarEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 270, -1, 30));
+        cargarExperimento.add(jBtnCargarEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 220, 100, 30));
 
-        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel29.setText("Cargar Equipo");
-        cargarExperimento.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, -1, -1));
+        jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel29.setText("CARGA EQUIPO");
+        cargarExperimento.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 20, -1, -1));
 
+        jListCientificos.setBackground(new java.awt.Color(243, 243, 243));
+        jListCientificos.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jListCientificos.setSelectionBackground(new java.awt.Color(51, 102, 255));
         jScrollPane7.setViewportView(jListCientificos);
 
-        cargarExperimento.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 320, 320, 190));
+        cargarExperimento.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 320, 190));
 
-        jLabel30.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel30.setText("Cargar Cientifico");
-        cargarExperimento.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, -1, -1));
+        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel30.setText("CARGA CIENTIFICO");
+        cargarExperimento.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, -1, 30));
 
+        jDaChFechaFin.setBackground(new java.awt.Color(255, 255, 255));
+        jDaChFechaFin.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jDaChFechaFin.setMaxSelectableDate(new java.util.Date(2524622491000L));
         jDaChFechaFin.setMinSelectableDate(new java.util.Date(1672545691000L));
-        cargarExperimento.add(jDaChFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 190, -1));
+        cargarExperimento.add(jDaChFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 130, -1));
 
+        jLabel5.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jLabel5.setText("Titulo");
-        cargarExperimento.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        cargarExperimento.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
 
+        lFenomeno.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         lFenomeno.setText("Fecha Contratacion");
-        cargarExperimento.add(lFenomeno, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 520, -1, -1));
+        cargarExperimento.add(lFenomeno, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 500, -1, -1));
+
+        jLabel36.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel36.setText("CARGA EXPERIMENTO");
+        cargarExperimento.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 220, 40));
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/dinero.png"))); // NOI18N
+        cargarExperimento.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 40, -1));
+
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/marcado (1).png"))); // NOI18N
+        cargarExperimento.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 0, 40, 40));
+
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/cientifico.png"))); // NOI18N
+        cargarExperimento.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 250, 40, -1));
+
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/prueba-de-sangre (2).png"))); // NOI18N
+        cargarExperimento.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 40, -1));
+
+        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/reunion.png"))); // NOI18N
+        cargarExperimento.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 40, 40));
 
         contenedor.add(cargarExperimento, "card4");
 
+        modifica.setBackground(new java.awt.Color(255, 255, 255));
         modifica.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jComboBoxTiposModifica.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "...", "Fisico", "Biologico" }));
+        jComboBoxTiposModifica.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
+        jComboBoxTiposModifica.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Fisico", "Biologico" }));
         jComboBoxTiposModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxTiposModificaActionPerformed(evt);
             }
         });
-        modifica.add(jComboBoxTiposModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 144, -1, -1));
-        modifica.add(txtFenomenoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 256, 85, -1));
+        modifica.add(jComboBoxTiposModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 120, -1));
 
+        txtFenomenoModifica.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        modifica.add(txtFenomenoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 120, -1));
+
+        jLabel13.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jLabel13.setText("Fecha Fin");
-        modifica.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 234, -1, -1));
+        modifica.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 80, -1));
 
+        jLabel14.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jLabel14.setText("Descripcion");
-        modifica.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 290, -1, -1));
+        modifica.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 100, -1));
 
+        jLabel15.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jLabel15.setText("Fecha Inicio");
-        modifica.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 178, -1, -1));
-        modifica.add(jDaChFechaInicioModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 200, -1, -1));
-        modifica.add(jDaChFechaFinModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 256, -1, -1));
+        modifica.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 100, -1));
 
+        jDaChFechaInicioModifica.setBackground(new java.awt.Color(255, 255, 255));
+        jDaChFechaInicioModifica.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        modifica.add(jDaChFechaInicioModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 120, -1));
+
+        jDaChFechaFinModifica.setBackground(new java.awt.Color(255, 255, 255));
+        jDaChFechaFinModifica.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        modifica.add(jDaChFechaFinModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 120, -1));
+
+        jLabel16.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jLabel16.setText("Tipo");
-        modifica.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 122, -1, -1));
+        modifica.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 60, -1));
 
+        lOrganismoModifica.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         lOrganismoModifica.setText("Organismo");
-        modifica.add(lOrganismoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 178, -1, 13));
+        modifica.add(lOrganismoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 90, 20));
 
-        jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel32.setText("Carga Experimento");
-        modifica.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 6, -1, 34));
+        jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel32.setText("MODIFICAR EXPERIMENTO");
+        modifica.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 250, 34));
 
+        jLabel17.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jLabel17.setText("Presupuesto");
-        modifica.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 122, -1, -1));
+        modifica.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 100, -1));
 
+        txtTituloModifica.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         txtTituloModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTituloModificaActionPerformed(evt);
             }
         });
-        modifica.add(txtTituloModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 88, 192, -1));
+        modifica.add(txtTituloModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 270, -1));
 
+        jLabel18.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jLabel18.setText("Titulo");
-        modifica.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 66, -1, -1));
+        modifica.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 60, -1));
 
+        txtPresupuestoModifica.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         txtPresupuestoModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPresupuestoModificaActionPerformed(evt);
             }
         });
-        modifica.add(txtPresupuestoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 144, 90, -1));
+        modifica.add(txtPresupuestoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 120, -1));
 
+        txtOrganismoModifica.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         txtOrganismoModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtOrganismoModificaActionPerformed(evt);
             }
         });
-        modifica.add(txtOrganismoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 198, 85, -1));
+        modifica.add(txtOrganismoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 120, -1));
 
+        lFenomenoModifica.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         lFenomenoModifica.setText("Fenomeno");
-        modifica.add(lFenomenoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 234, -1, -1));
+        modifica.add(lFenomenoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 90, -1));
 
+        txtADescripcionModifica.setBackground(new java.awt.Color(246, 246, 246));
         txtADescripcionModifica.setColumns(20);
+        txtADescripcionModifica.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         txtADescripcionModifica.setRows(5);
         jScrollPane3.setViewportView(txtADescripcionModifica);
 
-        modifica.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 318, 193, -1));
+        modifica.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 270, 250));
 
+        btnEnviarModifica.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         btnEnviarModifica.setText("Enviar");
+        btnEnviarModifica.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnEnviarModifica.setContentAreaFilled(false);
         btnEnviarModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEnviarModificaActionPerformed(evt);
             }
         });
-        modifica.add(btnEnviarModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 390, -1, -1));
+        modifica.add(btnEnviarModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 550, 110, 30));
 
+        jBtnCargarCientificoModifica.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jBtnCargarCientificoModifica.setText("Seleccion");
+        jBtnCargarCientificoModifica.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jBtnCargarCientificoModifica.setContentAreaFilled(false);
         jBtnCargarCientificoModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCargarCientificoModificaActionPerformed(evt);
             }
         });
-        modifica.add(jBtnCargarCientificoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, -1, -1));
+        modifica.add(jBtnCargarCientificoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 490, 110, 30));
 
+        jListCientificoModifica.setBackground(new java.awt.Color(246, 246, 246));
+        jListCientificoModifica.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jListCientificoModifica.setSelectionBackground(new java.awt.Color(51, 102, 255));
         jScrollPane10.setViewportView(jListCientificoModifica);
 
-        modifica.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 235, 162, 97));
+        modifica.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 270, 140));
 
-        jLabel34.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel34.setText("Cargar Cientifico");
-        modifica.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 195, -1, 34));
+        jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel34.setText("MODIFICAR CIENTIFICOS");
+        modifica.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 240, 34));
 
+        jBtnSeleccionEquipoModifica.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jBtnSeleccionEquipoModifica.setText("Seleccion");
+        jBtnSeleccionEquipoModifica.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jBtnSeleccionEquipoModifica.setContentAreaFilled(false);
         jBtnSeleccionEquipoModifica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnSeleccionEquipoModificaActionPerformed(evt);
             }
         });
-        modifica.add(jBtnSeleccionEquipoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(344, 166, -1, -1));
+        modifica.add(jBtnSeleccionEquipoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, 120, 30));
 
+        jListEquipoModifica.setBackground(new java.awt.Color(246, 246, 246));
+        jListEquipoModifica.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jListEquipoModifica.setSelectionBackground(new java.awt.Color(51, 102, 255));
         jScrollPane9.setViewportView(jListEquipoModifica);
 
-        modifica.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 62, 162, 98));
+        modifica.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 270, 130));
 
-        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel33.setText("Cargar Equipo");
-        modifica.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 18, -1, 34));
-        modifica.add(jDaChInicioCientificos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 90, -1));
+        jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel33.setText("MODIFICAR EQUIPOS");
+        modifica.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 190, 34));
 
+        jDaChInicioCientificos1.setBackground(new java.awt.Color(255, 255, 255));
+        jDaChInicioCientificos1.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        modifica.add(jDaChInicioCientificos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 500, 130, -1));
+
+        lFenomeno1.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         lFenomeno1.setText("Fecha Contratacion");
-        modifica.add(lFenomeno1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, -1, -1));
+        modifica.add(lFenomeno1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 480, 210, -1));
+
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/prueba-de-sangre (2).png"))); // NOI18N
+        modifica.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 40, -1));
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/experimentar.png"))); // NOI18N
+        modifica.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 380, 560));
+
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/cientifico.png"))); // NOI18N
+        modifica.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 280, 40, -1));
+
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/reunion.png"))); // NOI18N
+        modifica.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, 40, 40));
 
         contenedor.add(modifica, "card5");
 
         jPanelInformacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanelInformacion.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(288, 18, -1, -1));
-
-        jPanelInformacion1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanelInformacion.add(jPanelInformacion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(481, 221, -1, -1));
 
         jLabel9.setText("Suma de presupuesto de todos los experimentos");
         jPanelInformacion.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 41, -1, -1));
@@ -559,8 +818,23 @@ public class Principal extends javax.swing.JFrame {
         jLabel20.setText("Equipo mas usado");
         jPanelInformacion.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
-        jCantidadEquipos.setText("info");
-        jPanelInformacion.add(jCantidadEquipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 500, -1));
+        jCantidadEquipos.setColumns(20);
+        jCantidadEquipos.setRows(5);
+        jScrollPane1.setViewportView(jCantidadEquipos);
+
+        jPanelInformacion.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 790, 150));
+
+        jLabel1.setText("El proyecto de mayor duracion es:");
+        jPanelInformacion.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
+
+        jLabel21.setText("El proyecto de menor duracion es:");
+        jPanelInformacion.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 130, -1, -1));
+
+        jLabelResultadoMenor.setText("menor");
+        jPanelInformacion.add(jLabelResultadoMenor, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 130, -1, -1));
+
+        jLabelResultadoMayor.setText("mayor");
+        jPanelInformacion.add(jLabelResultadoMayor, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, -1, -1));
 
         contenedor.add(jPanelInformacion, "card4");
 
@@ -568,23 +842,19 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 1088, Short.MAX_VALUE)
             .addComponent(frenteAzul, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(contenedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(frenteAzul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(frenteAzul, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE))
+                .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTituloActionPerformed
 
     private void jBtnCargarExperimentoActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarExperimentoActionPerformed1
         // TODO add your handling code here:
@@ -675,32 +945,6 @@ public class Principal extends javax.swing.JFrame {
         }
     }
 
-    private void jComboBoxTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTiposActionPerformed
-        // TODO add your handling code here:
-
-        if ("Biologico".equals(jComboBoxTipos.getSelectedItem())) {
-            lOrganismo.setVisible(true);
-            txtOrganismo.setVisible(true);
-            lFecha.setVisible(false);
-            txtFenomeno.setVisible(false);
-        } else if ("Fisico".equals(jComboBoxTipos.getSelectedItem())) {
-            lFecha.setVisible(true);
-            txtFenomeno.setVisible(true);
-            lOrganismo.setVisible(false);
-            txtOrganismo.setVisible(false);
-        } else {
-            lOrganismo.setVisible(false);
-            txtOrganismo.setVisible(false);
-            lFecha.setVisible(false);
-            txtFenomeno.setVisible(false);
-        }
-
-
-    }//GEN-LAST:event_jComboBoxTiposActionPerformed
-
-    private void txtOrganismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrganismoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtOrganismoActionPerformed
 
     private void jBtnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInformacionActionPerformed
         // TODO add your handling code here:
@@ -761,79 +1005,48 @@ public class Principal extends javax.swing.JFrame {
             jCantidadEquipos.setText("No hay equipos usados");
         }
 
+        //Determinar el experimento de menor y mayor duracion....        
+        Experimento eMayor = listaExperimentosBioFis.get(0);
+        Experimento eMenor = listaExperimentosBioFis.get(0);
+        //String menor=listaExperimentosBioFis.get(0).getTitulo();
+        // Crear un objeto SimpleDateFormat para formatear fechas ya que getInicio devuelve un string
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate iniMayor = null;
+        LocalDate finMayor = null;
+        LocalDate iniOtro = null;
+        LocalDate finOtro = null;
+        long duracionOtro = 0;
+        long duracionMayor = 0;
+        long duracionMenor = 0;
+        for (Experimento e : listaExperimentosBioFis) {
+            //casteos de date a LocalDate para poder usar la funcion que calcula dias entre dos fechas dadas(Ya que ChronoUnit solo recibe objetos temporales como LocalDate)
+            iniMayor = LocalDate.parse(eMayor.getInicio(), dtf);
+            finMayor = LocalDate.parse(eMayor.getFin(), dtf);
+            iniOtro = LocalDate.parse(e.getInicio(), dtf);
+            finOtro = LocalDate.parse(e.getFin(), dtf);
+            System.out.println(iniMayor);
+            System.out.println(finMayor);
+            duracionMayor = ChronoUnit.DAYS.between(iniMayor, finMayor);
+            duracionOtro = ChronoUnit.DAYS.between(iniOtro, finOtro);
+            if (duracionMayor < duracionOtro) {
+                eMayor = e;
+            }
+            if (duracionMayor > duracionOtro) {
+                eMenor = e;
+            }
+        }
+        //Las 3 lineas siguientes se hacen para asegurarse que se actualice el valor "duracionMayor" ya que daba problemas si el de mayor duracion era el ultimo elemento.
+        iniMayor = LocalDate.parse(eMayor.getInicio(), dtf);
+        finMayor = LocalDate.parse(eMayor.getFin(), dtf);
+        duracionMayor = ChronoUnit.DAYS.between(iniMayor, finMayor);
+        jLabelResultadoMayor.setText(eMayor.getTitulo() + " con " + duracionMayor + " dias");
+        iniMayor = LocalDate.parse(eMenor.getInicio(), dtf);
+        finMayor = LocalDate.parse(eMenor.getFin(), dtf);
+        duracionMenor = ChronoUnit.DAYS.between(iniMayor, finMayor);
+        System.out.println("Duracion menor2: " + duracionMenor);
+        jLabelResultadoMenor.setText(eMenor.getTitulo() + " con " + duracionMenor + " dias");
+
     }//GEN-LAST:event_jBtnInformacionActionPerformed
-
-    private void txtPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPresupuestoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPresupuestoActionPerformed
-
-    private void jBtnCargarCientificoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarCientificoActionPerformed
-        String auxCientifico = jListCientificos.getSelectedValue();
-
-        // Control de cientifico 
-        if (auxCientifico == null) {
-            JOptionPane.showMessageDialog(null, "Seleccione un cientifico valido");
-            return;
-        }
-
-        // Control de Fecha
-        if (jDaChFechaInicio.getDate() == null || jDaChFechaFin.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Error: Primero cargue las fechas de inicio y fin de experimento.");
-            return;
-        }
-        Date auxFecha = jDaChInicioCientificos.getDate();
-        if (jDaChInicioCientificos.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
-            return;
-            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
-        }
-        //Control Para que la fecha de contratacion del cientifico este dentro del rango que dura el experimento
-        //iniMayor=eMayor.getInicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        Date iniExp = jDaChFechaInicio.getDate();
-        Date finExp = jDaChFechaFin.getDate();
-        LocalDate localIniExp = iniExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate localFinExp = finExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate localAuxFecha = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        //if((auxFecha.equals(iniExp)||auxFecha.after(iniExp)) && (auxFecha.equals(finExp) || auxFecha.before(finExp))){
-        if ((localAuxFecha.isAfter(localIniExp) || localAuxFecha.equals(localIniExp)) && localAuxFecha.isBefore(localFinExp) || localAuxFecha.equals(localFinExp)) {
-            ;
-        } else {
-            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha que este dentro del Rango de duracion del experimento.");
-            return;
-        }
-
-        LocalDate localDate = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        String fechaCientifico = localDate.toString();
-// LLeno la lista auxiliar para luego pasarla al experimento.
-        for (Cientifico e : recursos.getListaCientifico()) {
-            if (auxCientifico.contains(e.getDni()) && auxCientifico.contains("-")) {
-                auxListaCientifico.remove(e);
-            }
-            if ((e.getNombre() + " " + e.getApellido() + " " + e.getDni()).equals(auxCientifico)) {
-                e.setContratacion(fechaCientifico);
-                auxListaCientifico.add(e);
-            }
-        }
-        // Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
-//        DefaultListModel modelEquipo = new DefaultListModel();
-        DefaultListModel modelCientifico = new DefaultListModel();
-        for (Cientifico e : recursos.getListaCientifico()) {
-            if (auxListaCientifico.contains(e)) {
-                modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni() + " - " + e.getContratacion());
-            } else {
-                modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
-            }
-        }
-
-        jListCientificos.setModel(modelCientifico);
-
-        // Repintar contenedor
-        contenedor.repaint();
-        contenedor.revalidate();
-
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jBtnCargarCientificoActionPerformed
 
     private void jComboBoxTiposModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTiposModificaActionPerformed
         // TODO add your handling code here:
@@ -955,14 +1168,13 @@ public class Principal extends javax.swing.JFrame {
 
         // Control de Fecha
         Date auxFecha = jDaChInicioCientificos1.getDate();
-        LocalDate localDate = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        String fechaCientifico = localDate.toString();
-
         if (jDaChInicioCientificos1.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
             return;
             // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
         }
+        LocalDate localDate = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String fechaCientifico = localDate.toString();
 
 // LLeno la lista auxiliar para luego pasarla al experimento.
         for (Cientifico e : recursos.getListaCientifico()) {
@@ -1159,6 +1371,90 @@ public class Principal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnEnviarModificaActionPerformed
 
+    private void frenteAzulMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frenteAzulMousePressed
+        // TODO add your handling code here:
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+
+    }//GEN-LAST:event_frenteAzulMousePressed
+
+    private void frenteAzulMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frenteAzulMouseDragged
+        // TODO add your handling code here:
+
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_frenteAzulMouseDragged
+
+    private void jBtnSalirTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnSalirTxtMouseClicked
+        System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnSalirTxtMouseClicked
+
+    private void jBtnSalirTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnSalirTxtMouseEntered
+        // TODO add your handling code here:
+        jBtnSalir.setBackground(Color.red);
+        jBtnSalirTxt.setForeground(Color.white);
+    }//GEN-LAST:event_jBtnSalirTxtMouseEntered
+
+    private void jBtnSalirTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnSalirTxtMouseExited
+        // TODO add your handling code here:
+        jBtnSalir.setBackground(Color.LIGHT_GRAY);
+        jBtnSalirTxt.setForeground(Color.black);
+
+    }//GEN-LAST:event_jBtnSalirTxtMouseExited
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        // TODO add your handling code here:
+        this.setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jBtnCargarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarEquipoActionPerformed
+
+        //Equipo
+        String auxEquipo = jListEquipos.getSelectedValue();
+
+        // Control de Equipo
+        if (auxEquipo == null) {
+            JOptionPane.showMessageDialog(null, "Seleccione un Equipo valido");
+            return;
+        }
+        // LLeno la lista auxiliar para luego pasarla al experimento.
+        for (Equipo e : recursos.getListaEquipo()) {
+            int aux = 0;
+            if ((e.getNombre() + " - Seleccionado").equals(auxEquipo)) {
+                auxListaEquipos.remove(e);
+            }
+            if ((e.getNombre()).equals(auxEquipo)) {
+                auxListaEquipos.add(e);
+            }
+        }
+
+        //Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
+        DefaultListModel modelEquipo = new DefaultListModel();
+
+        for (Equipo e : recursos.getListaEquipo()) {
+            if (auxListaEquipos.contains(e)) {
+                modelEquipo.addElement(e.getNombre() + " - Seleccionado");
+            } else {
+                modelEquipo.addElement(e.getNombre());
+            }
+
+        }
+
+        jListEquipos.setModel(modelEquipo);
+
+        //        // Guardo en la lista auxiliar de equipo
+        //        Equipo equipo = new Equipo(auxEquipo);
+        //        auxListaEquipos.add(equipo);
+        repaint();
+        revalidate();
+    }//GEN-LAST:event_jBtnCargarEquipoActionPerformed
+
+    private void jListEquiposValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListEquiposValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jListEquiposValueChanged
+
     private void jBtnEliminarExperimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEliminarExperimentoActionPerformed
         if (jListMuestraExperimentos.getSelectedValue() == null) {
             JOptionPane.showMessageDialog(null, "Error: Seleccione un experimento de la lista.");
@@ -1174,12 +1470,12 @@ public class Principal extends javax.swing.JFrame {
         // No es seguro modificar lista con un bucle for each ya que lansa exepcion ConcurrentModificationException
         String experimentoSeleccionado = (String) jListMuestraExperimentos.getSelectedValue();
 
-        //Un Iterator es una interfaz en Java que se utiliza para recorrer y manipular colecciones de elementos, como listas, conjuntos y mapas. Se utiliza para garantizar un acceso controlado 
+        //Un Iterator es una interfaz en Java que se utiliza para recorrer y manipular colecciones de elementos, como listas, conjuntos y mapas. Se utiliza para garantizar un acceso controlado
         //y seguro a los elementos de una colección, lo que lo hace especialmente útil para eliminar elementos mientras se itera a través de la colección.
         Iterator<Experimento> iter = listaExperimentosBioFis.iterator();
 
         //iter.hasNext() verifica si hay elementos restantes en la iteración. Mientras haya elementos en la lista no iterados, el bucle continuará.
-        //El bucle while continuará hasta que hasNext() sea false, lo que significa que se han revisado todos los elementos de la lista. 
+        //El bucle while continuará hasta que hasNext() sea false, lo que significa que se han revisado todos los elementos de la lista.
         while (iter.hasNext()) {
 
             //avanza al siguiente elemento en la lista y lo almacena en la variable exp. Esto permite que accedas a los elementos individuales de la lista uno por uno.
@@ -1192,8 +1488,8 @@ public class Principal extends javax.swing.JFrame {
                     if (jListMuestraExperimentos.getSelectedValue().equals(e2.getNombre())) {
                         e2.setContador(e2.getContador() - 1);
                     }
-                }        recursos.guardarEquipos();
-
+                }
+                recursos.guardarEquipos();
 
                 iter.remove(); // Elimina el experimento de la lista
             }
@@ -1210,7 +1506,6 @@ public class Principal extends javax.swing.JFrame {
         contenedor.repaint();
 
         contenedor.revalidate();
-
 
     }//GEN-LAST:event_jBtnEliminarExperimentoActionPerformed
 
@@ -1349,53 +1644,6 @@ public class Principal extends javax.swing.JFrame {
         contenedor.revalidate();
     }//GEN-LAST:event_JbtnModificarExperimentoActionPerformed
 
-    private void jBtnCargarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarEquipoActionPerformed
-
-        //Equipo
-        String auxEquipo = jListEquipos.getSelectedValue();
-
-        // Control de Equipo
-        if (auxEquipo == null) {
-            JOptionPane.showMessageDialog(null, "Seleccione un Equipo valido");
-            return;
-        }
-        // LLeno la lista auxiliar para luego pasarla al experimento.
-        for (Equipo e : recursos.getListaEquipo()) {
-            int aux = 0;
-            if ((e.getNombre() + " - Seleccionado").equals(auxEquipo)) {
-                auxListaEquipos.remove(e);
-            }
-            if ((e.getNombre()).equals(auxEquipo)) {
-                auxListaEquipos.add(e);
-            }
-        }
-
-        //Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
-        DefaultListModel modelEquipo = new DefaultListModel();
-
-        for (Equipo e : recursos.getListaEquipo()) {
-            if (auxListaEquipos.contains(e)) {
-                modelEquipo.addElement(e.getNombre() + " - Seleccionado");
-            } else {
-                modelEquipo.addElement(e.getNombre());
-            }
-
-        }
-
-        jListEquipos.setModel(modelEquipo);
-
-//        // Guardo en la lista auxiliar de equipo
-//        Equipo equipo = new Equipo(auxEquipo);
-//        auxListaEquipos.add(equipo);
-        repaint();
-        revalidate();
-
-    }//GEN-LAST:event_jBtnCargarEquipoActionPerformed
-
-    private void txtFenomenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFenomenoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFenomenoActionPerformed
-
     private void jBtnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEnviarActionPerformed
 
         // Titulo
@@ -1449,8 +1697,12 @@ public class Principal extends javax.swing.JFrame {
 
         // Presupuesto
         float expPresupuestoFloat;
+        
         try {
             expPresupuestoFloat = Float.parseFloat(txtPresupuesto.getText().trim());
+            if (expPresupuestoFloat < 0) {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un presupuesto válido.(No puede ser negativo...)");
+            return;}
             // Ahora tienes el valor en formato float
             // Lo que hacemos con el try es ver que sea un numero si no lansa la exepcion. Para que no se rompa el programa y lo atrapamos con
             //el catch.
@@ -1565,9 +1817,110 @@ public class Principal extends javax.swing.JFrame {
         auxListaCientifico.clear();
     }//GEN-LAST:event_jBtnEnviarActionPerformed
 
-    private void jListEquiposValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListEquiposValueChanged
+    private void jBtnCargarCientificoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarCientificoActionPerformed
+        String auxCientifico = jListCientificos.getSelectedValue();
+
+        // Control de cientifico
+        if (auxCientifico == null) {
+            JOptionPane.showMessageDialog(null, "Seleccione un cientifico valido");
+            return;
+        }
+
+        // Control de Fecha
+        if (jDaChFechaInicio.getDate() == null || jDaChFechaFin.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Primero cargue las fechas de inicio y fin de experimento.");
+            return;
+        }
+        Date auxFecha = jDaChInicioCientificos.getDate();
+        if (jDaChInicioCientificos.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
+            return;
+            // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+        }
+        //Control Para que la fecha de contratacion del cientifico este dentro del rango que dura el experimento
+        //iniMayor=eMayor.getInicio().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Date iniExp = jDaChFechaInicio.getDate();
+        Date finExp = jDaChFechaFin.getDate();
+        LocalDate localIniExp = iniExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localFinExp = finExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localAuxFecha = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        //if((auxFecha.equals(iniExp)||auxFecha.after(iniExp)) && (auxFecha.equals(finExp) || auxFecha.before(finExp))){
+        if ((localAuxFecha.isAfter(localIniExp) || localAuxFecha.equals(localIniExp)) && localAuxFecha.isBefore(localFinExp) || localAuxFecha.equals(localFinExp)) {
+            ;
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha que este dentro del Rango de duracion del experimento.");
+            return;
+        }
+
+        LocalDate localDate = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String fechaCientifico = localDate.toString();
+        // LLeno la lista auxiliar para luego pasarla al experimento.
+        for (Cientifico e : recursos.getListaCientifico()) {
+            if (auxCientifico.contains(e.getDni()) && auxCientifico.contains("-")) {
+                auxListaCientifico.remove(e);
+            }
+            if ((e.getNombre() + " " + e.getApellido() + " " + e.getDni()).equals(auxCientifico)) {
+                e.setContratacion(fechaCientifico);
+                auxListaCientifico.add(e);
+            }
+        }
+        // Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
+        //        DefaultListModel modelEquipo = new DefaultListModel();
+        DefaultListModel modelCientifico = new DefaultListModel();
+        for (Cientifico e : recursos.getListaCientifico()) {
+            if (auxListaCientifico.contains(e)) {
+                modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni() + " - " + e.getContratacion());
+            } else {
+                modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
+            }
+        }
+
+        jListCientificos.setModel(modelCientifico);
+
+        // Repintar contenedor
+        contenedor.repaint();
+        contenedor.revalidate();
+
         // TODO add your handling code here:
-    }//GEN-LAST:event_jListEquiposValueChanged
+    }//GEN-LAST:event_jBtnCargarCientificoActionPerformed
+
+    private void txtOrganismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrganismoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtOrganismoActionPerformed
+
+    private void txtPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPresupuestoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPresupuestoActionPerformed
+
+    private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTituloActionPerformed
+
+    private void txtFenomenoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFenomenoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFenomenoActionPerformed
+
+    private void jComboBoxTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTiposActionPerformed
+        // TODO add your handling code here:
+
+        if ("Biologico".equals(jComboBoxTipos.getSelectedItem())) {
+            lOrganismo.setVisible(true);
+            txtOrganismo.setVisible(true);
+            lFecha.setVisible(false);
+            txtFenomeno.setVisible(false);
+        } else if ("Fisico".equals(jComboBoxTipos.getSelectedItem())) {
+            lFecha.setVisible(true);
+            txtFenomeno.setVisible(true);
+            lOrganismo.setVisible(false);
+            txtOrganismo.setVisible(false);
+        } else {
+            lOrganismo.setVisible(false);
+            txtOrganismo.setVisible(false);
+            lFecha.setVisible(false);
+            txtFenomeno.setVisible(false);
+        }
+
+    }//GEN-LAST:event_jComboBoxTiposActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1626,8 +1979,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jBtnEliminarExperimento;
     private javax.swing.JButton jBtnEnviar;
     private javax.swing.JButton jBtnInformacion;
+    private javax.swing.JPanel jBtnMinimiza;
+    private javax.swing.JPanel jBtnSalir;
+    private javax.swing.JLabel jBtnSalirTxt;
     private javax.swing.JButton jBtnSeleccionEquipoModifica;
-    private javax.swing.JLabel jCantidadEquipos;
+    private javax.swing.JTextArea jCantidadEquipos;
     private javax.swing.JLabel jCantidadExpBiologicos;
     private javax.swing.JLabel jCantidadExpFisicos;
     private javax.swing.JComboBox<String> jComboBoxTipos;
@@ -1638,7 +1994,10 @@ public class Principal extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDaChFechaInicioModifica;
     private com.toedter.calendar.JDateChooser jDaChInicioCientificos;
     private com.toedter.calendar.JDateChooser jDaChInicioCientificos1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1648,6 +2007,13 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
@@ -1656,19 +2022,23 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelResultadoMayor;
+    private javax.swing.JLabel jLabelResultadoMenor;
     private javax.swing.JList<String> jListCientificoModifica;
     private javax.swing.JList<String> jListCientificos;
     private javax.swing.JList<String> jListEquipoModifica;
     private javax.swing.JList<String> jListEquipos;
     private javax.swing.JList<String> jListMuestraExperimentos;
     private javax.swing.JPanel jPanelInformacion;
-    private javax.swing.JPanel jPanelInformacion1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
