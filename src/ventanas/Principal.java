@@ -46,7 +46,7 @@ import javax.swing.event.ListSelectionListener;
  * @author jerem
  */
 public class Principal extends javax.swing.JFrame {
-
+    
     int xMouse, yMouse;
 
     /**
@@ -84,7 +84,7 @@ public class Principal extends javax.swing.JFrame {
 
         // Seteo model lista Equipo
         DefaultListModel modelEquipo = new DefaultListModel();
-
+        
         for (Equipo e : recursos.getListaEquipo()) {
             modelEquipo.addElement(e.getNombre());
         }
@@ -181,7 +181,7 @@ public class Principal extends javax.swing.JFrame {
 
         // Guardo equipo?????????
         recursos.guardarEquipos();
-
+        
     }
 
     /**
@@ -194,6 +194,7 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         frenteAzul = new javax.swing.JPanel();
+        jLabel35 = new javax.swing.JLabel();
         jBtnCargarExperimento = new javax.swing.JButton();
         jBtnInformacion = new javax.swing.JButton();
         jBtnSalir = new javax.swing.JPanel();
@@ -240,7 +241,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
         modifica = new javax.swing.JPanel();
         jComboBoxTiposModifica = new javax.swing.JComboBox<>();
         txtFenomenoModifica = new javax.swing.JTextField();
@@ -288,15 +289,18 @@ public class Principal extends javax.swing.JFrame {
         jCantidadEquipos = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabelResultadoMenor = new javax.swing.JLabel();
-        jLabelResultadoMayor = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jLabelResultadoMayor = new javax.swing.JTextArea();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jLabelResultadoMenor = new javax.swing.JTextArea();
+        jCantidadExpFisicos1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
 
-        frenteAzul.setBackground(new java.awt.Color(51, 102, 255));
+        frenteAzul.setBackground(new java.awt.Color(129, 154, 204));
         frenteAzul.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         frenteAzul.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -309,7 +313,9 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         frenteAzul.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        frenteAzul.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
 
+        jBtnCargarExperimento.setBackground(new java.awt.Color(190, 204, 231));
         jBtnCargarExperimento.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jBtnCargarExperimento.setText("Carga");
         jBtnCargarExperimento.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -322,8 +328,9 @@ public class Principal extends javax.swing.JFrame {
                 jBtnCargarExperimentoActionPerformed1(evt);
             }
         });
-        frenteAzul.add(jBtnCargarExperimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 100, 40));
+        frenteAzul.add(jBtnCargarExperimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 40));
 
+        jBtnInformacion.setBackground(new java.awt.Color(190, 204, 231));
         jBtnInformacion.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jBtnInformacion.setText("Informacion");
         jBtnInformacion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -336,7 +343,9 @@ public class Principal extends javax.swing.JFrame {
                 jBtnInformacionActionPerformed(evt);
             }
         });
-        frenteAzul.add(jBtnInformacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 120, 40));
+        frenteAzul.add(jBtnInformacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 120, 40));
+
+        jBtnSalir.setBackground(new java.awt.Color(129, 154, 204));
 
         jBtnSalirTxt.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jBtnSalirTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -365,11 +374,14 @@ public class Principal extends javax.swing.JFrame {
         );
         jBtnSalirLayout.setVerticalGroup(
             jBtnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jBtnSalirTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addComponent(jBtnSalirTxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         frenteAzul.add(jBtnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, 40, 40));
 
+        jBtnMinimiza.setBackground(new java.awt.Color(129, 154, 204));
+
+        jLabel12.setBackground(new java.awt.Color(129, 154, 204));
         jLabel12.setFont(new java.awt.Font("Swis721 LtEx BT", 1, 48)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("-");
@@ -411,6 +423,7 @@ public class Principal extends javax.swing.JFrame {
         cargarExperimento.add(jComboBoxTipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 120, -1));
 
         txtFenomeno.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        txtFenomeno.setSelectionColor(new java.awt.Color(51, 102, 255));
         txtFenomeno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFenomenoActionPerformed(evt);
@@ -432,6 +445,8 @@ public class Principal extends javax.swing.JFrame {
 
         jDaChInicioCientificos.setBackground(new java.awt.Color(255, 255, 255));
         jDaChInicioCientificos.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jDaChInicioCientificos.setMaxSelectableDate(new java.util.Date(2524622518000L));
+        jDaChInicioCientificos.setMinSelectableDate(new java.util.Date(1641009718000L));
         cargarExperimento.add(jDaChInicioCientificos, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 520, 200, -1));
 
         jDaChFechaInicio.setBackground(new java.awt.Color(255, 255, 255));
@@ -462,6 +477,7 @@ public class Principal extends javax.swing.JFrame {
         cargarExperimento.add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 290, -1));
 
         txtPresupuesto.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        txtPresupuesto.setSelectionColor(new java.awt.Color(51, 102, 255));
         txtPresupuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPresupuestoActionPerformed(evt);
@@ -469,6 +485,7 @@ public class Principal extends javax.swing.JFrame {
         });
         cargarExperimento.add(txtPresupuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 130, -1));
 
+        txtOrganismo.setSelectionColor(new java.awt.Color(51, 102, 255));
         txtOrganismo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtOrganismoActionPerformed(evt);
@@ -484,9 +501,10 @@ public class Principal extends javax.swing.JFrame {
         txtADescripcion.setColumns(20);
         txtADescripcion.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         txtADescripcion.setRows(5);
+        txtADescripcion.setSelectionColor(new java.awt.Color(51, 102, 255));
         jScrollPane2.setViewportView(txtADescripcion);
 
-        cargarExperimento.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 290, 290));
+        cargarExperimento.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 290, 270));
 
         jBtnCargarCientifico.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jBtnCargarCientifico.setText("Seleccionar");
@@ -549,7 +567,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel31.setText("EXPERIMENTOS CARGADOS");
-        cargarExperimento.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 10, -1, -1));
+        cargarExperimento.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, -1, -1));
 
         jListEquipos.setBackground(new java.awt.Color(243, 243, 243));
         jListEquipos.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
@@ -613,7 +631,7 @@ public class Principal extends javax.swing.JFrame {
         cargarExperimento.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, 40, -1));
 
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/marcado (1).png"))); // NOI18N
-        cargarExperimento.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 0, 40, 40));
+        cargarExperimento.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 10, 40, 40));
 
         jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/cientifico.png"))); // NOI18N
         cargarExperimento.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 250, 40, -1));
@@ -621,8 +639,8 @@ public class Principal extends javax.swing.JFrame {
         jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/prueba-de-sangre (2).png"))); // NOI18N
         cargarExperimento.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 40, -1));
 
-        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/reunion.png"))); // NOI18N
-        cargarExperimento.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 40, 40));
+        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/reunion.png"))); // NOI18N
+        cargarExperimento.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 40, 40));
 
         contenedor.add(cargarExperimento, "card4");
 
@@ -726,7 +744,7 @@ public class Principal extends javax.swing.JFrame {
                 btnEnviarModificaActionPerformed(evt);
             }
         });
-        modifica.add(btnEnviarModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 550, 110, 30));
+        modifica.add(btnEnviarModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 550, 110, 30));
 
         jBtnCargarCientificoModifica.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jBtnCargarCientificoModifica.setText("Seleccion");
@@ -737,14 +755,14 @@ public class Principal extends javax.swing.JFrame {
                 jBtnCargarCientificoModificaActionPerformed(evt);
             }
         });
-        modifica.add(jBtnCargarCientificoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 490, 110, 30));
+        modifica.add(jBtnCargarCientificoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 490, 120, 30));
 
         jListCientificoModifica.setBackground(new java.awt.Color(246, 246, 246));
         jListCientificoModifica.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jListCientificoModifica.setSelectionBackground(new java.awt.Color(51, 102, 255));
         jScrollPane10.setViewportView(jListCientificoModifica);
 
-        modifica.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 270, 140));
+        modifica.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, 370, 140));
 
         jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel34.setText("MODIFICAR CIENTIFICOS");
@@ -759,14 +777,14 @@ public class Principal extends javax.swing.JFrame {
                 jBtnSeleccionEquipoModificaActionPerformed(evt);
             }
         });
-        modifica.add(jBtnSeleccionEquipoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, 120, 30));
+        modifica.add(jBtnSeleccionEquipoModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 240, 120, 30));
 
         jListEquipoModifica.setBackground(new java.awt.Color(246, 246, 246));
         jListEquipoModifica.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jListEquipoModifica.setSelectionBackground(new java.awt.Color(51, 102, 255));
         jScrollPane9.setViewportView(jListEquipoModifica);
 
-        modifica.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 270, 130));
+        modifica.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 370, 130));
 
         jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel33.setText("MODIFICAR EQUIPOS");
@@ -784,7 +802,7 @@ public class Principal extends javax.swing.JFrame {
         modifica.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 40, -1));
 
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/experimentar.png"))); // NOI18N
-        modifica.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 40, 380, 560));
+        modifica.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, 250, 560));
 
         jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/cientifico.png"))); // NOI18N
         modifica.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 280, 40, -1));
@@ -794,47 +812,73 @@ public class Principal extends javax.swing.JFrame {
 
         contenedor.add(modifica, "card5");
 
+        jPanelInformacion.setBackground(new java.awt.Color(255, 255, 255));
         jPanelInformacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanelInformacion.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(288, 18, -1, -1));
 
-        jLabel9.setText("Suma de presupuesto de todos los experimentos");
-        jPanelInformacion.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 41, -1, -1));
+        jLabel9.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
+        jLabel9.setText("Suma de presupuesto de todos los experimentos:");
+        jPanelInformacion.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, -1, -1));
 
-        jLabel11.setText("Cantidad de Experimentos Biologicos");
-        jPanelInformacion.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 73, -1, -1));
+        jLabel11.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
+        jLabel11.setText("Cantidad de Experimentos Biologicos:");
+        jPanelInformacion.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
-        jLabel19.setText("Cantidad de Experimentos Fisicos");
-        jPanelInformacion.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 105, -1, -1));
+        jLabel19.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
+        jLabel19.setText("Cantidad de Experimentos Fisicos:");
+        jPanelInformacion.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
+        jCantidadExpFisicos.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
+        jCantidadExpFisicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/informacion (1).png"))); // NOI18N
         jCantidadExpFisicos.setText("info");
-        jPanelInformacion.add(jCantidadExpFisicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 39, 26));
+        jPanelInformacion.add(jCantidadExpFisicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, 480, 570));
 
+        jCantidadExpBiologicos.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jCantidadExpBiologicos.setText("info");
-        jPanelInformacion.add(jCantidadExpBiologicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 39, 26));
+        jPanelInformacion.add(jCantidadExpBiologicos, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 80, 290, 20));
 
+        jSumaPresupuestosExp.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jSumaPresupuestosExp.setText("info");
-        jPanelInformacion.add(jSumaPresupuestosExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 39, 26));
+        jPanelInformacion.add(jSumaPresupuestosExp, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, 310, 20));
 
+        jLabel20.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
         jLabel20.setText("Equipo mas usado");
-        jPanelInformacion.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        jPanelInformacion.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 190, 30));
 
+        jCantidadEquipos.setBackground(new java.awt.Color(241, 241, 241));
         jCantidadEquipos.setColumns(20);
         jCantidadEquipos.setRows(5);
         jScrollPane1.setViewportView(jCantidadEquipos);
 
-        jPanelInformacion.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 790, 150));
+        jPanelInformacion.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 470, 120));
 
+        jLabel1.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/tortuga (4).png"))); // NOI18N
         jLabel1.setText("El proyecto de mayor duracion es:");
-        jPanelInformacion.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
+        jPanelInformacion.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
+        jLabel21.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/liebre.png"))); // NOI18N
         jLabel21.setText("El proyecto de menor duracion es:");
-        jPanelInformacion.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 130, -1, -1));
+        jPanelInformacion.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 240, 40));
 
-        jLabelResultadoMenor.setText("menor");
-        jPanelInformacion.add(jLabelResultadoMenor, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 130, -1, -1));
+        jLabelResultadoMayor.setBackground(new java.awt.Color(241, 241, 241));
+        jLabelResultadoMayor.setColumns(20);
+        jLabelResultadoMayor.setRows(5);
+        jScrollPane4.setViewportView(jLabelResultadoMayor);
 
-        jLabelResultadoMayor.setText("mayor");
-        jPanelInformacion.add(jLabelResultadoMayor, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, -1, -1));
+        jPanelInformacion.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 470, 100));
+
+        jLabelResultadoMenor.setBackground(new java.awt.Color(241, 241, 241));
+        jLabelResultadoMenor.setColumns(20);
+        jLabelResultadoMenor.setRows(5);
+        jScrollPane5.setViewportView(jLabelResultadoMenor);
+
+        jPanelInformacion.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 470, 100));
+
+        jCantidadExpFisicos1.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
+        jCantidadExpFisicos1.setText("info");
+        jPanelInformacion.add(jCantidadExpFisicos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 290, 20));
 
         contenedor.add(jPanelInformacion, "card4");
 
@@ -868,7 +912,9 @@ public class Principal extends javax.swing.JFrame {
         contenedor.add(cargarExperimento);
         contenedor.repaint();
         contenedor.revalidate();
-
+        jBtnCargarExperimento.setText("Cargar");
+        jLabel35.setIcon(null);
+        
         limpiarCampos();
 
     }//GEN-LAST:event_jBtnCargarExperimentoActionPerformed1
@@ -911,12 +957,12 @@ public class Principal extends javax.swing.JFrame {
 
         // Seteo Model de Equipo de 0 
         DefaultListModel modelEquipo = new DefaultListModel();
-
+        
         for (Equipo e : recursos.getListaEquipo()) {
             modelEquipo.addElement(e.getNombre());
         }
         jListEquipos.setModel(modelEquipo);
-
+        
     }
 
     //Imprime lista BioFis para ver si esta bien cargada
@@ -944,7 +990,7 @@ public class Principal extends javax.swing.JFrame {
             }
         }
     }
-
+    
 
     private void jBtnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInformacionActionPerformed
         // TODO add your handling code here:
@@ -976,7 +1022,7 @@ public class Principal extends javax.swing.JFrame {
                 cantTotalFisicos = cantTotalFisicos + 1;
             }
         }
-        jCantidadExpFisicos.setText(Float.toString(cantTotalFisicos));
+        jCantidadExpFisicos1.setText(Float.toString(cantTotalFisicos));
 
         // Experimento mas largo
         int auxFecha = 0;
@@ -989,7 +1035,7 @@ public class Principal extends javax.swing.JFrame {
         // El equipo mas utilizado
         int mayor = 0;
         String equipoMayor = "";
-
+        
         for (Equipo e : recursos.getListaEquipo()) {
             if (e.getContador() > mayor) {
                 mayor = e.getContador();
@@ -998,58 +1044,124 @@ public class Principal extends javax.swing.JFrame {
                 equipoMayor += ", " + e.getNombre();
             }
         }
-
+        
         if (mayor != 0) {
             jCantidadEquipos.setText("El equipo(s) más usado(s) es(son): " + equipoMayor + ", usado(s) esta cantidad: " + String.valueOf(mayor));
         } else {
             jCantidadEquipos.setText("No hay equipos usados");
         }
 
-        //Determinar el experimento de menor y mayor duracion....        
-        Experimento eMayor = listaExperimentosBioFis.get(0);
-        Experimento eMenor = listaExperimentosBioFis.get(0);
-        //String menor=listaExperimentosBioFis.get(0).getTitulo();
-        // Crear un objeto SimpleDateFormat para formatear fechas ya que getInicio devuelve un string
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate iniMayor = null;
-        LocalDate finMayor = null;
-        LocalDate iniOtro = null;
-        LocalDate finOtro = null;
-        long duracionOtro = 0;
-        long duracionMayor = 0;
-        long duracionMenor = 0;
-        for (Experimento e : listaExperimentosBioFis) {
-            //casteos de date a LocalDate para poder usar la funcion que calcula dias entre dos fechas dadas(Ya que ChronoUnit solo recibe objetos temporales como LocalDate)
-            iniMayor = LocalDate.parse(eMayor.getInicio(), dtf);
-            finMayor = LocalDate.parse(eMayor.getFin(), dtf);
-            iniOtro = LocalDate.parse(e.getInicio(), dtf);
-            finOtro = LocalDate.parse(e.getFin(), dtf);
-            System.out.println(iniMayor);
-            System.out.println(finMayor);
-            duracionMayor = ChronoUnit.DAYS.between(iniMayor, finMayor);
-            duracionOtro = ChronoUnit.DAYS.between(iniOtro, finOtro);
-            if (duracionMayor < duracionOtro) {
-                eMayor = e;
+//        //Determinar el experimento de menor y mayor duracion....        
+//        Experimento eMayor = listaExperimentosBioFis.get(0);
+//        Experimento eMenor = listaExperimentosBioFis.get(0);
+//        
+//        
+//        //String menor=listaExperimentosBioFis.get(0).getTitulo();
+//        // Crear un objeto SimpleDateFormat para formatear fechas ya que getInicio devuelve un string
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        LocalDate iniMayor = null;
+//        LocalDate finMayor = null;
+//        LocalDate iniOtro = null;
+//        LocalDate finOtro = null;
+//        long duracionOtro = 0;
+//        long duracionMayor = 0;
+//        long duracionMenor = 0;
+//        for (Experimento e : listaExperimentosBioFis) {
+//            //casteos de date a LocalDate para poder usar la funcion que calcula dias entre dos fechas dadas(Ya que ChronoUnit solo recibe objetos temporales como LocalDate)
+//            iniMayor = LocalDate.parse(eMayor.getInicio(), dtf);
+//            finMayor = LocalDate.parse(eMayor.getFin(), dtf);
+//            iniOtro = LocalDate.parse(e.getInicio(), dtf);
+//            finOtro = LocalDate.parse(e.getFin(), dtf);
+//            System.out.println(iniMayor);
+//            System.out.println(finMayor);
+//            duracionMayor = ChronoUnit.DAYS.between(iniMayor, finMayor);
+//            duracionOtro = ChronoUnit.DAYS.between(iniOtro, finOtro);
+//            if (duracionMayor < duracionOtro) {
+//                eMayor = e;
+//            }
+//            if (duracionMayor > duracionOtro) {
+//                eMenor = e;
+//            }
+//        }
+//        //Las 3 lineas siguientes se hacen para asegurarse que se actualice el valor "duracionMayor" ya que daba problemas si el de mayor duracion era el ultimo elemento.
+//        iniMayor = LocalDate.parse(eMayor.getInicio(), dtf);
+//        finMayor = LocalDate.parse(eMayor.getFin(), dtf);
+//        duracionMayor = ChronoUnit.DAYS.between(iniMayor, finMayor);
+//        jLabelResultadoMayor.setText(eMayor.getTitulo() + " con " + duracionMayor + " dias");
+//        iniMayor = LocalDate.parse(eMenor.getInicio(), dtf);
+//        finMayor = LocalDate.parse(eMenor.getFin(), dtf);
+//        duracionMenor = ChronoUnit.DAYS.between(iniMayor, finMayor);
+//        System.out.println("Duracion menor2: " + duracionMenor);
+//        jLabelResultadoMenor.setText(eMenor.getTitulo() + " con " + duracionMenor + " dias");
+        long duracionMayor, duracionMenor;
+        duracionMayor = 0;
+        duracionMenor = Math.abs(ChronoUnit.DAYS.between(LocalDate.parse(listaExperimentosBioFis.get(0).getInicio()), LocalDate.parse(listaExperimentosBioFis.get(0).getFin())));
+        int index1 = 0, index2 = 0;
+        String experimentosMayores = "", experimentosMenores = "";
+        
+        for (Experimento exp : listaExperimentosBioFis) {
+            LocalDate inicioLD = LocalDate.parse(exp.getInicio());
+            LocalDate finLD = LocalDate.parse(exp.getFin());
+            
+            if (mayor != 0) {
+                jCantidadEquipos.setText("El equipo(s) más usado(s) es(son): " + equipoMayor + ", usado(s) esta cantidad: " + String.valueOf(mayor));
+            } else {
+                jCantidadEquipos.setText("No hay equipos usados");
             }
-            if (duracionMayor > duracionOtro) {
-                eMenor = e;
+
+            // Calculo el mayor
+            long duracionAux = Math.abs(ChronoUnit.DAYS.between(inicioLD, finLD));
+            if (duracionAux > duracionMayor) {
+                duracionMayor = duracionAux;
+                experimentosMayores = exp.getTitulo();
+            } else if (duracionAux == duracionMayor) {
+                experimentosMayores += ", " + exp.getTitulo();
             }
+
+            // Calculo el menor
+            long duracion = Math.abs(ChronoUnit.DAYS.between(inicioLD, finLD));
+            
+            if (duracion < duracionMenor) {
+                duracionMenor = duracion;
+                experimentosMenores = exp.getTitulo();
+            } else if (duracionAux == duracionMenor) {
+                experimentosMenores += ", " + exp.getTitulo();
+            }
+            
         }
-        //Las 3 lineas siguientes se hacen para asegurarse que se actualice el valor "duracionMayor" ya que daba problemas si el de mayor duracion era el ultimo elemento.
-        iniMayor = LocalDate.parse(eMayor.getInicio(), dtf);
-        finMayor = LocalDate.parse(eMayor.getFin(), dtf);
-        duracionMayor = ChronoUnit.DAYS.between(iniMayor, finMayor);
-        jLabelResultadoMayor.setText(eMayor.getTitulo() + " con " + duracionMayor + " dias");
-        iniMayor = LocalDate.parse(eMenor.getInicio(), dtf);
-        finMayor = LocalDate.parse(eMenor.getFin(), dtf);
-        duracionMenor = ChronoUnit.DAYS.between(iniMayor, finMayor);
-        System.out.println("Duracion menor2: " + duracionMenor);
-        jLabelResultadoMenor.setText(eMenor.getTitulo() + " con " + duracionMenor + " dias");
+        jLabelResultadoMayor.setText(experimentosMayores + " con " + duracionMayor + " dias");
+        jLabelResultadoMenor.setText(experimentosMenores + " con " + duracionMenor + " dias");
 
     }//GEN-LAST:event_jBtnInformacionActionPerformed
 
     private void jComboBoxTiposModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTiposModificaActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        // TODO add your handling code here:
+
+        if ("Biologico".equals(jComboBoxTiposModifica.getSelectedItem())) {
+            lOrganismoModifica.setVisible(true);
+            txtOrganismoModifica.setVisible(true);
+            txtFenomenoModifica.setText(txtOrganismoModifica.getText());
+            lFenomenoModifica.setVisible(false);
+            txtFenomenoModifica.setVisible(false);
+            
+        }
+        if ("Fisico".equals(jComboBoxTiposModifica.getSelectedItem())) {
+            lFenomenoModifica.setVisible(true);
+            txtFenomenoModifica.setVisible(true);
+            txtOrganismoModifica.setText(String.valueOf(txtFenomenoModifica.getText()));
+            lOrganismoModifica.setVisible(false);
+            txtOrganismoModifica.setVisible(false);
+            
+        }
+        if ("-".equals(jComboBoxTiposModifica.getSelectedItem())) {
+            lOrganismoModifica.setVisible(false);
+            txtOrganismoModifica.setVisible(false);
+            lFenomenoModifica.setVisible(false);
+            txtFenomenoModifica.setVisible(false);
+            txtFenomenoModifica.setText("");
+            txtOrganismoModifica.setText("");
+            
+        }
     }//GEN-LAST:event_jComboBoxTiposModificaActionPerformed
 
     private void txtTituloModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloModificaActionPerformed
@@ -1085,16 +1197,16 @@ public class Principal extends javax.swing.JFrame {
 
         //Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
         DefaultListModel modelEquipo = new DefaultListModel();
-
+        
         for (Equipo e : recursos.getListaEquipo()) {
             if (auxListaEquipos.contains(e)) {
                 modelEquipo.addElement(e.getNombre() + " - Seleccionado");
             } else {
                 modelEquipo.addElement(e.getNombre());
             }
-
+            
         }
-
+        
         jListEquipoModifica.setModel(modelEquipo);
 
 //        // Guardo en la lista auxiliar de equipo
@@ -1157,7 +1269,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnSeleccionEquipoModificaActionPerformed
 
     private void jBtnCargarCientificoModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarCientificoModificaActionPerformed
-
+        
         String auxCientifico = jListCientificoModifica.getSelectedValue();
 
         // Control de cientifico 
@@ -1196,7 +1308,8 @@ public class Principal extends javax.swing.JFrame {
                 modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
             }
         }
-
+        jBtnCargarExperimento.setText("Cargar");
+        
         jListCientificoModifica.setModel(modelCientifico);
 
         // Repintar contenedor
@@ -1213,13 +1326,13 @@ public class Principal extends javax.swing.JFrame {
         if ("".equals(expTitulo)) {
             JOptionPane.showMessageDialog(null, "Error: El campo de titulo esta vacio.");
             return;
-
+            
         }
         // Descripcion
         String expDescripcion = txtADescripcionModifica.getText().trim();
         if ("".equals(expDescripcion)) {
             JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
-
+            
             return;
         }
 
@@ -1227,7 +1340,7 @@ public class Principal extends javax.swing.JFrame {
         Date expFechaInicioValue = jDaChFechaInicioModifica.getDate();
         LocalDate localDate = expFechaInicioValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String expFechaInicioValue1 = localDate.toString();
-
+        
         if (jDaChFechaInicioModifica.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
             return;
@@ -1237,8 +1350,8 @@ public class Principal extends javax.swing.JFrame {
         // Fecha fin
         Date expFechaFinValue = jDaChFechaFinModifica.getDate();
         LocalDate localDate2 = expFechaFinValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        String expFechaFinValue1 = localDate.toString();
-
+        String expFechaFinValue1 = localDate2.toString();
+        
         if (jDaChFechaFinModifica.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
             return;
@@ -1319,7 +1432,7 @@ public class Principal extends javax.swing.JFrame {
                             (ArrayList<Cientifico>) auxListaCientifico.clone(),
                             (ArrayList<Equipo>) auxListaEquipos.clone(),
                             expFenomeno));
-
+            
         } else {
             JOptionPane.showMessageDialog(null, "Error: elige un tipo de experimento.");
             return;
@@ -1350,9 +1463,9 @@ public class Principal extends javax.swing.JFrame {
             model.addElement(e.getTitulo());
         }
         jListMuestraExperimentos.setModel(model);
-        recursos.cargarExperimentos();
         recursos.guardarExperimentos(listaExperimentosBioFis);
         recursos.guardarEquipos();
+
         // Funcion para limpiar todo " Hacer todo"
         limpiarCampos();
 
@@ -1361,7 +1474,7 @@ public class Principal extends javax.swing.JFrame {
         //
         //        }
         imprimirPorPantallaListaPrincipal();
-
+        
         auxListaEquipos.clear();
         auxListaCientifico.clear();
         contenedor.removeAll();
@@ -1383,7 +1496,7 @@ public class Principal extends javax.swing.JFrame {
 
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-
+        
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_frenteAzulMouseDragged
 
@@ -1399,7 +1512,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void jBtnSalirTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBtnSalirTxtMouseExited
         // TODO add your handling code here:
-        jBtnSalir.setBackground(Color.LIGHT_GRAY);
+
+        jBtnSalir.setBackground(new Color(129, 154, 204));
         jBtnSalirTxt.setForeground(Color.black);
 
     }//GEN-LAST:event_jBtnSalirTxtMouseExited
@@ -1432,23 +1546,26 @@ public class Principal extends javax.swing.JFrame {
 
         //Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
         DefaultListModel modelEquipo = new DefaultListModel();
-
+        
         for (Equipo e : recursos.getListaEquipo()) {
             if (auxListaEquipos.contains(e)) {
                 modelEquipo.addElement(e.getNombre() + " - Seleccionado");
             } else {
                 modelEquipo.addElement(e.getNombre());
             }
-
+            
         }
-
+        
         jListEquipos.setModel(modelEquipo);
 
         //        // Guardo en la lista auxiliar de equipo
         //        Equipo equipo = new Equipo(auxEquipo);
         //        auxListaEquipos.add(equipo);
+        jLabel35.setIcon(null);
         repaint();
         revalidate();
+        
+
     }//GEN-LAST:event_jBtnCargarEquipoActionPerformed
 
     private void jListEquiposValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListEquiposValueChanged
@@ -1484,13 +1601,17 @@ public class Principal extends javax.swing.JFrame {
             //Busca el que queremos eliminar
             if (experimentoSeleccionado.equals(exp.getTitulo())) {
                 //Cuando se encuentra el elemento que deseas eliminar, se utiliza el método remove() del Iterator para eliminarlo de la lista listaExperimentosBioFis
-                for (Equipo e2 : recursos.getListaEquipo()) {
-                    if (jListMuestraExperimentos.getSelectedValue().equals(e2.getNombre())) {
+
+                ArrayList<Equipo> recursosAux = recursos.getListaEquipo();
+                
+                for (Equipo e2 : recursosAux) {
+                    if (exp.getListaEquipo().contains(e2)) {
                         e2.setContador(e2.getContador() - 1);
                     }
+                    
                 }
-                recursos.guardarEquipos();
-
+                
+                recursos.setListaEquipo(recursosAux);
                 iter.remove(); // Elimina el experimento de la lista
             }
         }
@@ -1501,10 +1622,12 @@ public class Principal extends javax.swing.JFrame {
             model.addElement(e.getTitulo());
         }
         jListMuestraExperimentos.setModel(model);
+        
         recursos.guardarExperimentos(listaExperimentosBioFis);
-
+        recursos.guardarEquipos();
+        
         contenedor.repaint();
-
+        
         contenedor.revalidate();
 
     }//GEN-LAST:event_jBtnEliminarExperimentoActionPerformed
@@ -1514,13 +1637,13 @@ public class Principal extends javax.swing.JFrame {
 
         imprimirPorPantallaListaPrincipal();
         auxIndex = 0;
-
+        
         for (Experimento e : listaExperimentosBioFis) {
             for (Cientifico i : e.getListaCientifico()) {
                 System.out.println(i.getNombre());
             }
         }
-
+        
         if (jListMuestraExperimentos.getSelectedValue() == null) {
             JOptionPane.showMessageDialog(null, "Error: Seleccione un experimento de la lista.");
             return;
@@ -1559,44 +1682,48 @@ public class Principal extends javax.swing.JFrame {
 
         //Modifica ComboBox
         jComboBoxTiposModifica.setSelectedItem(aux.getTipo());
-
+        
         if (aux.getTipo().equals("Biologico")) {
             // Modifica Organismo
             Experimento_Biologico name = (Experimento_Biologico) aux;
             txtOrganismoModifica.setText(name.getOrganismo());
+            txtFenomenoModifica.setText(name.getOrganismo());
+            
             txtFenomenoModifica.setVisible(false);
             lFenomenoModifica.setVisible(false);
-
+            
         } else {
             // Modifica Fenomeno
             Experimento_Fisico name = (Experimento_Fisico) aux;
             txtFenomenoModifica.setText(name.getFenomeno());
+            txtOrganismoModifica.setText(name.getFenomeno());
+            
             txtOrganismoModifica.setVisible(false);
             lOrganismoModifica.setVisible(false);
-
+            
         }
 
         // Modifica Lista Equipo
         DefaultListModel modelEquipo = new DefaultListModel();
-
+        
         System.out.println(aux.getListaEquipo().isEmpty());
-
+        
         for (Equipo e : aux.getListaEquipo()) {
             System.out.println(e.getNombre());
             System.out.println("hola");
         }
-
+        
         for (Equipo e : recursos.getListaEquipo()) {
             if (aux.getListaEquipo().contains(e)) {
                 modelEquipo.addElement(e.getNombre() + " - Seleccionado");
-
+                
             } else {
                 modelEquipo.addElement(e.getNombre());
-
+                
             }
-
+            
         }
-
+        
         jListEquipoModifica.setModel(modelEquipo);
 
         // Modifica Lista Cientifico
@@ -1604,7 +1731,7 @@ public class Principal extends javax.swing.JFrame {
         for (Cientifico c : recursos.getListaCientifico()) {
             if (aux.getListaCientifico().contains(c)) {
                 modelCientifico.addElement(c.getNombre() + " " + c.getApellido() + " " + c.getDni() + "-" + c.getContratacion());
-
+                
             } else {
                 modelCientifico.addElement(c.getNombre() + " " + c.getApellido() + " " + c.getDni());
             }
@@ -1632,6 +1759,17 @@ public class Principal extends javax.swing.JFrame {
             // Maneja la excepción de análisis si es necesario
             e.printStackTrace();
         }
+        
+        LocalDate localExpFechaInicio = jDaChFechaInicioModifica.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localExpFechaFin = jDaChFechaFinModifica.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (localExpFechaFin.isBefore(localExpFechaInicio) || localExpFechaInicio.isAfter(localExpFechaFin)) {
+            JOptionPane.showMessageDialog(null, "Error: La fecha de Inicio No puede ser posterior a la fecha de fin.");
+            return;
+        }
+        
+        jBtnCargarExperimento.setText("Atras");
+        ImageIcon image = new ImageIcon("esquema-de-boton-circular-de-flecha-hacia-atras-izquierda");
+        jLabel35.setIcon(image);
 
         // LLeno la lista auxiliar para luego pasarla al experimento que voy a modificar.
         auxListaEquipos = (ArrayList<Equipo>) (listaExperimentosBioFis.get(auxIndex).getListaEquipo()).clone();
@@ -1664,7 +1802,7 @@ public class Principal extends javax.swing.JFrame {
         String expDescripcion = txtADescripcion.getText().trim();
         if ("".equals(expDescripcion)) {
             JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
-
+            
             return;
         }
 
@@ -1675,7 +1813,7 @@ public class Principal extends javax.swing.JFrame {
             return;
             // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
         }
-
+        
         LocalDate localDate = expFechaInicioValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String expFechaInicioValue1 = localDate.toString();
 
@@ -1693,7 +1831,7 @@ public class Principal extends javax.swing.JFrame {
             return;
         }
         LocalDate localDate1 = expFechaFinValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        String expFechaFinValue1 = localDate.toString();
+        String expFechaFinValue1 = localDate1.toString();
 
         // Presupuesto
         float expPresupuestoFloat;
@@ -1701,8 +1839,9 @@ public class Principal extends javax.swing.JFrame {
         try {
             expPresupuestoFloat = Float.parseFloat(txtPresupuesto.getText().trim());
             if (expPresupuestoFloat < 0) {
-            JOptionPane.showMessageDialog(null, "Error: Ingresa un presupuesto válido.(No puede ser negativo...)");
-            return;}
+                JOptionPane.showMessageDialog(null, "Error: Ingresa un presupuesto válido.(No puede ser negativo...)");
+                return;
+            }
             // Ahora tienes el valor en formato float
             // Lo que hacemos con el try es ver que sea un numero si no lansa la exepcion. Para que no se rompa el programa y lo atrapamos con
             //el catch.
@@ -1771,7 +1910,7 @@ public class Principal extends javax.swing.JFrame {
                             (ArrayList<Cientifico>) auxListaCientifico.clone(),
                             (ArrayList<Equipo>) auxListaEquipos.clone(),
                             expFenomeno));
-
+            
         } else {
             JOptionPane.showMessageDialog(null, "Error: elige un tipo de experimento.");
             return;
@@ -1803,7 +1942,7 @@ public class Principal extends javax.swing.JFrame {
 
         // Funcion para limpiar todo " Hacer todo"
         limpiarCampos();
-
+        
         contenedor.repaint();
         contenedor.revalidate();
 
@@ -1815,6 +1954,8 @@ public class Principal extends javax.swing.JFrame {
         recursos.guardarExperimentos(listaExperimentosBioFis);
         auxListaEquipos.clear();
         auxListaCientifico.clear();
+        jLabel35.setVisible(false);
+
     }//GEN-LAST:event_jBtnEnviarActionPerformed
 
     private void jBtnCargarCientificoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarCientificoActionPerformed
@@ -1845,13 +1986,11 @@ public class Principal extends javax.swing.JFrame {
         LocalDate localFinExp = finExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localAuxFecha = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         //if((auxFecha.equals(iniExp)||auxFecha.after(iniExp)) && (auxFecha.equals(finExp) || auxFecha.before(finExp))){
-        if ((localAuxFecha.isAfter(localIniExp) || localAuxFecha.equals(localIniExp)) && localAuxFecha.isBefore(localFinExp) || localAuxFecha.equals(localFinExp)) {
-            ;
-        } else {
+        if (!(localAuxFecha.isAfter(localIniExp) || localAuxFecha.equals(localIniExp)) && localAuxFecha.isBefore(localFinExp) || localAuxFecha.equals(localFinExp)) {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha que este dentro del Rango de duracion del experimento.");
             return;
         }
-
+        
         LocalDate localDate = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String fechaCientifico = localDate.toString();
         // LLeno la lista auxiliar para luego pasarla al experimento.
@@ -1874,7 +2013,7 @@ public class Principal extends javax.swing.JFrame {
                 modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
             }
         }
-
+        
         jListCientificos.setModel(modelCientifico);
 
         // Repintar contenedor
@@ -1908,16 +2047,22 @@ public class Principal extends javax.swing.JFrame {
             txtOrganismo.setVisible(true);
             lFecha.setVisible(false);
             txtFenomeno.setVisible(false);
+            txtFenomeno.setText("");
+            
         } else if ("Fisico".equals(jComboBoxTipos.getSelectedItem())) {
             lFecha.setVisible(true);
             txtFenomeno.setVisible(true);
             lOrganismo.setVisible(false);
             txtOrganismo.setVisible(false);
+            txtOrganismo.setText("");
         } else {
             lOrganismo.setVisible(false);
             txtOrganismo.setVisible(false);
             lFecha.setVisible(false);
             txtFenomeno.setVisible(false);
+            txtFenomeno.setText("");
+            txtOrganismo.setText("");
+            
         }
 
     }//GEN-LAST:event_jComboBoxTiposActionPerformed
@@ -1936,21 +2081,21 @@ public class Principal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -1986,6 +2131,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextArea jCantidadEquipos;
     private javax.swing.JLabel jCantidadExpBiologicos;
     private javax.swing.JLabel jCantidadExpFisicos;
+    private javax.swing.JLabel jCantidadExpFisicos1;
     private javax.swing.JComboBox<String> jComboBoxTipos;
     private javax.swing.JComboBox<String> jComboBoxTiposModifica;
     private com.toedter.calendar.JDateChooser jDaChFechaFin;
@@ -2024,14 +2170,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelResultadoMayor;
-    private javax.swing.JLabel jLabelResultadoMenor;
+    private javax.swing.JTextArea jLabelResultadoMayor;
+    private javax.swing.JTextArea jLabelResultadoMenor;
     private javax.swing.JList<String> jListCientificoModifica;
     private javax.swing.JList<String> jListCientificos;
     private javax.swing.JList<String> jListEquipoModifica;
@@ -2042,6 +2189,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
