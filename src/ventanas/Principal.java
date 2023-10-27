@@ -66,7 +66,13 @@ public class Principal extends javax.swing.JFrame {
     //Objeto auxiliar para cargar la lista
     //Data cargada
     public Principal() {
+
         initComponents();
+        try {
+            setIconImage(new ImageIcon(getClass().getResource("../com/images/experimentar.png")).getImage());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         listaExperimentosBioFis = new ArrayList<>();
         auxListaCientifico = new ArrayList<>();
         auxListaEquipos = new ArrayList<>();
@@ -454,6 +460,16 @@ public class Principal extends javax.swing.JFrame {
         jDaChFechaInicio.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jDaChFechaInicio.setMaxSelectableDate(new java.util.Date(2524622491000L));
         jDaChFechaInicio.setMinSelectableDate(new java.util.Date(1672545691000L));
+        jDaChFechaInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jDaChFechaInicioMouseClicked(evt);
+            }
+        });
+        jDaChFechaInicio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDaChFechaInicioPropertyChange(evt);
+            }
+        });
         cargarExperimento.add(jDaChFechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 130, -1));
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
@@ -613,6 +629,16 @@ public class Principal extends javax.swing.JFrame {
         jDaChFechaFin.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
         jDaChFechaFin.setMaxSelectableDate(new java.util.Date(2524622491000L));
         jDaChFechaFin.setMinSelectableDate(new java.util.Date(1672545691000L));
+        jDaChFechaFin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jDaChFechaFinMouseClicked(evt);
+            }
+        });
+        jDaChFechaFin.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDaChFechaFinPropertyChange(evt);
+            }
+        });
         cargarExperimento.add(jDaChFechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 130, -1));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
@@ -673,10 +699,20 @@ public class Principal extends javax.swing.JFrame {
 
         jDaChFechaInicioModifica.setBackground(new java.awt.Color(255, 255, 255));
         jDaChFechaInicioModifica.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jDaChFechaInicioModifica.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDaChFechaInicioModificaPropertyChange(evt);
+            }
+        });
         modifica.add(jDaChFechaInicioModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 120, -1));
 
         jDaChFechaFinModifica.setBackground(new java.awt.Color(255, 255, 255));
         jDaChFechaFinModifica.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        jDaChFechaFinModifica.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDaChFechaFinModificaPropertyChange(evt);
+            }
+        });
         modifica.add(jDaChFechaFinModifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 120, -1));
 
         jLabel16.setFont(new java.awt.Font("Yu Gothic", 1, 12)); // NOI18N
@@ -990,7 +1026,7 @@ public class Principal extends javax.swing.JFrame {
             }
         }
     }
-
+    //
 
     private void jBtnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInformacionActionPerformed
         // TODO add your handling code here:
@@ -1281,6 +1317,7 @@ public class Principal extends javax.swing.JFrame {
         // Control de Fecha
         Date auxFecha = jDaChInicioCientificos1.getDate();
         if (jDaChInicioCientificos1.getDate() == null) {
+
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
             return;
             // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
@@ -1312,15 +1349,56 @@ public class Principal extends javax.swing.JFrame {
         Date iniExp = jDaChFechaInicioModifica.getDate();
         Date finExp = jDaChFechaFinModifica.getDate();
         LocalDate localIniExp = iniExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate localFinExp = finExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate localAuxFecha = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate finVerde = finExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate inicioVerde = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         //if((auxFecha.equals(iniExp)||auxFecha.after(iniExp)) && (auxFecha.equals(finExp) || auxFecha.before(finExp))){
-        if ((localAuxFecha.isAfter(localIniExp) || localAuxFecha.equals(localIniExp)) && localAuxFecha.isBefore(localFinExp) || localAuxFecha.equals(localFinExp)) {
+        if ((inicioVerde.isAfter(localIniExp) || inicioVerde.equals(localIniExp)) && inicioVerde.isBefore(finVerde) || inicioVerde.equals(finVerde)) {
             ;
         } else {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha que este dentro del Rango de duracion del experimento.");
             return;
         }
+
+        int contador = 0;
+
+        for (Experimento e : listaExperimentosBioFis) {
+
+            for (Cientifico c : e.getListaCientifico()) {
+
+                if (auxCientifico.contains(c.getDni()) && !auxCientifico.contains("-")) {
+
+                    // Cuando termina exp de la lista GUARDADA
+                    Date expFFin;
+                    // Cuando Se contrata al cientifico de la lista GUARDADA
+                    Date fContratacion;
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+
+                        expFFin = dateFormat.parse(e.getFin());
+                        fContratacion = dateFormat.parse(c.getContratacion());
+                        LocalDate finMorado = expFFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        LocalDate inicioMorado = fContratacion.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+                        //if ((inicioMorado.finVerde)||finVerde) && finMorado.finVerde))||finVerde) {
+                        //if(finVerde){
+                        /*gpt*/
+                        if ((inicioMorado.isBefore(finVerde) || inicioMorado.equals(finVerde))
+                                && (finMorado.isAfter(inicioVerde) || finMorado.equals(inicioVerde))) {
+                            if (contador < 3) {
+                                contador += 1;
+
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Error: El cientifico no puede pertenecer a 4 proyectos en simultaneo...");
+                                return;
+                            }
+                        }
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+
         jBtnCargarExperimento.setText("Cargar");
 
         jListCientificoModifica.setModel(modelCientifico);
@@ -1395,6 +1473,23 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: No selecciono ningun cientifico.");
             return;
         }
+        for (Cientifico e : auxListaCientifico) {
+
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date contratacionCientifico;
+                contratacionCientifico = dateFormat.parse(e.getContratacion());
+                LocalDate localContratacionCientifico = contratacionCientifico.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                if (localContratacionCientifico.isAfter(localDate2) || localContratacionCientifico.isBefore(localDate)) {
+
+                    JOptionPane.showMessageDialog(null, "Error: elija una fecha correcta para el cientifico: " + e.getDni());
+                    return;
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
 
         // Equipos
         if (auxListaEquipos.isEmpty()) {
@@ -1405,7 +1500,7 @@ public class Principal extends javax.swing.JFrame {
         //Tipo
         //(String) castea lo seleccionado del combo box a tipo String.
         String expTipo = (String) jComboBoxTiposModifica.getSelectedItem();
-        System.out.println(expTipo);
+
         if (jComboBoxTiposModifica.getSelectedItem().equals("-")) {
             JOptionPane.showMessageDialog(null, "Error: No selecciono ningun tipo.");
             return;
@@ -1492,8 +1587,7 @@ public class Principal extends javax.swing.JFrame {
         //
         //
         //        }
-        imprimirPorPantallaListaPrincipal();
-
+        //imprimirPorPantallaListaPrincipal();
         auxListaEquipos.clear();
         auxListaCientifico.clear();
         contenedor.removeAll();
@@ -1654,14 +1748,8 @@ public class Principal extends javax.swing.JFrame {
     private void JbtnModificarExperimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbtnModificarExperimentoActionPerformed
         // TODO add your handling code here:
 
-        imprimirPorPantallaListaPrincipal();
+        // imprimirPorPantallaListaPrincipal();
         auxIndex = 0;
-
-        for (Experimento e : listaExperimentosBioFis) {
-            for (Cientifico i : e.getListaCientifico()) {
-                System.out.println(i.getNombre());
-            }
-        }
 
         if (jListMuestraExperimentos.getSelectedValue() == null) {
             JOptionPane.showMessageDialog(null, "Error: Seleccione un experimento de la lista.");
@@ -1672,9 +1760,7 @@ public class Principal extends javax.swing.JFrame {
         // Busco el elemento seleccionado de la lista dentro de mi lista principal
         for (Experimento exp : listaExperimentosBioFis) {
             if (jListMuestraExperimentos.getSelectedValue().equals(exp.getTitulo())) {
-                for (Equipo e : exp.getListaEquipo()) {
-                    System.out.println(e.getNombre());
-                }
+
                 aux = exp;
 
                 // Guardamos index para luego borrar y guardar en la misma posicion
@@ -1724,13 +1810,6 @@ public class Principal extends javax.swing.JFrame {
 
         // Modifica Lista Equipo
         DefaultListModel modelEquipo = new DefaultListModel();
-
-        System.out.println(aux.getListaEquipo().isEmpty());
-
-        for (Equipo e : aux.getListaEquipo()) {
-            System.out.println(e.getNombre());
-            System.out.println("hola");
-        }
 
         for (Equipo e : recursos.getListaEquipo()) {
             if (aux.getListaEquipo().contains(e)) {
@@ -1875,6 +1954,22 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: No selecciono ningun cientifico.");
             return;
         }
+        for (Cientifico e : auxListaCientifico) {
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date contratacionCientifico;
+                contratacionCientifico = dateFormat.parse(e.getContratacion());
+                LocalDate localContratacionCientifico = contratacionCientifico.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                if (localContratacionCientifico.isAfter(localDate1) || localContratacionCientifico.isBefore(localDate)) {
+
+                    JOptionPane.showMessageDialog(null, "Error: elija una fecha correcta para el cientifico: " + e.getDni());
+                    return;
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
 
         // Equipos
         if (auxListaEquipos.isEmpty()) {
@@ -1885,7 +1980,7 @@ public class Principal extends javax.swing.JFrame {
         //Tipo
         //(String) castea lo seleccionado del combo box a tipo String.
         String expTipo = (String) jComboBoxTipos.getSelectedItem();
-        System.out.println(expTipo);
+
         if (jComboBoxTipos.getSelectedItem().equals("-")) {
             JOptionPane.showMessageDialog(null, "Error: No selecciono ningun tipo.");
             return;
@@ -1946,9 +2041,7 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
         }
-        for (Equipo e2 : recursos.getListaEquipo()) {
-            System.out.println(e2.getNombre() + " tiene " + e2.getContador());
-        }
+
         // Actualizo archivo Equipos.txt
         recursos.guardarEquipos();
 
@@ -1969,7 +2062,7 @@ public class Principal extends javax.swing.JFrame {
         //
         //
         //        }
-        imprimirPorPantallaListaPrincipal();
+        // imprimirPorPantallaListaPrincipal();
         recursos.guardarExperimentos(listaExperimentosBioFis);
         auxListaEquipos.clear();
         auxListaCientifico.clear();
@@ -2002,14 +2095,14 @@ public class Principal extends javax.swing.JFrame {
         Date iniExp = jDaChFechaInicio.getDate();
         Date finExp = jDaChFechaFin.getDate();
         LocalDate localIniExp = iniExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate localFinExp = finExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate localAuxFecha = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate finVerde = finExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate inicioVerde = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         //if((auxFecha.equals(iniExp)||auxFecha.after(iniExp)) && (auxFecha.equals(finExp) || auxFecha.before(finExp))){
-        /*if (!(localAuxFecha.isAfter(localIniExp) || localAuxFecha.equals(localIniExp)) && localAuxFecha.isBefore(localFinExp) || localAuxFecha.equals(localFinExp)) {
+        /*inicioVerde.isAfter(inicioVerde.equals(inicioVerde.inicioVerde.finVerde)) {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha que este dentro del Rango de duracion del experimento.");
             return;
         }*/
-        if ((localAuxFecha.isAfter(localIniExp) || localAuxFecha.equals(localIniExp)) && localAuxFecha.isBefore(localFinExp) || localAuxFecha.equals(localFinExp)) {
+        if ((inicioVerde.isAfter(localIniExp) || inicioVerde.equals(localIniExp)) && inicioVerde.isBefore(finVerde) || inicioVerde.equals(finVerde)) {
             ;
         } else {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha que este dentro del Rango de duracion del experimento.");
@@ -2040,28 +2133,33 @@ public class Principal extends javax.swing.JFrame {
         }
         //CONTROLLLLLLLL para que cientifico no este en mas de 4 experimentos
         int contador = 0;
-        System.out.println("Contador antes de entrar al for: "+contador);
+
         for (Experimento e : listaExperimentosBioFis) {
-            System.out.println("Entra al primer for del control...");
+
             for (Cientifico c : e.getListaCientifico()) {
-                System.out.println("Entra al segundo for del control...");
-                if (auxCientifico.contains(c.getDni())&& !auxCientifico.contains("-")) {
-                    System.out.println("Entra al primer if del control...");
+
+                if (auxCientifico.contains(c.getDni()) && !auxCientifico.contains("-")) {
+
+                    // Cuando termina exp de la lista GUARDADA
                     Date expFFin;
+                    // Cuando Se contrata al cientifico de la lista GUARDADA
                     Date fContratacion;
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     try {
-                        System.out.println("Entra al try del control...");
+
                         expFFin = dateFormat.parse(e.getFin());
                         fContratacion = dateFormat.parse(c.getContratacion());
-                        LocalDate localexpFFin = expFFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                        LocalDate localfContratacion = fContratacion.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                        //if ((localfContratacion.isBefore(localFinExp)||localfContratacion==localFinExp) && (localexpFFin.isAfter(localFinExp))||localexpFFin==localFinExp) {
-                        //if(localfContratacion!=localFinExp){
-                        /*gpt*/if ((localfContratacion.isBefore(localFinExp) || localfContratacion.equals(localFinExp)) && (localexpFFin.isAfter(localFinExp) || localexpFFin.equals(localFinExp))) {
-                            if (contador < 2) {
+                        LocalDate finMorado = expFFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        LocalDate inicioMorado = fContratacion.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+                        //if ((inicioMorado.finVerde)||finVerde) && finMorado.finVerde))||finVerde) {
+                        //if(finVerde){
+                        /*gpt*/
+                        if ((inicioMorado.isBefore(finVerde) || inicioMorado.equals(finVerde))
+                                && (finMorado.isAfter(inicioVerde) || finMorado.equals(inicioVerde))) {
+                            if (contador < 3) {
                                 contador += 1;
-                                System.out.println("Contador despues de entrar al ultimo if: "+contador);
+
                             } else {
                                 JOptionPane.showMessageDialog(null, "Error: El cientifico no puede pertenecer a 4 proyectos en simultaneo...");
                                 return;
@@ -2129,6 +2227,30 @@ public class Principal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jComboBoxTiposActionPerformed
+
+    private void jDaChFechaInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDaChFechaInicioMouseClicked
+
+    }//GEN-LAST:event_jDaChFechaInicioMouseClicked
+
+    private void jDaChFechaFinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDaChFechaFinMouseClicked
+
+    }//GEN-LAST:event_jDaChFechaFinMouseClicked
+
+    private void jDaChFechaInicioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDaChFechaInicioPropertyChange
+
+    }//GEN-LAST:event_jDaChFechaInicioPropertyChange
+
+    private void jDaChFechaFinPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDaChFechaFinPropertyChange
+
+    }//GEN-LAST:event_jDaChFechaFinPropertyChange
+
+    private void jDaChFechaInicioModificaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDaChFechaInicioModificaPropertyChange
+
+    }//GEN-LAST:event_jDaChFechaInicioModificaPropertyChange
+
+    private void jDaChFechaFinModificaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDaChFechaFinModificaPropertyChange
+
+    }//GEN-LAST:event_jDaChFechaFinModificaPropertyChange
 
     /**
      * @param args the command line arguments
