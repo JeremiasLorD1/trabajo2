@@ -46,7 +46,7 @@ import javax.swing.event.ListSelectionListener;
  * @author jerem
  */
 public class Principal extends javax.swing.JFrame {
-    
+
     int xMouse, yMouse;
 
     /**
@@ -84,7 +84,7 @@ public class Principal extends javax.swing.JFrame {
 
         // Seteo model lista Equipo
         DefaultListModel modelEquipo = new DefaultListModel();
-        
+
         for (Equipo e : recursos.getListaEquipo()) {
             modelEquipo.addElement(e.getNombre());
         }
@@ -154,7 +154,7 @@ public class Principal extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    Object selectedValue = jListCientificos.getSelectedValue();
+                    Object selectedValue = jListEquipoModifica.getSelectedValue();
                     if (selectedValue != null && jListEquipoModifica.getSelectedValue().contains("-")) {
                         jBtnSeleccionEquipoModifica.setText("Deseleccionar");
                     } else {
@@ -169,7 +169,7 @@ public class Principal extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    Object selectedValue = jListCientificos.getSelectedValue();
+                    Object selectedValue = jListCientificoModifica.getSelectedValue();
                     if (selectedValue != null && jListCientificoModifica.getSelectedValue().contains("-")) {
                         jBtnCargarCientificoModifica.setText("Deseleccionar");
                     } else {
@@ -181,7 +181,7 @@ public class Principal extends javax.swing.JFrame {
 
         // Guardo equipo?????????
         recursos.guardarEquipos();
-        
+
     }
 
     /**
@@ -914,7 +914,7 @@ public class Principal extends javax.swing.JFrame {
         contenedor.revalidate();
         jBtnCargarExperimento.setText("Cargar");
         jLabel35.setIcon(null);
-        
+
         limpiarCampos();
 
     }//GEN-LAST:event_jBtnCargarExperimentoActionPerformed1
@@ -957,12 +957,12 @@ public class Principal extends javax.swing.JFrame {
 
         // Seteo Model de Equipo de 0 
         DefaultListModel modelEquipo = new DefaultListModel();
-        
+
         for (Equipo e : recursos.getListaEquipo()) {
             modelEquipo.addElement(e.getNombre());
         }
         jListEquipos.setModel(modelEquipo);
-        
+
     }
 
     //Imprime lista BioFis para ver si esta bien cargada
@@ -990,7 +990,7 @@ public class Principal extends javax.swing.JFrame {
             }
         }
     }
-    
+
 
     private void jBtnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnInformacionActionPerformed
         // TODO add your handling code here:
@@ -1035,7 +1035,7 @@ public class Principal extends javax.swing.JFrame {
         // El equipo mas utilizado
         int mayor = 0;
         String equipoMayor = "";
-        
+
         for (Equipo e : recursos.getListaEquipo()) {
             if (e.getContador() > mayor) {
                 mayor = e.getContador();
@@ -1044,7 +1044,7 @@ public class Principal extends javax.swing.JFrame {
                 equipoMayor += ", " + e.getNombre();
             }
         }
-        
+
         if (mayor != 0) {
             jCantidadEquipos.setText("El equipo(s) más usado(s) es(son): " + equipoMayor + ", usado(s) esta cantidad: " + String.valueOf(mayor));
         } else {
@@ -1098,11 +1098,11 @@ public class Principal extends javax.swing.JFrame {
         duracionMenor = Math.abs(ChronoUnit.DAYS.between(LocalDate.parse(listaExperimentosBioFis.get(0).getInicio()), LocalDate.parse(listaExperimentosBioFis.get(0).getFin())));
         int index1 = 0, index2 = 0;
         String experimentosMayores = "", experimentosMenores = "";
-        
+
         for (Experimento exp : listaExperimentosBioFis) {
             LocalDate inicioLD = LocalDate.parse(exp.getInicio());
             LocalDate finLD = LocalDate.parse(exp.getFin());
-            
+
             if (mayor != 0) {
                 jCantidadEquipos.setText("El equipo(s) más usado(s) es(son): " + equipoMayor + ", usado(s) esta cantidad: " + String.valueOf(mayor));
             } else {
@@ -1120,14 +1120,14 @@ public class Principal extends javax.swing.JFrame {
 
             // Calculo el menor
             long duracion = Math.abs(ChronoUnit.DAYS.between(inicioLD, finLD));
-            
+
             if (duracion < duracionMenor) {
                 duracionMenor = duracion;
                 experimentosMenores = exp.getTitulo();
             } else if (duracionAux == duracionMenor) {
                 experimentosMenores += ", " + exp.getTitulo();
             }
-            
+
         }
         jLabelResultadoMayor.setText(experimentosMayores + " con " + duracionMayor + " dias");
         jLabelResultadoMenor.setText(experimentosMenores + " con " + duracionMenor + " dias");
@@ -1143,7 +1143,7 @@ public class Principal extends javax.swing.JFrame {
             txtFenomenoModifica.setText(txtOrganismoModifica.getText());
             lFenomenoModifica.setVisible(false);
             txtFenomenoModifica.setVisible(false);
-            
+
         }
         if ("Fisico".equals(jComboBoxTiposModifica.getSelectedItem())) {
             lFenomenoModifica.setVisible(true);
@@ -1151,7 +1151,7 @@ public class Principal extends javax.swing.JFrame {
             txtOrganismoModifica.setText(String.valueOf(txtFenomenoModifica.getText()));
             lOrganismoModifica.setVisible(false);
             txtOrganismoModifica.setVisible(false);
-            
+
         }
         if ("-".equals(jComboBoxTiposModifica.getSelectedItem())) {
             lOrganismoModifica.setVisible(false);
@@ -1160,7 +1160,7 @@ public class Principal extends javax.swing.JFrame {
             txtFenomenoModifica.setVisible(false);
             txtFenomenoModifica.setText("");
             txtOrganismoModifica.setText("");
-            
+
         }
     }//GEN-LAST:event_jComboBoxTiposModificaActionPerformed
 
@@ -1197,16 +1197,16 @@ public class Principal extends javax.swing.JFrame {
 
         //Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
         DefaultListModel modelEquipo = new DefaultListModel();
-        
+
         for (Equipo e : recursos.getListaEquipo()) {
             if (auxListaEquipos.contains(e)) {
                 modelEquipo.addElement(e.getNombre() + " - Seleccionado");
             } else {
                 modelEquipo.addElement(e.getNombre());
             }
-            
+
         }
-        
+
         jListEquipoModifica.setModel(modelEquipo);
 
 //        // Guardo en la lista auxiliar de equipo
@@ -1269,7 +1269,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnSeleccionEquipoModificaActionPerformed
 
     private void jBtnCargarCientificoModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCargarCientificoModificaActionPerformed
-        
+
         String auxCientifico = jListCientificoModifica.getSelectedValue();
 
         // Control de cientifico 
@@ -1308,8 +1308,21 @@ public class Principal extends javax.swing.JFrame {
                 modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
             }
         }
+        //aca empiezan los cambios del control para rango de ffechas del experimento
+        Date iniExp = jDaChFechaInicioModifica.getDate();
+        Date finExp = jDaChFechaFinModifica.getDate();
+        LocalDate localIniExp = iniExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localFinExp = finExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localAuxFecha = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        //if((auxFecha.equals(iniExp)||auxFecha.after(iniExp)) && (auxFecha.equals(finExp) || auxFecha.before(finExp))){
+        if ((localAuxFecha.isAfter(localIniExp) || localAuxFecha.equals(localIniExp)) && localAuxFecha.isBefore(localFinExp) || localAuxFecha.equals(localFinExp)) {
+            ;
+        } else {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha que este dentro del Rango de duracion del experimento.");
+            return;
+        }
         jBtnCargarExperimento.setText("Cargar");
-        
+
         jListCientificoModifica.setModel(modelCientifico);
 
         // Repintar contenedor
@@ -1326,13 +1339,13 @@ public class Principal extends javax.swing.JFrame {
         if ("".equals(expTitulo)) {
             JOptionPane.showMessageDialog(null, "Error: El campo de titulo esta vacio.");
             return;
-            
+
         }
         // Descripcion
         String expDescripcion = txtADescripcionModifica.getText().trim();
         if ("".equals(expDescripcion)) {
             JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
-            
+
             return;
         }
 
@@ -1340,7 +1353,7 @@ public class Principal extends javax.swing.JFrame {
         Date expFechaInicioValue = jDaChFechaInicioModifica.getDate();
         LocalDate localDate = expFechaInicioValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String expFechaInicioValue1 = localDate.toString();
-        
+
         if (jDaChFechaInicioModifica.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
             return;
@@ -1351,11 +1364,17 @@ public class Principal extends javax.swing.JFrame {
         Date expFechaFinValue = jDaChFechaFinModifica.getDate();
         LocalDate localDate2 = expFechaFinValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String expFechaFinValue1 = localDate2.toString();
-        
+
         if (jDaChFechaFinModifica.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha válido.");
             return;
             // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
+        }
+        LocalDate localExpFechaInicio = expFechaInicioValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate localExpFechaFin = expFechaFinValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (localExpFechaFin.isBefore(localExpFechaInicio) || localExpFechaInicio.isAfter(localExpFechaFin)) {
+            JOptionPane.showMessageDialog(null, "Error: La fecha de Inicio No puede ser posterior a la fecha de fin.");
+            return;
         }
 
         // Presupuesto
@@ -1432,7 +1451,7 @@ public class Principal extends javax.swing.JFrame {
                             (ArrayList<Cientifico>) auxListaCientifico.clone(),
                             (ArrayList<Equipo>) auxListaEquipos.clone(),
                             expFenomeno));
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "Error: elige un tipo de experimento.");
             return;
@@ -1474,7 +1493,7 @@ public class Principal extends javax.swing.JFrame {
         //
         //        }
         imprimirPorPantallaListaPrincipal();
-        
+
         auxListaEquipos.clear();
         auxListaCientifico.clear();
         contenedor.removeAll();
@@ -1496,7 +1515,7 @@ public class Principal extends javax.swing.JFrame {
 
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        
+
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_frenteAzulMouseDragged
 
@@ -1546,16 +1565,16 @@ public class Principal extends javax.swing.JFrame {
 
         //Lleno el model del jlist viendo si existe o no dentro de mis lista auxiliar.
         DefaultListModel modelEquipo = new DefaultListModel();
-        
+
         for (Equipo e : recursos.getListaEquipo()) {
             if (auxListaEquipos.contains(e)) {
                 modelEquipo.addElement(e.getNombre() + " - Seleccionado");
             } else {
                 modelEquipo.addElement(e.getNombre());
             }
-            
+
         }
-        
+
         jListEquipos.setModel(modelEquipo);
 
         //        // Guardo en la lista auxiliar de equipo
@@ -1564,7 +1583,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel35.setIcon(null);
         repaint();
         revalidate();
-        
+
 
     }//GEN-LAST:event_jBtnCargarEquipoActionPerformed
 
@@ -1603,14 +1622,14 @@ public class Principal extends javax.swing.JFrame {
                 //Cuando se encuentra el elemento que deseas eliminar, se utiliza el método remove() del Iterator para eliminarlo de la lista listaExperimentosBioFis
 
                 ArrayList<Equipo> recursosAux = recursos.getListaEquipo();
-                
+
                 for (Equipo e2 : recursosAux) {
                     if (exp.getListaEquipo().contains(e2)) {
                         e2.setContador(e2.getContador() - 1);
                     }
-                    
+
                 }
-                
+
                 recursos.setListaEquipo(recursosAux);
                 iter.remove(); // Elimina el experimento de la lista
             }
@@ -1622,12 +1641,12 @@ public class Principal extends javax.swing.JFrame {
             model.addElement(e.getTitulo());
         }
         jListMuestraExperimentos.setModel(model);
-        
+
         recursos.guardarExperimentos(listaExperimentosBioFis);
         recursos.guardarEquipos();
-        
+
         contenedor.repaint();
-        
+
         contenedor.revalidate();
 
     }//GEN-LAST:event_jBtnEliminarExperimentoActionPerformed
@@ -1637,13 +1656,13 @@ public class Principal extends javax.swing.JFrame {
 
         imprimirPorPantallaListaPrincipal();
         auxIndex = 0;
-        
+
         for (Experimento e : listaExperimentosBioFis) {
             for (Cientifico i : e.getListaCientifico()) {
                 System.out.println(i.getNombre());
             }
         }
-        
+
         if (jListMuestraExperimentos.getSelectedValue() == null) {
             JOptionPane.showMessageDialog(null, "Error: Seleccione un experimento de la lista.");
             return;
@@ -1682,48 +1701,48 @@ public class Principal extends javax.swing.JFrame {
 
         //Modifica ComboBox
         jComboBoxTiposModifica.setSelectedItem(aux.getTipo());
-        
+
         if (aux.getTipo().equals("Biologico")) {
             // Modifica Organismo
             Experimento_Biologico name = (Experimento_Biologico) aux;
             txtOrganismoModifica.setText(name.getOrganismo());
             txtFenomenoModifica.setText(name.getOrganismo());
-            
+
             txtFenomenoModifica.setVisible(false);
             lFenomenoModifica.setVisible(false);
-            
+
         } else {
             // Modifica Fenomeno
             Experimento_Fisico name = (Experimento_Fisico) aux;
             txtFenomenoModifica.setText(name.getFenomeno());
             txtOrganismoModifica.setText(name.getFenomeno());
-            
+
             txtOrganismoModifica.setVisible(false);
             lOrganismoModifica.setVisible(false);
-            
+
         }
 
         // Modifica Lista Equipo
         DefaultListModel modelEquipo = new DefaultListModel();
-        
+
         System.out.println(aux.getListaEquipo().isEmpty());
-        
+
         for (Equipo e : aux.getListaEquipo()) {
             System.out.println(e.getNombre());
             System.out.println("hola");
         }
-        
+
         for (Equipo e : recursos.getListaEquipo()) {
             if (aux.getListaEquipo().contains(e)) {
                 modelEquipo.addElement(e.getNombre() + " - Seleccionado");
-                
+
             } else {
                 modelEquipo.addElement(e.getNombre());
-                
+
             }
-            
+
         }
-        
+
         jListEquipoModifica.setModel(modelEquipo);
 
         // Modifica Lista Cientifico
@@ -1731,7 +1750,7 @@ public class Principal extends javax.swing.JFrame {
         for (Cientifico c : recursos.getListaCientifico()) {
             if (aux.getListaCientifico().contains(c)) {
                 modelCientifico.addElement(c.getNombre() + " " + c.getApellido() + " " + c.getDni() + "-" + c.getContratacion());
-                
+
             } else {
                 modelCientifico.addElement(c.getNombre() + " " + c.getApellido() + " " + c.getDni());
             }
@@ -1759,14 +1778,14 @@ public class Principal extends javax.swing.JFrame {
             // Maneja la excepción de análisis si es necesario
             e.printStackTrace();
         }
-        
+
         LocalDate localExpFechaInicio = jDaChFechaInicioModifica.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localExpFechaFin = jDaChFechaFinModifica.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         if (localExpFechaFin.isBefore(localExpFechaInicio) || localExpFechaInicio.isAfter(localExpFechaFin)) {
             JOptionPane.showMessageDialog(null, "Error: La fecha de Inicio No puede ser posterior a la fecha de fin.");
             return;
         }
-        
+
         jBtnCargarExperimento.setText("Atras");
         ImageIcon image = new ImageIcon("esquema-de-boton-circular-de-flecha-hacia-atras-izquierda");
         jLabel35.setIcon(image);
@@ -1802,7 +1821,7 @@ public class Principal extends javax.swing.JFrame {
         String expDescripcion = txtADescripcion.getText().trim();
         if ("".equals(expDescripcion)) {
             JOptionPane.showMessageDialog(null, "Error: El campo de descripcion esta vacio.");
-            
+
             return;
         }
 
@@ -1813,7 +1832,7 @@ public class Principal extends javax.swing.JFrame {
             return;
             // Manejar el caso en que las fechas sean nulas, por ejemplo, mostrar un mensaje de error
         }
-        
+
         LocalDate localDate = expFechaInicioValue.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String expFechaInicioValue1 = localDate.toString();
 
@@ -1835,7 +1854,7 @@ public class Principal extends javax.swing.JFrame {
 
         // Presupuesto
         float expPresupuestoFloat;
-        
+
         try {
             expPresupuestoFloat = Float.parseFloat(txtPresupuesto.getText().trim());
             if (expPresupuestoFloat < 0) {
@@ -1910,7 +1929,7 @@ public class Principal extends javax.swing.JFrame {
                             (ArrayList<Cientifico>) auxListaCientifico.clone(),
                             (ArrayList<Equipo>) auxListaEquipos.clone(),
                             expFenomeno));
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "Error: elige un tipo de experimento.");
             return;
@@ -1942,7 +1961,7 @@ public class Principal extends javax.swing.JFrame {
 
         // Funcion para limpiar todo " Hacer todo"
         limpiarCampos();
-        
+
         contenedor.repaint();
         contenedor.revalidate();
 
@@ -1986,11 +2005,17 @@ public class Principal extends javax.swing.JFrame {
         LocalDate localFinExp = finExp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localAuxFecha = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         //if((auxFecha.equals(iniExp)||auxFecha.after(iniExp)) && (auxFecha.equals(finExp) || auxFecha.before(finExp))){
-        if (!(localAuxFecha.isAfter(localIniExp) || localAuxFecha.equals(localIniExp)) && localAuxFecha.isBefore(localFinExp) || localAuxFecha.equals(localFinExp)) {
+        /*if (!(localAuxFecha.isAfter(localIniExp) || localAuxFecha.equals(localIniExp)) && localAuxFecha.isBefore(localFinExp) || localAuxFecha.equals(localFinExp)) {
+            JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha que este dentro del Rango de duracion del experimento.");
+            return;
+        }*/
+        if ((localAuxFecha.isAfter(localIniExp) || localAuxFecha.equals(localIniExp)) && localAuxFecha.isBefore(localFinExp) || localAuxFecha.equals(localFinExp)) {
+            ;
+        } else {
             JOptionPane.showMessageDialog(null, "Error: Ingresa un valor de fecha que este dentro del Rango de duracion del experimento.");
             return;
         }
-        
+
         LocalDate localDate = auxFecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String fechaCientifico = localDate.toString();
         // LLeno la lista auxiliar para luego pasarla al experimento.
@@ -2013,7 +2038,45 @@ public class Principal extends javax.swing.JFrame {
                 modelCientifico.addElement(e.getNombre() + " " + e.getApellido() + " " + e.getDni());
             }
         }
-        
+        //CONTROLLLLLLLL para que cientifico no este en mas de 4 experimentos
+        int contador = 0;
+        System.out.println("Contador antes de entrar al for: "+contador);
+        for (Experimento e : listaExperimentosBioFis) {
+            System.out.println("Entra al primer for del control...");
+            for (Cientifico c : e.getListaCientifico()) {
+                System.out.println("Entra al segundo for del control...");
+                if (auxCientifico.contains(c.getDni())&& !auxCientifico.contains("-")) {
+                    System.out.println("Entra al primer if del control...");
+                    Date expFFin;
+                    Date fContratacion;
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        System.out.println("Entra al try del control...");
+                        expFFin = dateFormat.parse(e.getFin());
+                        fContratacion = dateFormat.parse(c.getContratacion());
+                        LocalDate localexpFFin = expFFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        LocalDate localfContratacion = fContratacion.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                        //if ((localfContratacion.isBefore(localFinExp)||localfContratacion==localFinExp) && (localexpFFin.isAfter(localFinExp))||localexpFFin==localFinExp) {
+                        //if(localfContratacion!=localFinExp){
+                        /*gpt*/if ((localfContratacion.isBefore(localFinExp) || localfContratacion.equals(localFinExp)) && (localexpFFin.isAfter(localFinExp) || localexpFFin.equals(localFinExp))) {
+                            if (contador < 2) {
+                                contador += 1;
+                                System.out.println("Contador despues de entrar al ultimo if: "+contador);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Error: El cientifico no puede pertenecer a 4 proyectos en simultaneo...");
+                                return;
+                            }
+                        }
+
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+            }
+
+        }
+
         jListCientificos.setModel(modelCientifico);
 
         // Repintar contenedor
@@ -2048,7 +2111,7 @@ public class Principal extends javax.swing.JFrame {
             lFecha.setVisible(false);
             txtFenomeno.setVisible(false);
             txtFenomeno.setText("");
-            
+
         } else if ("Fisico".equals(jComboBoxTipos.getSelectedItem())) {
             lFecha.setVisible(true);
             txtFenomeno.setVisible(true);
@@ -2062,7 +2125,7 @@ public class Principal extends javax.swing.JFrame {
             txtFenomeno.setVisible(false);
             txtFenomeno.setText("");
             txtOrganismo.setText("");
-            
+
         }
 
     }//GEN-LAST:event_jComboBoxTiposActionPerformed
@@ -2081,21 +2144,21 @@ public class Principal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Principal.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);

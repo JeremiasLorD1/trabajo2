@@ -5,6 +5,8 @@
 package com.mycompany.proyectointegrador_tomas_jeremias;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Científicos: (conoce su nombre, especialidad y fecha de contratación) x
@@ -15,8 +17,8 @@ import java.util.Date;
 public class Cientifico {
 
     private String nombre, apellido, especialidad, dni;
-    private String contratacion;
-
+    private String contratacion;    
+    
     public Cientifico(String nombre, String apellido, String especialidad, String dni) {
         this.nombre = nombre;
         this.apellido = apellido;

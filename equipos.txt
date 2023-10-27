@@ -1,11 +1,11 @@
 Balanza
 Pesa
 Medicion
-0
+4
 Cronometro
 Cronometratiempo
 Medicion
-2
+1
 Termometro
 MideTemperatura
 Medicion
@@ -13,7 +13,7 @@ Medicion
 Microscopio
 Amplia
 Laboratorio
-2
+3
 Generador
 Electricidad
 Laboratorio
