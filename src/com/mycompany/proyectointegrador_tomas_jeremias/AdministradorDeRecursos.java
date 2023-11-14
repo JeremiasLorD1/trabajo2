@@ -59,48 +59,45 @@ public class AdministradorDeRecursos {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // Carga de Cientiifico.//hacer la lectura de archivo de los equipos
-        listaCientifico = new ArrayList<>();//esta lista es para llenar la lista de la interfaz
-        try {
-            BufferedReader lector = new BufferedReader(new FileReader("cientificos.txt"));
-            String linea;
-            int contador = 0;
-            String nombre = "";
-            String apellido = "";
-            String especialidad = "";
-            String dni = "";
-            while ((linea = lector.readLine()) != null) {
-                switch (contador) {
-                    case 0:
-                        nombre = linea;
-                        break;
-                    case 1:
-                        apellido = linea;
-                        break;
-                    case 2:
-                        especialidad = linea;
-                        break;
-                    case 3:
-                        dni = linea;
-                        listaCientifico.add(new Cientifico(nombre, apellido, especialidad, dni));
-                        break;
-                }
-                contador = (contador + 1) % 4;
-            }
-            lector.close();
-        } catch (Exception e) {
-        }
-        //no usar variables si no las uso ej c1 = jeremisa,martinez
-        /*listaCientifico.add(new Cientifico("Jeremias", "Martinez", "Doctor", "111"));
-        listaCientifico.add(new Cientifico("Facu", "Joaquin", "inge", "222"));
-        listaCientifico.add(new Cientifico("Capo", "Matias", "ijisdajidjsa", "333"));*/
+        
+        
+        
+        
+        // Carga de Cientiifico.//hacer la lectura de archivo de los equipos                    
+    listaCientifico = new ArrayList<>();// esta lista es para llenar la lista de la interfaz
 
-        // for (Cientifico d : listaCientifico) {
-        //   contadorCientificos.put(d,0);
-        //}
+try {
+    BufferedReader lector = new BufferedReader(new FileReader("cientificos.txt"));
+    String linea;
+    ArrayList<String> datosCientifico = new ArrayList<>(); // Almacena temporalmente los datos de un científico
+
+    while ((linea = lector.readLine()) != null) {
+        datosCientifico.add(linea);
+
+        // Cuando se han leído todos los datos del científico, crear la instancia de Cientifico y agregar a la lista
+        if (datosCientifico.size() == 5) {
+            listaCientifico.add(new Cientifico(
+                    datosCientifico.get(0),
+                    datosCientifico.get(1),
+                    datosCientifico.get(2),
+                    datosCientifico.get(4), // Ajuste en el orden de las variables
+                    datosCientifico.get(3)  // Ajuste en el orden de las variables
+            ));
+
+            // Limpiar la lista para el próximo científico
+            datosCientifico.clear();
+        }
     }
 
-    public ArrayList<Cientifico> getListaCientifico() {
+    lector.close();
+} catch (Exception e) {
+    // Manejo de excepciones
+}
+
+       
+    }
+
+      public ArrayList<Cientifico> getListaCientifico() {
         return listaCientifico;
     }
 
@@ -120,7 +117,7 @@ public class AdministradorDeRecursos {
 
         ArrayList<Experimento> listaExperimentosBioFis = new ArrayList<>();
         try {
-            BufferedReader lector = new BufferedReader(new FileReader("experimentos.txt"));
+            BufferedReader lector = new BufferedReader(new FileReader("C:\\Users\\ttoom\\OneDrive\\Escritorio\\UNIVERSIDADD\\Programacion II\\TP de Maquina\\trabajo2\\experimentos.txt"));
             String linea;
 
             // PONER TRY POR SI NO HAY ARCHIVO
@@ -147,11 +144,12 @@ public class AdministradorDeRecursos {
                     String[] arregloDniFecha = dniFecha.split(",");
                     for (Cientifico c : listaCientifico) {
                         if (arregloDniFecha[0].equals(c.getDni())) {
-                            c.setContratacion(arregloDniFecha[1]);
+                            c.setContratacion(arregloDniFecha[0]);
                             expListaCientifico.add(c);
                         }
                     }
                 }
+ 
 
                 // Equipoj
                 ArrayList<Equipo> expListaEquipos = new ArrayList<>();
@@ -197,18 +195,21 @@ public class AdministradorDeRecursos {
                                     expListaEquipos,
                                     expOrganismo));
                 }
+                
             }
+            lector.close();
         } catch (Exception e) {
-
+            e.printStackTrace();
             return null;
         }
+        
         return listaExperimentosBioFis;
     }
 
     public void guardarExperimentos(ArrayList<Experimento> listaExperimentos) {
 
         try {
-            File myObj = new File(nombreArchivo);
+            File myObj = new File("C:\\Users\\ttoom\\OneDrive\\Escritorio\\UNIVERSIDADD\\Programacion II\\TP de Maquina\\trabajo2\\experimentos.txt");
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {
@@ -219,7 +220,7 @@ public class AdministradorDeRecursos {
             e.printStackTrace();
         }
         try {
-            FileWriter escritorArchivo = new FileWriter(nombreArchivo);
+            FileWriter escritorArchivo = new FileWriter("C:\\Users\\ttoom\\OneDrive\\Escritorio\\UNIVERSIDADD\\Programacion II\\TP de Maquina\\trabajo2\\experimentos.txt");
             for (Experimento e : listaExperimentos) {
 
                 // Titulo
@@ -248,7 +249,7 @@ public class AdministradorDeRecursos {
                         // Si es el primer elemento, actualiza la variable a "false"
                         primerElemento = false;
                     }
-                    escritorArchivo.write(c.getDni()+","+c.getContratacion());
+                    escritorArchivo.write(c.getDni()+",");
                 }
                 escritorArchivo.write("\n");
 

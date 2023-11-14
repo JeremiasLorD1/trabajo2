@@ -1,90 +1,36 @@
-adsdsa
-asddas
-312.0
-2023-10-02
-2023-10-05
-30000123,2023-10-04 30000123,2023-10-04
-Balanza
-Fisico
-asdsa
-adsad
-asdas
-123.0
-2023-10-02
-2023-10-05
-30000123,2023-10-04
-Balanza
-Fisico
-adsasd
-dadasdasa
-asda
-1221.0
-2023-10-02
-2023-10-05
-29456981,2023-10-06
-Balanza
-Fisico
-asdsa
-1221
-asdas
-1221.0
-2023-10-02
-2023-10-05
-29456981,2023-10-06
+Refracción de la luz blanca
+La refracción es el cambio en la dirección de propagación de la luz cuando pasa de un medio a otro con una densidad óptica diferente.
+123500.0
+2023-01-03
+2023-11-30
+40680689,
 Microscopio
 Fisico
-asdsa
-asads
-asdas
-12231.0
-2023-10-02
-2023-10-05
-29456981,2023-10-06
-Termometro
+luz
+El peso de la tierra
+Centrado en medir la fuerza gravitatoria que actúa sobre un objeto en la superficie de la Tierra, lo que permite calcular la masa de la Tierra.
+988800.0
+2023-08-01
+2023-11-16
+32330620, 39671345,
+Cronometro,Termometro
 Fisico
-asdas
-dasdas
-asdas
-13221.0
-2023-10-02
-2023-10-05
-29456981,2023-10-06 16789234,2023-10-04
-Microscopio
+Gravedad
+Experimento de Griffith
+Este experimento ayudó a comprender la transferencia de material genético entre bacterias y sentó las bases para la genética molecular.
+11000.0
+2023-11-01
+2023-11-30
+32330620, 20987521,
+Termometro,Microscopio
 Biologico
-asdas
-asdas
-asddas
-1212.0
-2023-10-04
-2023-10-06
-29456981,2023-10-06
-Cronometro
-Fisico
-asdsa
-adsa
-asdas
-121.0
-2023-10-02
-2023-10-05
-22798321,2023-10-04
-Balanza
-Fisico
-asdsa
-asdasasdsa
-asdas
-1221.0
-2023-10-02
-2023-10-05
-22798321,2023-10-04
-Microscopio
-Fisico
-asdas
-122112
-asdas
-1221.0
-2023-10-02
-2023-10-05
-22798321,2023-10-04
-Termometro
-Fisico
-asdsa
+Bacterias
+Postulados de koch
+estableció un conjunto de postulados para demostrar que un organismo específico es la causa de una enfermedad infecciosa. Esto contribuyó al desarrollo de la bacteriología y la comprensión de las enfermedades infecciosas.
+985000.0
+2023-08-02
+2023-11-22
+32330620, 22798321,
+Balanza,Cronometro,Termometro
+Biologico
+Bacterias infecciosas

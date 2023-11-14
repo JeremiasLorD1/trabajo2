@@ -32,7 +32,7 @@ public class Cientifico {
         this.apellido = apellido;
         this.especialidad = especialidad;
         this.contratacion = contratacion;
-
+        this.dni=dni;
     }
 
     public Cientifico(String nombre, String contratacion) {
@@ -65,12 +65,14 @@ public class Cientifico {
     }
 
     public String getContratacion() {
-        return contratacion;
+        return this.contratacion;
     }
 
     public void setContratacion(String contratacion) {
         this.contratacion = contratacion;
     }
+
+   
 
     public String getDni() {
         return dni;
@@ -82,6 +84,6 @@ public class Cientifico {
 
     @Override
     public String toString() {
-        return nombre; // El método toString muestra solo el nombre
+        return nombre+contratacion; // El método toString muestra solo el nombre
     }
 }
